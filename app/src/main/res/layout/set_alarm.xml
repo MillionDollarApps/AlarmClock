@@ -33,7 +33,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginEnd="10dp"
             android:background="@mipmap/back"
-            android:layout_height="w"/>
+            android:layout_height="wrap_content"/>
 
         <kankan.wheel.widget.WheelView
             android:id="@+id/minuteWheel"
