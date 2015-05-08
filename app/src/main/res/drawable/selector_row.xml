@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_drag_hovered="true" android:drawable="@mipmap/row_hovered"/>
+    <item android:state_selected="true" android:drawable="@mipmap/row_even"/>
+    <item android:drawable="@mipmap/row" />
+
+
+</selector>

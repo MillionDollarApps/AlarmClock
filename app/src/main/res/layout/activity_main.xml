@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#d8d8d8"
+                tools:context="avd.com.alarmclockavd.MainActivity">
+
+    <ListView
+        android:id="@+id/alarmsListView"
+        android:scrollbars="vertical"
+        android:choiceMode="multipleChoice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:id="@+id/buttonAdd"
+        android:src="@drawable/selector_button_add"
+        android:layout_marginBottom="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+
+</RelativeLayout>

@@ -1,0 +1,196 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#d8d8d8"
+                android:minWidth="100000000dp"
+                android:minHeight="10000000dp">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:id="@+id/setTimeText"
+        android:text="Time"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setTimeText"
+        android:id="@+id/setAlarmLayout"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/hourWheel"
+            android:layout_width="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@mipmap/back"
+            android:layout_height="w"/>
+
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/minuteWheel"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"/>
+
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/ampmWheel"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/setDescriptionLayout"
+        android:layout_below="@+id/setAlarmLayout"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="Set description: "/>
+
+        <EditText
+            android:id="@+id/editTextDescription"
+            android:background="@android:drawable/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:maxLength="35"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:textColor="#000599"
+            android:inputType="text" >
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setDescriptionLayout"
+        android:id="@+id/setDaysText"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:text="Select days of the week:"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setDaysText"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:checked="false"
+            android:textColor="@color/selector_days"
+            android:text="Mon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_horizontal"
+            android:checked="false"
+            android:textColor="@color/selector_days"
+            android:text="Tues"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:checked="false"
+            android:textColor="@color/selector_days"
+            android:text="Weds"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:checked="false"
+            android:textColor="@color/selector_days"
+            android:text="Thurs"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:checked="false"
+            android:textColor="@color/selector_days"
+            android:text="Fri"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/textViewSat"
+            android:textColor="@color/selector_days"
+            android:text="Sat"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewSun"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/selector_days"
+            android:text="Sun"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/aha"
+        android:layout_height="65dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:padding="8dp"
+            android:src="@drawable/selector_button_confirm"
+            android:layout_weight="1"
+            android:id="@+id/confirmButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:padding="8dp"
+            android:src="@drawable/selector_button_cancel"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:id="@+id/cancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>
