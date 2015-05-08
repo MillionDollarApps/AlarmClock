@@ -5,17 +5,14 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,11 +26,11 @@ import java.util.List;
 
 
 public class AlarmListAdapter extends BaseAdapter {
+	List<PendingIntent> pendingIntent = new ArrayList<>();
 	private Context ctx;
 	private LayoutInflater inflater;
 	private List<Alarm> alarmList;
     private AlarmsDataSource dataSource;
-	List<PendingIntent> pendingIntent = new ArrayList<>();
 
 	public AlarmListAdapter(Context context, List<Alarm> alarms){
 		ctx = context;
@@ -66,17 +63,6 @@ public class AlarmListAdapter extends BaseAdapter {
 		return alarmList.get(position).getId();
 	}
 
-	public class Holder {
-		private TextView alarmTime;
-		private TextView description;
-		private ToggleButton checkbox;
-		Holder(View v) {
-			alarmTime = (TextView) v.findViewById(R.id.textViewTime);
-			description = (TextView) v.findViewById(R.id.textViewDescription);
-			checkbox = (ToggleButton) v.findViewById(R.id.checkBox);
-		}
-	}
-
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final View view;
@@ -85,8 +71,7 @@ public class AlarmListAdapter extends BaseAdapter {
 			view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_row, parent, false);
 			viewHolder = new Holder(view);
 			view.setTag(viewHolder);
-		}
-		else {
+		} else {
 			view = convertView;
 		}
 		viewHolder = (Holder) view.getTag();
@@ -100,6 +85,7 @@ public class AlarmListAdapter extends BaseAdapter {
 			public void onSwipeLeft() {
 
 			}
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				return getGestureDetector().onTouchEvent(event);
@@ -130,10 +116,10 @@ public class AlarmListAdapter extends BaseAdapter {
 		dataSource.open();
 		dataSource.deleteAlarm(alarmList.get(position));
 		final Handler handler = new Handler();
+		// do something after animation finishes
 		handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Do something after 100ms
                 refreshList(dataSource.getAllAlarms());
                 dataSource.close();
             }
@@ -157,15 +143,14 @@ public class AlarmListAdapter extends BaseAdapter {
 			viewHolder.checkbox.setChecked(false);
 	}
 
+	//updates the alarm ListView
 	private void update(int position,String active) {
 		dataSource = new AlarmsDataSource(ctx);
 		dataSource.open();
 		dataSource.update(alarmList.get(position), active);
 		refreshList(dataSource.getAllAlarms());
 		dataSource.close();
-
 	}
-
 
 	private void setAlarm(int x, int y, int i){
 		//Create an offset from the current time in which the alarm will go off.
@@ -193,9 +178,22 @@ public class AlarmListAdapter extends BaseAdapter {
 		}
 	}
 
-	private void cancelAlarm(){
+	private void cancelAlarm() {
 
 	}
+
+	public class Holder {
+		private TextView alarmTime;
+		private TextView description;
+		private ToggleButton checkbox;
+
+		Holder(View v) {
+			alarmTime = (TextView) v.findViewById(R.id.textViewTime);
+			description = (TextView) v.findViewById(R.id.textViewDescription);
+			checkbox = (ToggleButton) v.findViewById(R.id.checkBox);
+		}
+	}
+
 
 }
 

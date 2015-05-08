@@ -13,6 +13,10 @@ public class Alarm {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -21,16 +25,12 @@ public class Alarm {
 		this.description = description;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public String getActive(){
 		return active;
 	}
 
 	public void setActive(String active){
-	    this.active=active;
+		this.active = active;
 	}
 
 	public String getDays(){
@@ -59,7 +59,14 @@ public class Alarm {
 	// Will be used by the ArrayAdapter in the ListView
 	@Override
 	public String toString() {
-		return hour + " : " + minute;
+		if (toInt(hour) < 12)
+			return hour + " : " + minute + " AM";
+		else
+			return hour + " : " + minute + " PM";
+	}
+
+	public int toInt(String string) {
+		return Integer.parseInt(string);
 	}
 }
 

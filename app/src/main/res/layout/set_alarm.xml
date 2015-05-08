@@ -2,64 +2,63 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#d8d8d8"
-                android:minWidth="100000000dp"
-                android:minHeight="10000000dp">
+    android:minHeight="10000000dp"
+    android:minWidth="100000000dp">
 
 
     <TextView
+        android:id="@+id/setTimeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:paddingEnd="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:paddingEnd="20dp"
-        android:id="@+id/setTimeText"
         android:text="Time"/>
 
     <LinearLayout
+        android:id="@+id/setAlarmLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/setTimeText"
-        android:id="@+id/setAlarmLayout"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
 
         <kankan.wheel.widget.WheelView
             android:id="@+id/hourWheel"
             android:layout_width="80dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:background="@mipmap/back"
-            android:layout_height="wrap_content"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginStart="20dp"
+            android:background="@mipmap/back" />
 
         <kankan.wheel.widget.WheelView
             android:id="@+id/minuteWheel"
-            android:layout_gravity="center"
-            android:layout_marginRight="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_width="80dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
         <kankan.wheel.widget.WheelView
             android:id="@+id/ampmWheel"
-            android:layout_gravity="center"
-            android:layout_marginRight="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_width="80dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp" />
+
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/setDescriptionLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:id="@+id/setDescriptionLayout"
         android:layout_below="@+id/setAlarmLayout"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <TextView
@@ -71,124 +70,125 @@
 
         <EditText
             android:id="@+id/editTextDescription"
-            android:background="@android:drawable/edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:background="@android:drawable/edit_text"
+            android:inputType="text"
             android:maxLength="35"
             android:scrollbarStyle="insideInset"
             android:scrollbars="vertical"
-            android:textColor="#000599"
-            android:inputType="text" >
+            android:singleLine="true"
+            android:textColor="#000599">
             <requestFocus />
         </EditText>
     </LinearLayout>
 
     <TextView
+        android:id="@+id/setDaysText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/setDescriptionLayout"
-        android:id="@+id/setDaysText"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:paddingEnd="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:paddingEnd="20dp"
         android:text="Select days of the week:"/>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/setDaysText"
-        android:orientation="horizontal"
         android:gravity="center"
-        android:id="@+id/linearLayout">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="false"
             android:gravity="center_horizontal"
-            android:checked="false"
-            android:textColor="@color/selector_days"
-            android:text="Mon"/>
+            android:text="Mon"
+            android:textColor="@color/selector_days" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:checked="false"
             android:gravity="center_horizontal"
-            android:checked="false"
-            android:textColor="@color/selector_days"
-            android:text="Tues"/>
+            android:text="Tues"
+            android:textColor="@color/selector_days" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:checked="false"
-            android:textColor="@color/selector_days"
-            android:text="Weds"/>
+            android:text="Weds"
+            android:textColor="@color/selector_days" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:checked="false"
-            android:textColor="@color/selector_days"
-            android:text="Thurs"/>
+            android:text="Thurs"
+            android:textColor="@color/selector_days" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:checked="false"
-            android:textColor="@color/selector_days"
-            android:text="Fri"/>
+            android:text="Fri"
+            android:textColor="@color/selector_days" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:id="@+id/textViewSat"
-            android:textColor="@color/selector_days"
-            android:text="Sat"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Sat"
+            android:textColor="@color/selector_days" />
 
 
         <TextView
+            android:id="@+id/textViewSun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textViewSun"
             android:layout_marginLeft="5dp"
-            android:textColor="@color/selector_days"
-            android:text="Sun"/>
+            android:text="Sun"
+            android:textColor="@color/selector_days" />
 
     </LinearLayout>
 
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
         android:id="@+id/aha"
+        android:layout_width="match_parent"
         android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <ImageView
-            android:padding="8dp"
-            android:src="@drawable/selector_button_confirm"
-            android:layout_weight="1"
             android:id="@+id/confirmButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:src="@drawable/selector_button_confirm" />
 
         <ImageView
-            android:padding="8dp"
-            android:src="@drawable/selector_button_cancel"
-            android:layout_weight="1"
-            android:text="Cancel"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
             android:id="@+id/cancelButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:src="@drawable/selector_button_cancel"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
 
