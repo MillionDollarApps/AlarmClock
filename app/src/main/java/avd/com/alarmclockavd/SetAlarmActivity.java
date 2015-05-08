@@ -29,9 +29,9 @@ public class SetAlarmActivity extends Activity {
 		public void onClick(View v) {
 			String minute;
 			String hour;
-			if (ampmWheel.getCurrentItem() == 0) {
+			if (ampmWheel.getCurrentItem() == 0)
 				hour = (hourWheel.getCurrentItem() + 1) % 12 + "";
-			} else
+			else
 				hour = (hourWheel.getCurrentItem() + 1) + "";
 			if (minuteWheel.getCurrentItem() < 10)
 				minute = "0" + minuteWheel.getCurrentItem() + "";

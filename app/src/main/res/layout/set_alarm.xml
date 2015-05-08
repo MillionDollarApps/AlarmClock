@@ -164,32 +164,37 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/aha"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
+    <ImageView
+        android:id="@+id/confirmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/splitter"
+        android:src="@drawable/selector_button_confirm" />
 
-        <ImageView
-            android:id="@+id/confirmButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:src="@drawable/selector_button_confirm" />
+    <ImageView
+        android:id="@+id/splitter"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
-        <ImageView
-            android:id="@+id/cancelButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:src="@drawable/selector_button_cancel"
-            android:text="Cancel"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/cancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@+id/splitter"
+        android:src="@drawable/selector_button_cancel" />
+
 
 
 

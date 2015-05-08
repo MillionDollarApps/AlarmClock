@@ -36,6 +36,7 @@ public class Alarm {
 	public String getDays(){
 		return days;
 	}
+
 	public void setDays(String days){
 		this.days=days;
 	}
