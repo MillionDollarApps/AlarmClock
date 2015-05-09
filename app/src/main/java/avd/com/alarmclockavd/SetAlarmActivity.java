@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
@@ -18,37 +19,12 @@ public class SetAlarmActivity extends Activity {
 
 	private WheelView hourWheel;
 	private WheelView minuteWheel;
-	private WheelView ampmWheel;
+	private ToggleButton ampmButton;
 	private ImageView confirmButton;
 	private ImageView cancelButton;
 	private AlarmsDataSource dataSource;
 	private EditText description;
-	//implementing confirmButtonListener
-	private View.OnClickListener confirmButtonListener = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			String minute;
-			String hour;
-			if (ampmWheel.getCurrentItem() == 0)
-				hour = (hourWheel.getCurrentItem() + 1) % 12 + "";
-			else
-				hour = (hourWheel.getCurrentItem() + 1) + "";
-			if (minuteWheel.getCurrentItem() < 10)
-				minute = "0" + minuteWheel.getCurrentItem() + "";
-			else
-				minute = minuteWheel.getCurrentItem() + "";
-			dataSource.createAlarm(hour, minute, "3", " ", description.getText().toString());
-			Toast.makeText(getApplicationContext(), hour + " : " + minute, Toast.LENGTH_LONG).show();
-			finish();
-		}
-	};
-	//implementating cancelButtonListener
-	private View.OnClickListener cancelButtonListener = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			finish();
-		}
-	};
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,16 +47,57 @@ public class SetAlarmActivity extends Activity {
 				minutes[i] = i + "";
 		minuteWheel.setViewAdapter(new ArrayWheelAdapter<>(getApplicationContext(), minutes));
 		minuteWheel.setCurrentItem(0);
-		ampmWheel.setCyclic(false);
-		ampmWheel.setVisibleItems(2);
-		String[] ampm = {"AM", "PM"};
-		ampmWheel.setViewAdapter(new ArrayWheelAdapter<>(getApplicationContext(), ampm));
-		ampmWheel.setCurrentItem(0);
+
+
+		//implementating cancelButtonListener
+		View.OnClickListener cancelButtonListener = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		};
+
+		//implementing confirmButtonListener
+		View.OnClickListener confirmButtonListener = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String minute;
+				String hour;
+				if (ampmButton.isChecked())
+					hour = (hourWheel.getCurrentItem() + 1) + " PM";
+				else
+					hour = (hourWheel.getCurrentItem() + 1) + " AM";
+				if (minuteWheel.getCurrentItem() < 10)
+					minute = "0" + minuteWheel.getCurrentItem() + "";
+				else
+					minute = minuteWheel.getCurrentItem() + "";
+				dataSource.createAlarm(hour, minute, "3", " ", description.getText().toString());
+				Toast.makeText(getApplicationContext(), hour + " : " + minute, Toast.LENGTH_LONG).show();
+				finish();
+			}
+		};
+
 		//setting buttons listeners
 		confirmButton.setOnClickListener(confirmButtonListener);
 		cancelButton.setOnClickListener(cancelButtonListener);
 
+
 	}
+
+	private void initiateViews() {
+		//instantiating widgets
+		hourWheel = (WheelView) findViewById(R.id.hourWheel);
+		minuteWheel = (WheelView) findViewById(R.id.minuteWheel);
+		ampmButton = (ToggleButton) findViewById(R.id.ampmToggleButton);
+		confirmButton = (ImageView) findViewById(R.id.confirmButton);
+		cancelButton = (ImageView) findViewById(R.id.cancelButton);
+		description = (EditText) findViewById(R.id.editTextDescription);
+		//initiate and open dataSource
+		dataSource = new AlarmsDataSource(getApplicationContext());
+		dataSource.open();
+
+	}
+
 
 	@Override
 	protected void onResume() {
@@ -92,20 +109,6 @@ public class SetAlarmActivity extends Activity {
 	protected void onPause() {
 		dataSource.close();
 		super.onPause();
-	}
-
-	private void initiateViews() {
-		//instantiating widgets
-		hourWheel = (WheelView) findViewById(R.id.hourWheel);
-		minuteWheel = (WheelView) findViewById(R.id.minuteWheel);
-		ampmWheel = (WheelView) findViewById(R.id.ampmWheel);
-		confirmButton = (ImageView) findViewById(R.id.confirmButton);
-		cancelButton = (ImageView) findViewById(R.id.cancelButton);
-		description = (EditText) findViewById(R.id.editTextDescription);
-		//initiate and open dataSource
-		dataSource = new AlarmsDataSource(getApplicationContext());
-		dataSource.open();
-
 	}
 
 	@Override

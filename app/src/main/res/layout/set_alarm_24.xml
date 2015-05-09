@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#d8d8d8"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d8d8d8"
     android:minHeight="10000000dp"
     android:minWidth="100000000dp">
 
@@ -15,7 +15,7 @@
         android:paddingEnd="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Time"/>
+        android:text="Time" />
 
     <LinearLayout
         android:id="@+id/setAlarmLayout"
@@ -42,16 +42,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
 
-        <ToggleButton
-            android:id="@+id/ampmToggleButton"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center|right|bottom"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/selector_am_pm"
-            android:textOff=""
-            android:textOn="" />
 
     </LinearLayout>
 
@@ -70,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:text="Set description: "/>
+            android:text="Set description: " />
 
         <EditText
             android:id="@+id/editTextDescription"
@@ -83,6 +73,7 @@
             android:scrollbars="vertical"
             android:singleLine="true"
             android:textColor="#000599">
+
             <requestFocus />
         </EditText>
     </LinearLayout>
@@ -97,7 +88,7 @@
         android:paddingEnd="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Select days of the week:"/>
+        android:text="Select days of the week:" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -198,8 +189,6 @@
         android:layout_marginRight="15dp"
         android:layout_toRightOf="@+id/splitter"
         android:src="@drawable/selector_button_cancel" />
-
-
 
 
 </RelativeLayout>

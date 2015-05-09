@@ -42,7 +42,7 @@ public class Alarm {
 	}
 
 	public String getHour() {
-		return hour;
+		return hour.split("\\s+")[0];
 	}
 
 	public void setHour(String hour) {
@@ -60,14 +60,9 @@ public class Alarm {
 	// Will be used by the ArrayAdapter in the ListView
 	@Override
 	public String toString() {
-		if (toInt(hour) < 12)
-			return hour + " : " + minute + " AM";
-		else
-			return hour + " : " + minute + " PM";
+		String ampmHour[] = hour.split("\\s+");
+		return ampmHour[0] + " : " + minute + " " + ampmHour[1];
 	}
 
-	public int toInt(String string) {
-		return Integer.parseInt(string);
-	}
 }
 
