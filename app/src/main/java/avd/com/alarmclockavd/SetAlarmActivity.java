@@ -101,13 +101,24 @@ public class SetAlarmActivity extends Activity {
 		ToggleButton thurs = (ToggleButton) findViewById(R.id.toggleThurs);
 		ToggleButton sat = (ToggleButton) findViewById(R.id.toggleSat);
 		ToggleButton fri = (ToggleButton) findViewById(R.id.toggleFri);
-		daysOfWeek.append(sun.isChecked() ? "1 " : "");
-		daysOfWeek.append(mon.isChecked() ? "2 " : "");
-		daysOfWeek.append(tues.isChecked() ? "3 " : "");
-		daysOfWeek.append(weds.isChecked() ? "4 " : "");
-		daysOfWeek.append(thurs.isChecked() ? "5 " : "");
-		daysOfWeek.append(fri.isChecked() ? "6 " : "");
-		daysOfWeek.append(sat.isChecked() ? "7 " : "");
+//		switch(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)){
+//			case 1 : sun.setChecked(true); break;
+//			case 2 : tues.setChecked(true); break;
+//			case 3 : mon.setChecked(true); break;
+//			case 4 : weds.setChecked(true); break;
+//			case 5 : thurs.setChecked(true); break;
+//			case 6 : sat.setChecked(true); break;
+//			case 7 : fri.setChecked(true); break;
+//		}
+		if (!(sun.isChecked() && mon.isChecked() && tues.isChecked() && weds.isChecked() && thurs.isChecked() && fri.isChecked() && sat.isChecked()))
+			daysOfWeek.append("0");
+		daysOfWeek.append(sun.isChecked() ? "1" : "");
+		daysOfWeek.append(mon.isChecked() ? "2" : "");
+		daysOfWeek.append(tues.isChecked() ? "3" : "");
+		daysOfWeek.append(weds.isChecked() ? "4" : "");
+		daysOfWeek.append(thurs.isChecked() ? "5" : "");
+		daysOfWeek.append(fri.isChecked() ? "6" : "");
+		daysOfWeek.append(sat.isChecked() ? "7" : "");
 		return daysOfWeek.toString();
 	}
 

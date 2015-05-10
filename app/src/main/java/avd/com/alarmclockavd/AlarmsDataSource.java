@@ -62,6 +62,13 @@ public class AlarmsDataSource {
 		database.update(Database.TABLE_ALARM, cv, Database.COLUMN_ID + "=" + id, null);
 	}
 
+	public void updateActive(long id, String active) {
+		ContentValues cv = new ContentValues();
+		cv.put(Database.COLUMN_ACTIVE, active);
+		database.update(Database.TABLE_ALARM, cv, Database.COLUMN_ID + "=" + id, null);
+	}
+
+
 	public List<Alarm> getAllAlarms() {
 		List<Alarm> alarms = new ArrayList<>();
 		Cursor cursor = database.query(Database.TABLE_ALARM,

@@ -3,21 +3,26 @@ package avd.com.alarmclockavd;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
-
 
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-	@Override
-	public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "ala e", Toast.LENGTH_SHORT).show();
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        long id = intent.getExtras().getLong("requestCode");
+        System.out.println(id);
+        AlarmsDataSource dataSource = new AlarmsDataSource(context);
+        dataSource.open();
+        dataSource.updateActive(id, " ");
+        AlarmListAdapter adapter = new AlarmListAdapter(context, dataSource.getAllAlarms());
+        adapter.refreshList(dataSource.getAllAlarms());
+        dataSource.close();
         Intent isnt = new Intent(context, EnterText.class);
         isnt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(isnt);
-        System.out.println("cacamaca");
         /*// Vibrate the mobile phone
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(2000);  */
-	}
+    }
 }

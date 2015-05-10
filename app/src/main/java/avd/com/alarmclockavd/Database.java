@@ -17,7 +17,7 @@ public class Database extends SQLiteOpenHelper {
 	public static final String COLUMN_DESCRIPTION = "description";
 
 	private static final String DATABASE_NAME = "alarms.db";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 1;
 	// Database creation sql statement
 	private static final String DATABASE_CREATE =
 			"create table "	+ TABLE_ALARM + "("

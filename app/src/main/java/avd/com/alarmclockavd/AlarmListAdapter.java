@@ -16,7 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -24,11 +23,10 @@ import static java.lang.Integer.parseInt;
 
 
 public class AlarmListAdapter extends BaseAdapter {
-	List<PendingIntent> pendingIntent = new ArrayList<>();
 	private Context ctx;
 	private LayoutInflater inflater;
 	private List<Alarm> alarmList;
-    private AlarmsDataSource dataSource;
+	private AlarmsDataSource dataSource;
 
 	public AlarmListAdapter(Context context, List<Alarm> alarms){
 		ctx = context;
@@ -40,11 +38,11 @@ public class AlarmListAdapter extends BaseAdapter {
 		return alarmList.size();
 	}
 
-    public void refreshList(List<Alarm> list){
-        alarmList.clear();
-        alarmList.addAll(list);
-        this.notifyDataSetChanged();
-    }
+	public void refreshList(List<Alarm> list) {
+		alarmList.clear();
+		alarmList.addAll(list);
+		this.notifyDataSetChanged();
+	}
 
 
 	@Override
@@ -96,10 +94,13 @@ public class AlarmListAdapter extends BaseAdapter {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
 					update(position, "active");
-					setAlarm(parseInt(alarm.getHour()), parseInt(alarm.getMinute()), alarm.getAmpm(), alarm.getDays(), (int) alarm.getId());
+					if (alarm.getDays().equals("0")) {
+						setOneTimeAlarm(alarm);
+					} else
+						setAllDaysAlarm(alarm);
 				} else {
 					update(position, " ");
-					cancelAlarm((int) alarm.getId());
+					cancelAllDaysAlarm((int) alarm.getId(), alarm.getDays());
 				}
 			}
 		};
@@ -114,12 +115,12 @@ public class AlarmListAdapter extends BaseAdapter {
 		final Handler handler = new Handler();
 		// do something after animation finishes
 		handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                refreshList(dataSource.getAllAlarms());
-                dataSource.close();
-            }
-        }, anim.getDuration());
+			@Override
+			public void run() {
+				refreshList(dataSource.getAllAlarms());
+				dataSource.close();
+			}
+		}, anim.getDuration());
 	}
 
 	private void setViewHolderItems(int position, Holder viewHolder) {
@@ -147,34 +148,126 @@ public class AlarmListAdapter extends BaseAdapter {
 		dataSource.close();
 	}
 
-	private void setAlarm(int hour, int minute, String ampm, String days, int id) {
+	private void setAlarm(Alarm alarm, int day, int id) {
 		//Create an offset from the current time in which the alarm will go off.
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR, hour);
-		cal.set(Calendar.AM_PM, ampm.equals("AM") ? 0 : 1);
-		cal.set(Calendar.MINUTE, minute);
+		cal.set(Calendar.HOUR, parseInt(alarm.getHour()));
+		cal.set(Calendar.AM_PM, alarm.getAmpm().equals("AM") ? 0 : 1);
+		cal.set(Calendar.MINUTE, parseInt(alarm.getMinute()));
 		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.DAY_OF_WEEK, 1);
+		cal.set(Calendar.DAY_OF_WEEK, day);
 
 		//Create a new PendingIntent and add it to the AlarmManager
 		Intent intent = new Intent(ctx, AlarmReceiver.class);
 		PendingIntent pi = PendingIntent.getBroadcast(ctx, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
 
-		if (System.currentTimeMillis() > cal.getTimeInMillis())
-		{
-			cal.set(Calendar.DAY_OF_WEEK, 2);
+		//postpone alarm for next week
+		if (System.currentTimeMillis() > cal.getTimeInMillis()) {
+			cal.set(Calendar.WEEK_OF_MONTH, Calendar.WEEK_OF_MONTH + 1);
 		}
-
-		System.out.println(cal.get(Calendar.DAY_OF_WEEK));
+		//set up alarm
 		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
 	}
+
+	private void setOneTimeAlarm(Alarm alarm) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR, parseInt(alarm.getHour()));
+		cal.set(Calendar.AM_PM, alarm.getAmpm().equals("AM") ? 0 : 1);
+		cal.set(Calendar.MINUTE, parseInt(alarm.getMinute()));
+		cal.set(Calendar.SECOND, 0);
+		if (System.currentTimeMillis() > cal.getTimeInMillis()) {
+			cal.set(Calendar.DAY_OF_WEEK, cal.get(Calendar.DAY_OF_WEEK) + 1);
+		}
+		//Create a new PendingIntent and add it to the AlarmManager
+		Intent intent = new Intent(ctx, AlarmReceiver.class);
+		intent.putExtra("requestCode", alarm.getId());
+		PendingIntent pi = PendingIntent.getBroadcast(ctx, (int) alarm.getId(), intent, PendingIntent.FLAG_ONE_SHOT);
+		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+		//set up alarm
+		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
+
+	}
+
+	//postpone alarm for next day
+
+
+	private void setAllDaysAlarm(Alarm alarm) {
+		String days = alarm.getDays();
+		for (int i = 0; i < days.length(); i++)
+			switch (parseInt(days.charAt(i) + "")) {
+				case 1:
+					setAlarm(alarm, 1, (int) alarm.getId() + 1000);
+					break;
+				case 2:
+					setAlarm(alarm, 2, (int) alarm.getId() + 2000);
+
+					break;
+				case 3:
+					setAlarm(alarm, 3, (int) alarm.getId() + 3000);
+
+					break;
+				case 4:
+					setAlarm(alarm, 4, (int) alarm.getId() + 4000);
+
+					break;
+				case 5:
+					setAlarm(alarm, 5, (int) alarm.getId() + 5000);
+
+					break;
+				case 6:
+					setAlarm(alarm, 6, (int) alarm.getId() + 6000);
+					break;
+				case 7:
+					setAlarm(alarm, 7, (int) alarm.getId() + 7000);
+					break;
+			}
+	}
+
 
 	private void cancelAlarm(int id) {
 		Intent intent = new Intent(ctx, AlarmReceiver.class);
 		PendingIntent pi = PendingIntent.getBroadcast(ctx, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
 		am.cancel(pi);
+	}
+
+	private void cancelOneTimeAlarm(long id) {
+		Intent intent = new Intent(ctx, AlarmReceiver.class);
+		intent.putExtra("requestCode", id);
+		PendingIntent pi = PendingIntent.getBroadcast(ctx, (int) id, intent, PendingIntent.FLAG_ONE_SHOT);
+		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+		am.cancel(pi);
+	}
+
+	private void cancelAllDaysAlarm(int id, String days) {
+		for (int i = 0; i < days.length(); i++)
+			switch (parseInt(days.charAt(i) + "")) {
+				case 1:
+					cancelAlarm(id + 1000);
+					break;
+				case 2:
+					cancelAlarm(id + 2000);
+					break;
+				case 3:
+					cancelAlarm(id + 3000);
+					break;
+				case 4:
+					cancelAlarm(id + 4000);
+					break;
+				case 5:
+					cancelAlarm(id + 5000);
+					break;
+				case 6:
+					cancelAlarm(id + 6000);
+					break;
+				case 7:
+					cancelAlarm(id + 7000);
+					break;
+				default:
+					cancelOneTimeAlarm((long) id);
+					break;
+			}
 	}
 
 	public class Holder {
