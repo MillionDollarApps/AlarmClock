@@ -15,7 +15,7 @@ public class AlarmsDataSource {
 	private SQLiteDatabase database;
 	private Database dbHelper;
 	private String[] allColumns = { Database.COLUMN_ID,
-			Database.COLUMN_HOUR, Database.COLUMN_MINUTE, Database.COLUMN_DAY, Database.COLUMN_ACTIVE, Database.COLUMN_DESCRIPTION};
+			Database.COLUMN_HOUR, Database.COLUMN_MINUTE, Database.COLUMN_AMPM, Database.COLUMN_DAY, Database.COLUMN_ACTIVE, Database.COLUMN_DESCRIPTION};
 
 	public AlarmsDataSource(Context context) {
 		dbHelper = new Database(context);
@@ -29,10 +29,11 @@ public class AlarmsDataSource {
 		dbHelper.close();
 	}
 
-	public Alarm createAlarm(String hour, String minute, String days, String active, String description) {
+	public Alarm createAlarm(String hour, String minute, String ampm, String days, String active, String description) {
 		ContentValues values = new ContentValues();
 		values.put(Database.COLUMN_HOUR, hour);
 		values.put(Database.COLUMN_MINUTE, minute);
+		values.put(Database.COLUMN_AMPM, ampm);
 		values.put(Database.COLUMN_DAY, days);
 		values.put(Database.COLUMN_ACTIVE, active);
 		values.put(Database.COLUMN_DESCRIPTION, description);
@@ -79,9 +80,10 @@ public class AlarmsDataSource {
 		alarm.setId(cursor.getLong(0));
 		alarm.setHour(cursor.getString(1));
 		alarm.setMinute(cursor.getString(2));
-		alarm.setDays(cursor.getString(3));
-		alarm.setActive(cursor.getString(4));
-		alarm.setDescription(cursor.getString(5));
+		alarm.setAmpm(cursor.getString(3));
+		alarm.setDays(cursor.getString(4));
+		alarm.setActive(cursor.getString(5));
+		alarm.setDescription(cursor.getString(6));
 		return alarm;
 	}
 }

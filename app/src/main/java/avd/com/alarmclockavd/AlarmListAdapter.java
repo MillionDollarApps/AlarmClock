@@ -1,6 +1,5 @@
 package avd.com.alarmclockavd;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -15,14 +14,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-
+import static java.lang.Integer.parseInt;
 
 
 public class AlarmListAdapter extends BaseAdapter {
@@ -36,11 +34,7 @@ public class AlarmListAdapter extends BaseAdapter {
 		ctx = context;
 		inflater = LayoutInflater.from(this.ctx);
 		alarmList = alarms;
-
-
 	}
-
-
 	@Override
 	public int getCount() {
 		return alarmList.size();
@@ -83,7 +77,7 @@ public class AlarmListAdapter extends BaseAdapter {
 
 			@Override
 			public void onSwipeLeft() {
-
+				//TODO
 			}
 
 			@Override
@@ -92,18 +86,20 @@ public class AlarmListAdapter extends BaseAdapter {
 			}
 		});
 		setViewHolderItems(position, viewHolder);
-		checkboxUpdate(position, viewHolder);
 		return view;
 	}
 
 	private CompoundButton.OnCheckedChangeListener checkBoxListener(final int position) {
+		final Alarm alarm = alarmList.get(position);
 		return new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
 					update(position, "active");
+					setAlarm(parseInt(alarm.getHour()), parseInt(alarm.getMinute()), alarm.getAmpm(), alarm.getDays(), (int) alarm.getId());
 				} else {
 					update(position, " ");
+					cancelAlarm((int) alarm.getId());
 				}
 			}
 		};
@@ -130,12 +126,11 @@ public class AlarmListAdapter extends BaseAdapter {
 		viewHolder.alarmTime.setText(alarmList.get(position).toString());
 		viewHolder.description.setText(alarmList.get(position).getDescription());
 		viewHolder.checkbox.setOnCheckedChangeListener(checkBoxListener(position));
+		checkboxUpdate(position, viewHolder);
 	}
 
+	//update checkbox for when items are reused or alarm is deleted
 	private void checkboxUpdate(int position, Holder viewHolder) {
-		int hour = Integer.parseInt(alarmList.get(position).getHour());
-		int minute = Integer.parseInt(alarmList.get(position).getMinute());
-
 		if(alarmList.get(position).getActive().equals("active")) {
 			viewHolder.checkbox.setChecked(true);
 		}
@@ -152,34 +147,34 @@ public class AlarmListAdapter extends BaseAdapter {
 		dataSource.close();
 	}
 
-	private void setAlarm(int x, int y, int i){
+	private void setAlarm(int hour, int minute, String ampm, String days, int id) {
 		//Create an offset from the current time in which the alarm will go off.
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, x);
-		cal.set(Calendar.MINUTE, y);
+		cal.set(Calendar.HOUR, hour);
+		cal.set(Calendar.AM_PM, ampm.equals("AM") ? 0 : 1);
+		cal.set(Calendar.MINUTE, minute);
 		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.DAY_OF_WEEK, 5);
+		cal.set(Calendar.DAY_OF_WEEK, 1);
 
-
-		Toast.makeText(ctx, x + " " + y, Toast.LENGTH_SHORT).show();
 		//Create a new PendingIntent and add it to the AlarmManager
-		Intent intent = new Intent(ctx, EnterText.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		Intent intent = new Intent(ctx, AlarmReceiver.class);
+		PendingIntent pi = PendingIntent.getBroadcast(ctx, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
 
-		pendingIntent.add(PendingIntent.getActivity(ctx, i, intent, PendingIntent.FLAG_ONE_SHOT));
-
-		AlarmManager am = (AlarmManager) ctx.getSystemService(Activity.ALARM_SERVICE);
-		for(int z = 0;z<pendingIntent.size();z++) {
-			am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent.get(z));
-		}
-		if(Calendar.getInstance().getTimeInMillis()>cal.getTimeInMillis())
+		if (System.currentTimeMillis() > cal.getTimeInMillis())
 		{
-			am.cancel(pendingIntent.get(0));
+			cal.set(Calendar.DAY_OF_WEEK, 2);
 		}
+
+		System.out.println(cal.get(Calendar.DAY_OF_WEEK));
+		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
 	}
 
-	private void cancelAlarm() {
-
+	private void cancelAlarm(int id) {
+		Intent intent = new Intent(ctx, AlarmReceiver.class);
+		PendingIntent pi = PendingIntent.getBroadcast(ctx, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+		am.cancel(pi);
 	}
 
 	public class Holder {

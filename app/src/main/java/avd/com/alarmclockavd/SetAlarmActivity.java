@@ -1,6 +1,7 @@
 package avd.com.alarmclockavd;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,19 +21,43 @@ public class SetAlarmActivity extends Activity {
 	private WheelView hourWheel;
 	private WheelView minuteWheel;
 	private ToggleButton ampmButton;
-	private ImageView confirmButton;
-	private ImageView cancelButton;
 	private AlarmsDataSource dataSource;
 	private EditText description;
-
+	//implementating cancelButtonListener
+	private View.OnClickListener cancelButtonListener = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			finish();
+		}
+	};
+	//implementing confirmButtonListener
+	private View.OnClickListener confirmButtonListener = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			String minute;
+			String hour = (hourWheel.getCurrentItem() + 1) + "";
+			String ampm = ampmButton.isChecked() ? "PM" : "AM";
+			String days = getDaysOfWeek();
+			if (minuteWheel.getCurrentItem() < 10)
+				minute = "0" + minuteWheel.getCurrentItem() + "";
+			else
+				minute = minuteWheel.getCurrentItem() + "";
+			dataSource.createAlarm(hour, minute, ampm, days, " ", description.getText().toString());
+			Toast.makeText(getApplicationContext(), days, Toast.LENGTH_LONG).show();
+			finish();
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.set_alarm);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		//initiates the Views of this activity
 		initiateViews();
 		//setHour, setMinute, ampm wheels initiation
+
+
 		hourWheel.setCyclic(true);
 		hourWheel.setVisibleItems(4);
 		hourWheel.setViewAdapter(new NumericWheelAdapter(this, 1, 12));
@@ -47,41 +72,6 @@ public class SetAlarmActivity extends Activity {
 				minutes[i] = i + "";
 		minuteWheel.setViewAdapter(new ArrayWheelAdapter<>(getApplicationContext(), minutes));
 		minuteWheel.setCurrentItem(0);
-
-
-		//implementating cancelButtonListener
-		View.OnClickListener cancelButtonListener = new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		};
-
-		//implementing confirmButtonListener
-		View.OnClickListener confirmButtonListener = new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				String minute;
-				String hour;
-				if (ampmButton.isChecked())
-					hour = (hourWheel.getCurrentItem() + 1) + " PM";
-				else
-					hour = (hourWheel.getCurrentItem() + 1) + " AM";
-				if (minuteWheel.getCurrentItem() < 10)
-					minute = "0" + minuteWheel.getCurrentItem() + "";
-				else
-					minute = minuteWheel.getCurrentItem() + "";
-				dataSource.createAlarm(hour, minute, "3", " ", description.getText().toString());
-				Toast.makeText(getApplicationContext(), hour + " : " + minute, Toast.LENGTH_LONG).show();
-				finish();
-			}
-		};
-
-		//setting buttons listeners
-		confirmButton.setOnClickListener(confirmButtonListener);
-		cancelButton.setOnClickListener(cancelButtonListener);
-
-
 	}
 
 	private void initiateViews() {
@@ -89,15 +79,37 @@ public class SetAlarmActivity extends Activity {
 		hourWheel = (WheelView) findViewById(R.id.hourWheel);
 		minuteWheel = (WheelView) findViewById(R.id.minuteWheel);
 		ampmButton = (ToggleButton) findViewById(R.id.ampmToggleButton);
-		confirmButton = (ImageView) findViewById(R.id.confirmButton);
-		cancelButton = (ImageView) findViewById(R.id.cancelButton);
+		ImageView confirmButton = (ImageView) findViewById(R.id.confirmButton);
+		ImageView cancelButton = (ImageView) findViewById(R.id.cancelButton);
 		description = (EditText) findViewById(R.id.editTextDescription);
 		//initiate and open dataSource
 		dataSource = new AlarmsDataSource(getApplicationContext());
 		dataSource.open();
+		//setting buttons listeners
+		confirmButton.setOnClickListener(confirmButtonListener);
+		cancelButton.setOnClickListener(cancelButtonListener);
+		//setting toggle buttons listeners
 
 	}
 
+	private String getDaysOfWeek() {
+		StringBuilder daysOfWeek = new StringBuilder();
+		ToggleButton sun = (ToggleButton) findViewById(R.id.toggleSun);
+		ToggleButton tues = (ToggleButton) findViewById(R.id.toggleTues);
+		ToggleButton mon = (ToggleButton) findViewById(R.id.toggleMon);
+		ToggleButton weds = (ToggleButton) findViewById(R.id.toggleWeds);
+		ToggleButton thurs = (ToggleButton) findViewById(R.id.toggleThurs);
+		ToggleButton sat = (ToggleButton) findViewById(R.id.toggleSat);
+		ToggleButton fri = (ToggleButton) findViewById(R.id.toggleFri);
+		daysOfWeek.append(sun.isChecked() ? "1 " : "");
+		daysOfWeek.append(mon.isChecked() ? "2 " : "");
+		daysOfWeek.append(tues.isChecked() ? "3 " : "");
+		daysOfWeek.append(weds.isChecked() ? "4 " : "");
+		daysOfWeek.append(thurs.isChecked() ? "5 " : "");
+		daysOfWeek.append(fri.isChecked() ? "6 " : "");
+		daysOfWeek.append(sat.isChecked() ? "7 " : "");
+		return daysOfWeek.toString();
+	}
 
 	@Override
 	protected void onResume() {

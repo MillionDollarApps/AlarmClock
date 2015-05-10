@@ -5,6 +5,7 @@ public class Alarm {
 	private long id;
 	private String hour;
 	private String minute;
+	private String ampm;
 	private String active;
 	private String days;
 	private String description;
@@ -41,8 +42,15 @@ public class Alarm {
 		this.days=days;
 	}
 
+	public String getAmpm() {
+		return ampm;
+	}
+
+	public void setAmpm(String ampm) {
+		this.ampm = ampm;
+	}
 	public String getHour() {
-		return hour.split("\\s+")[0];
+		return hour;
 	}
 
 	public void setHour(String hour) {
@@ -60,8 +68,8 @@ public class Alarm {
 	// Will be used by the ArrayAdapter in the ListView
 	@Override
 	public String toString() {
-		String ampmHour[] = hour.split("\\s+");
-		return ampmHour[0] + " : " + minute + " " + ampmHour[1];
+
+		return hour + " : " + minute + " " + ampm;
 	}
 
 }

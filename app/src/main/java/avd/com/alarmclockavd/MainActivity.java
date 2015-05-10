@@ -2,6 +2,7 @@ package avd.com.alarmclockavd;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //initiating views
         initiateViews();
         datasource = new AlarmsDataSource(this);
@@ -28,12 +30,30 @@ public class MainActivity extends Activity {
         adapter = new AlarmListAdapter(getApplicationContext(), datasource.getAllAlarms());
         alarmList.setAdapter(adapter);
 
+
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SetAlarmActivity.class);
                 startActivity(intent);
+
+//                //Create an offset from the current time in which the alarm will go off.
+//                Calendar cal = Calendar.getInstance();
+//                cal.set(Calendar.HOUR_OF_DAY, 12);
+////                    cal.set(Calendar.AM_PM,0);
+//                cal.set(Calendar.MINUTE, 30);
+//                cal.set(Calendar.SECOND, 0);
+//                cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+//                long diff = System.currentTimeMillis() - cal.getTimeInMillis();
+//                if (diff > 0)
+//                    cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+//
+//                Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+//                final PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 10, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                final AlarmManager am = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+//                am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
             }
+
 
         });
     }
