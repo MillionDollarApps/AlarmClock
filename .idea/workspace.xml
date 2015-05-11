@@ -25,18 +25,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2948876-dcfa-423f-95f9-7306a7e49b8e" name="Default" comment="fixed bug -&gt; after entering the text from alarm, the activity was mantained in the activitystack, causing hazardeous behavior when going back to the activity that was left in the foreground.">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/raw/salesleap.mp3" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/cancel_button.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/cancel_button.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/cancel_button_h.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/cancel_button_h.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/confirm_button.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/confirm_button.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/confirm_button_h.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/confirm_button_h.png" />
+    <list default="true" id="c2948876-dcfa-423f-95f9-7306a7e49b8e" name="Default" comment="fixed bug -&gt; after entering the text from alarm, the activity was mantained in the activitystack, causing hazardeous behavior when going back to the activity that was left in the foreground. Alarm no longer goes to recents.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/selector_button_cancel.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/selector_button_cancel.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/selector_button_confirm.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/selector_button_confirm.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/set_alarm.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/set_alarm.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="AlarmClock.iws" />
@@ -79,12 +70,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.8238255">
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+              <folding>
+                <element signature="e#401#419#0" expanded="true" />
+                <element signature="e#506#524#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -93,11 +87,11 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/set_alarm.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-14.580646">
-              <caret line="179" column="40" selection-start-line="179" selection-start-column="40" selection-end-line="179" selection-end-column="40" />
+              <caret line="179" column="8" selection-start-line="179" selection-start-column="8" selection-end-line="179" selection-end-column="8" />
               <folding>
                 <element signature="e#518#532#0" expanded="true" />
-                <element signature="e#2477#2498#0" expanded="true" />
-                <element signature="e#3024#3046#0" expanded="true" />
+                <element signature="e#2490#2496#0" expanded="true" />
+                <element signature="e#3022#3044#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -140,17 +134,17 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="53" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
+              <caret line="21" column="52" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EnterText.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EnterText.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7802013">
-              <caret line="43" column="29" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="39" column="70" selection-start-line="39" selection-start-column="70" selection-end-line="39" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -1020,9 +1014,9 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/set_alarm.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_button_cancel.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_button_confirm.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -1120,6 +1114,20 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AlarmClock" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -1139,7 +1147,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="192.168.56.101:5555" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="192.168.56.102:5555" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_One_API_22" />
     <property name="FullScreen" value="false" />
     <property name="OverrideImplement.combined" value="true" />
@@ -1401,7 +1409,13 @@
       <option name="project" value="LOCAL" />
       <updated>1431326944503</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fixed bug -&gt; after entering the text from alarm, the activity was mantained in the activitystack, causing hazardeous behavior when going back to the activity that was left in the foreground. Alarm no longer goes to recents.">
+      <created>1431339904806</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1431339904806</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1459,7 +1473,8 @@
     <MESSAGE value="added AM PM to database, almost finished implementing days of the week(just need to write algorithm to process the text in order to finish implementing), fixed alarm going off beforehand bug, now you can also cancel the alarms by turning them off." />
     <MESSAGE value="finished implementing alarm feature, moving to settings pannel and choosing mp3 and wav from listviews" />
     <MESSAGE value="fixed bug -&gt; after entering the text from alarm, the activity was mantained in the activitystack, causing hazardeous behavior when going back to the activity that was left in the foreground." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bug -&gt; after entering the text from alarm, the activity was mantained in the activitystack, causing hazardeous behavior when going back to the activity that was left in the foreground." />
+    <MESSAGE value="fixed bug -&gt; after entering the text from alarm, the activity was mantained in the activitystack, causing hazardeous behavior when going back to the activity that was left in the foreground. Alarm no longer goes to recents." />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug -&gt; after entering the text from alarm, the activity was mantained in the activitystack, causing hazardeous behavior when going back to the activity that was left in the foreground. Alarm no longer goes to recents." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1509,8 +1524,8 @@
           <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding>
             <element signature="e#518#532#0" expanded="true" />
-            <element signature="e#2477#2498#0" expanded="true" />
-            <element signature="e#3024#3046#0" expanded="true" />
+            <element signature="e#2490#2496#0" expanded="true" />
+            <element signature="e#3022#3044#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1866,11 +1881,11 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/set_alarm.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.580646">
-          <caret line="179" column="40" selection-start-line="179" selection-start-column="40" selection-end-line="179" selection-end-column="40" />
+          <caret line="179" column="8" selection-start-line="179" selection-start-column="8" selection-end-line="179" selection-end-column="8" />
           <folding>
             <element signature="e#518#532#0" expanded="true" />
-            <element signature="e#2477#2498#0" expanded="true" />
-            <element signature="e#3024#3046#0" expanded="true" />
+            <element signature="e#2490#2496#0" expanded="true" />
+            <element signature="e#3022#3044#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1878,10 +1893,18 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <caret line="39" column="70" selection-start-line="39" selection-start-column="70" selection-end-line="39" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -1897,24 +1920,19 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="53" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
+          <caret line="21" column="52" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7802013">
-          <caret line="43" column="29" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
-          <folding />
+        <state vertical-scroll-proportion="0.8238255">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding>
+            <element signature="e#401#419#0" expanded="true" />
+            <element signature="e#506#524#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
