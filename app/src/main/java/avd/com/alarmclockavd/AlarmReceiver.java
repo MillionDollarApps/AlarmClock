@@ -19,7 +19,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         adapter.refreshList(dataSource.getAllAlarms());
         dataSource.close();
         Intent isnt = new Intent(context, EnterText.class);
-        isnt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        isnt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         context.startActivity(isnt);
         /*// Vibrate the mobile phone
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);

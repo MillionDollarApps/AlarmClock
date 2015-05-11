@@ -34,6 +34,7 @@
         <activity
             android:name=".EnterText"
             android:launchMode="singleTask"
+            android:noHistory="true"
             android:parentActivityName=".MainActivity"
             android:theme="@android:style/Theme.Dialog">
             <meta-data

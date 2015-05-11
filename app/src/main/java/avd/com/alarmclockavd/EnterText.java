@@ -1,10 +1,9 @@
 package avd.com.alarmclockavd;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -24,8 +23,9 @@ public class EnterText extends Activity {
 		//cannot be canceled
 		setFinishOnTouchOutside(false);
 		//using mediaplayer to play alarm
-		final MediaPlayer player = MediaPlayer.create(this, R.raw.salesleap);
-		player.start();
+//		final MediaPlayer player = MediaPlayer.create(this, R.raw.salesleap);
+//		player.start();
+		Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES);
 		TextView randomText = (TextView) findViewById(R.id.randomTextView);
 		final EditText inputString = (EditText) findViewById(R.id.inputMatcherEditText);
 		final String random = generateRandom();
@@ -38,13 +38,7 @@ public class EnterText extends Activity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				if (inputString.getText().toString().equals(random)) {
-					Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-					startActivity(intent);
-					player.stop();
 					finish();
-					moveTaskToBack(true);
-
 				}
 			}
 			@Override
