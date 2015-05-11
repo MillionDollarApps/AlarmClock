@@ -33,6 +33,7 @@ public class AlarmListAdapter extends BaseAdapter {
 		inflater = LayoutInflater.from(this.ctx);
 		alarmList = alarms;
 	}
+
 	@Override
 	public int getCount() {
 		return alarmList.size();
@@ -43,7 +44,6 @@ public class AlarmListAdapter extends BaseAdapter {
 		alarmList.addAll(list);
 		this.notifyDataSetChanged();
 	}
-
 
 	@Override
 	public Alarm getItem(int position) {
@@ -75,7 +75,15 @@ public class AlarmListAdapter extends BaseAdapter {
 
 			@Override
 			public void onSwipeLeft() {
-				//TODO
+				Intent intent = new Intent(ctx, SetAlarmActivity.class);
+				Alarm alarm = alarmList.get(position);
+				intent.putExtra("hour", alarm.getHour());
+				intent.putExtra("minute", alarm.getMinute());
+				intent.putExtra("ampm", alarm.getAmpm());
+				intent.putExtra("days", alarm.getDays());
+				intent.putExtra("id", alarm.getId());
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				ctx.startActivity(intent);
 			}
 
 			@Override
@@ -87,19 +95,20 @@ public class AlarmListAdapter extends BaseAdapter {
 		return view;
 	}
 
+	//implements the toglebutton(checkbox) listener
 	private CompoundButton.OnCheckedChangeListener checkBoxListener(final int position) {
 		final Alarm alarm = alarmList.get(position);
 		return new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
-					update(position, "active");
+					updateCheck(position, "active");
 					if (alarm.getDays().equals("0")) {
 						setOneTimeAlarm(alarm);
 					} else
 						setAllDaysAlarm(alarm);
 				} else {
-					update(position, " ");
+					updateCheck(position, " ");
 					cancelAllDaysAlarm((int) alarm.getId(), alarm.getDays());
 				}
 			}
@@ -139,11 +148,11 @@ public class AlarmListAdapter extends BaseAdapter {
 			viewHolder.checkbox.setChecked(false);
 	}
 
-	//updates the alarm ListView
-	private void update(int position,String active) {
+	//updates the check field for the alarm in the database
+	private void updateCheck(int position, String active) {
 		dataSource = new AlarmsDataSource(ctx);
 		dataSource.open();
-		dataSource.update(alarmList.get(position), active);
+		dataSource.updateActive(alarmList.get(position).getId(), active);
 		refreshList(dataSource.getAllAlarms());
 		dataSource.close();
 	}
@@ -156,12 +165,10 @@ public class AlarmListAdapter extends BaseAdapter {
 		cal.set(Calendar.MINUTE, parseInt(alarm.getMinute()));
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.DAY_OF_WEEK, day);
-
 		//Create a new PendingIntent and add it to the AlarmManager
 		Intent intent = new Intent(ctx, AlarmReceiver.class);
 		PendingIntent pi = PendingIntent.getBroadcast(ctx, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-
 		//postpone alarm for next week
 		if (System.currentTimeMillis() > cal.getTimeInMillis()) {
 			cal.set(Calendar.WEEK_OF_MONTH, Calendar.WEEK_OF_MONTH + 1);
@@ -176,6 +183,7 @@ public class AlarmListAdapter extends BaseAdapter {
 		cal.set(Calendar.AM_PM, alarm.getAmpm().equals("AM") ? 0 : 1);
 		cal.set(Calendar.MINUTE, parseInt(alarm.getMinute()));
 		cal.set(Calendar.SECOND, 0);
+		//postpone alarm for next day
 		if (System.currentTimeMillis() > cal.getTimeInMillis()) {
 			cal.set(Calendar.DAY_OF_WEEK, cal.get(Calendar.DAY_OF_WEEK) + 1);
 		}
@@ -188,9 +196,6 @@ public class AlarmListAdapter extends BaseAdapter {
 		am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
 
 	}
-
-	//postpone alarm for next day
-
 
 	private void setAllDaysAlarm(Alarm alarm) {
 		String days = alarm.getDays();
@@ -223,7 +228,6 @@ public class AlarmListAdapter extends BaseAdapter {
 					break;
 			}
 	}
-
 
 	private void cancelAlarm(int id) {
 		Intent intent = new Intent(ctx, AlarmReceiver.class);
@@ -281,8 +285,4 @@ public class AlarmListAdapter extends BaseAdapter {
 			checkbox = (ToggleButton) v.findViewById(R.id.checkBox);
 		}
 	}
-
-
 }
-
-

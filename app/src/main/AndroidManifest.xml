@@ -23,6 +23,7 @@
         <activity
             android:name=".SetAlarmActivity"
             android:label="Set Alarm"
+            android:launchMode="singleTask"
             android:parentActivityName=".MainActivity"
             android:theme="@android:style/Theme.Holo">
             <meta-data
@@ -32,6 +33,7 @@
 
         <activity
             android:name=".EnterText"
+            android:launchMode="singleTask"
             android:parentActivityName=".MainActivity"
             android:theme="@android:style/Theme.Dialog">
             <meta-data

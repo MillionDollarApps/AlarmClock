@@ -36,22 +36,6 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SetAlarmActivity.class);
                 startActivity(intent);
-
-//                //Create an offset from the current time in which the alarm will go off.
-//                Calendar cal = Calendar.getInstance();
-//                cal.set(Calendar.HOUR_OF_DAY, 12);
-////                    cal.set(Calendar.AM_PM,0);
-//                cal.set(Calendar.MINUTE, 30);
-//                cal.set(Calendar.SECOND, 0);
-//                cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-//                long diff = System.currentTimeMillis() - cal.getTimeInMillis();
-//                if (diff > 0)
-//                    cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-//
-//                Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
-//                final PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 10, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//                final AlarmManager am = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-//                am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
             }
 
 
@@ -61,6 +45,7 @@ public class MainActivity extends Activity {
     private void initiateViews() {
         alarmList = (ListView) findViewById(R.id.alarmsListView);
         buttonAdd = (ImageView) findViewById(R.id.buttonAdd);
+
     }
 
     @Override

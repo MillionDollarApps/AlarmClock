@@ -59,7 +59,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/setAlarmLayout"
-        android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
@@ -92,9 +91,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/setDescriptionLayout"
-        android:layout_marginBottom="5dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:text="@string/days_of_week"
         android:textColor="#000000"
         android:textStyle="bold" />
@@ -104,66 +102,72 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/setDaysText"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ToggleButton
             android:id="@+id/toggleSun"
             android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Sun"
-            android:textColor="@color/selector_days" />
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/selector_sun"
+            android:textOff=""
+            android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleMon"
             android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="5dp"
-            android:gravity="center_horizontal"
-            android:text="Mon"
-            android:textColor="@color/selector_days" />
+            android:background="@drawable/selector_mon"
+            android:textOff=""
+            android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleTues"
             android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="5dp"
-            android:gravity="center_horizontal"
-            android:text="Tues"
-            android:textColor="@color/selector_days" />
+            android:background="@drawable/selector_tue"
+            android:textOff=""
+            android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleWeds"
             android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="5dp"
-            android:text="Weds"
-            android:textColor="@color/selector_days" />
+            android:background="@drawable/selector_wed"
+            android:textOff=""
+            android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleThurs"
             android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="5dp"
-            android:text="Thurs"
-            android:textColor="@color/selector_days" />
+            android:background="@drawable/selector_thu"
+            android:textOff=""
+            android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleFri"
             android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="5dp"
-            android:text="Fri"
-            android:textColor="@color/selector_days" />
+            android:background="@drawable/selector_fri"
+            android:textOff=""
+            android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleSat"
             android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="5dp"
-            android:text="Sat"
-            android:textColor="@color/selector_days" />
+            android:background="@drawable/selector_sat"
+            android:textOff=""
+            android:textOn="" />
 
 
 
