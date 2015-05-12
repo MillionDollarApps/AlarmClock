@@ -2,7 +2,6 @@ package avd.com.alarmclockavd;
 
 import android.content.Context;
 import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -15,13 +14,9 @@ public class OnSwipeTouchListener implements OnTouchListener {
         mGestureDetector = new GestureDetector(ctx, new GestureListener());
     }
 
-    public GestureDetector getGestureDetector(){
-        return mGestureDetector;
-    }
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        return false;
+        return mGestureDetector.onTouchEvent(event);
     }
 
     public void onSwipeRight() {
@@ -36,14 +31,34 @@ public class OnSwipeTouchListener implements OnTouchListener {
     public void onSwipeBottom() {
     }
 
-    private final class GestureListener extends SimpleOnGestureListener {
+    private final class GestureListener implements GestureDetector.OnGestureListener {
 
-        private static final int SWIPE_THRESHOLD = 100;
+        private static final int SWIPE_THRESHOLD = 90;
         private static final int SWIPE_VELOCITY_THRESHOLD = 90;
 
         @Override
         public boolean onDown(MotionEvent e) {
             return true;
+        }
+
+        @Override
+        public void onShowPress(MotionEvent e) {
+
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return false;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            return false;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+
         }
 
         @Override

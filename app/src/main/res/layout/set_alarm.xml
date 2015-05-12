@@ -163,7 +163,6 @@
     </LinearLayout>
 
 
-
     <ImageView
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"

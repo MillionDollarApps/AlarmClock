@@ -1,15 +1,28 @@
 package avd.com.alarmclockavd;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
@@ -23,6 +36,8 @@ public class SetAlarmActivity extends Activity {
 	private ToggleButton ampmButton;
 	private AlarmsDataSource dataSource;
 	private EditText description;
+	private boolean selected;
+	private View view;
 	//implementating cancelButtonListener
 	private View.OnClickListener cancelButtonListener = new View.OnClickListener() {
 		@Override
@@ -48,6 +63,23 @@ public class SetAlarmActivity extends Activity {
 		}
 	};
 
+	//getters and setters to get around static concept
+	private View getView() {
+		return view;
+	}
+
+	private void setView(View view) {
+		this.view = view;
+	}
+
+	private boolean getSelected() {
+		return selected;
+	}
+
+	private void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,9 +87,7 @@ public class SetAlarmActivity extends Activity {
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		//initiates the Views of this activity
 		initiateViews();
-		//setHour, setMinute, ampm wheels initiation
-
-
+		//setHour, setMinute wheels configuration
 		hourWheel.setCyclic(true);
 		hourWheel.setVisibleItems(4);
 		hourWheel.setViewAdapter(new NumericWheelAdapter(this, 1, 12));
@@ -88,7 +118,7 @@ public class SetAlarmActivity extends Activity {
 		//setting buttons listeners
 		confirmButton.setOnClickListener(confirmButtonListener);
 		cancelButton.setOnClickListener(cancelButtonListener);
-		//setting toggle buttons listeners
+
 
 	}
 
@@ -113,16 +143,112 @@ public class SetAlarmActivity extends Activity {
 		return daysOfWeek.toString();
 	}
 
+	private void dialogRingtonePicker() {
+		Dialog dialog = new Dialog(this);
+		dialog.setContentView(R.layout.dialog_choose_ringtone);
+		dialog.setTitle("Select ringtone");
+		dialog.setCanceledOnTouchOutside(true);
+		dialog.setCancelable(true);
+		final MediaPlayer mp = new MediaPlayer();
+		ListView ringtoneListView = (ListView) dialog.findViewById(R.id.ringtoneListView);
+		ListView musicListView = (ListView) dialog.findViewById(R.id.musicListView);
+		final ArrayList<String> ringtoneList = new ArrayList<>(getRingtones().keySet());
+		final ArrayList<String> musicList = new ArrayList<>(getMusic().keySet());
+		ArrayAdapter<String> adapterRingtone = new ArrayAdapter<>(this, R.layout.choose_ringtone_row, R.id.rowTextView, ringtoneList);
+		ArrayAdapter<String> adapterMusic;
+		if (musicList.size() == 0) {
+			adapterMusic = new ArrayAdapter<>(this, R.layout.choose_music_row, R.id.musicRowText, musicList);
+			musicListView.setAdapter(adapterMusic);
+			musicListView.setFocusable(false);
+			musicListView.setFocusableInTouchMode(false);
+			musicListView.setItemsCanFocus(false);
+			musicListView.setClickable(false);
+		} else {
+			adapterMusic = new ArrayAdapter<>(this, R.layout.choose_ringtone_row, R.id.rowTextView, musicList);
+			musicListView.setAdapter(adapterMusic);
+			musicListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					view.setSelected(true);
+					if (getSelected() && !getView().equals(view))
+						getView().setSelected(false);
+					setView(view);
+					String uri = getMusic().get(musicList.get(position));
+					mp.reset();
+					try {
+						mp.setDataSource(getApplicationContext(), Uri.parse(uri));
+						mp.prepare();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					mp.start();
+					setSelected(true);
+				}
+			});
+		}
+		ringtoneListView.setAdapter(adapterRingtone);
+		ringtoneListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				view.setSelected(true);
+				if (getSelected() && !getView().equals(view))
+					getView().setSelected(false);
+				setView(view);
+				String uri = getRingtones().get(ringtoneList.get(position));
+				mp.reset();
+				try {
+					mp.setDataSource(getApplicationContext(), Uri.parse(uri));
+					mp.prepare();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				mp.start();
+				setSelected(true);
+			}
+		});
+		dialog.show();
+	}
+
+	private LinkedHashMap<String, String> getRingtones() {
+		LinkedHashMap<String, String> ringtone = new LinkedHashMap<>();
+		RingtoneManager manager = new RingtoneManager(this);
+		Cursor cursor = manager.getCursor();
+		while (cursor.moveToNext()) {
+			ringtone.put(cursor.getString(1), cursor.getString(2) + "/" + cursor.getString(0));
+		}
+		cursor.close();
+		return ringtone;
+	}
+
+	private LinkedHashMap<String, String> getMusic() {
+		LinkedHashMap<String, String> music = new LinkedHashMap<>();
+		ContentResolver musicResolver = getContentResolver();
+		Uri musicUri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+		Cursor cursor = musicResolver.query(musicUri, null, null, null, "title ASC");
+		if (cursor != null && cursor.moveToFirst()) {
+			int titleColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
+			do {
+				music.put(cursor.getString(titleColumn), musicUri + "/" + cursor.getString(0));
+			}
+			while (cursor.moveToNext());
+		}
+		if (cursor != null) {
+			cursor.close();
+		}
+		return music;
+
+	}
+
+
 	@Override
 	protected void onResume() {
-		dataSource.open();
 		super.onResume();
 	}
 
 	@Override
 	protected void onPause() {
-		dataSource.close();
 		super.onPause();
+		dataSource.close();
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -85,11 +84,6 @@ public class AlarmListAdapter extends BaseAdapter {
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				ctx.startActivity(intent);
 			}
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				return getGestureDetector().onTouchEvent(event);
-			}
 		});
 		setViewHolderItems(position, viewHolder);
 		return view;
@@ -116,7 +110,7 @@ public class AlarmListAdapter extends BaseAdapter {
 	}
 
 	private void removeAlarm(View view, int position) {
-		Animation anim = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_out);
+		Animation anim = AnimationUtils.loadAnimation(ctx, android.R.anim.slide_out_right);
 		view.startAnimation(anim);
 		dataSource= new AlarmsDataSource(ctx);
 		dataSource.open();

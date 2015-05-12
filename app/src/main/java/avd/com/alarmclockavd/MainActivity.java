@@ -50,17 +50,18 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onResume() {
+        super.onResume();
         //open database
         datasource.open();
         //refresh alarmList after adding an alarm
         adapter.refreshList(datasource.getAllAlarms());
-        super.onResume();
+
     }
 
     @Override
     protected void onPause() {
-        datasource.close();
         super.onPause();
+        datasource.close();
     }
 
     @Override
