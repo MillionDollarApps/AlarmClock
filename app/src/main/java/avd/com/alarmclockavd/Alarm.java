@@ -9,6 +9,25 @@ public class Alarm {
 	private String active;
 	private String days;
 	private String description;
+	private String ringtone;
+	private String vibrate;
+
+	public String getRingtone() {
+		return ringtone;
+	}
+
+	public void setRingtone(String ringtone) {
+		this.ringtone = ringtone;
+	}
+
+
+	public String getVibrate() {
+		return vibrate;
+	}
+
+	public void setVibrate(String vibrate) {
+		this.vibrate = vibrate;
+	}
 
 	public long getId() {
 		return id;

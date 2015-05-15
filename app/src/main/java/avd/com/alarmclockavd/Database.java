@@ -16,6 +16,7 @@ public class Database extends SQLiteOpenHelper {
 	public static final String COLUMN_ACTIVE = "active";
 	public static final String COLUMN_DESCRIPTION = "description";
 	public static final String COLUMN_RINGTONE = "ringtone";
+	public static final String COLUMN_VIBRATE = "vibrate";
 
 	private static final String DATABASE_NAME = "alarms.db";
 	private static final int DATABASE_VERSION = 1;
@@ -29,7 +30,8 @@ public class Database extends SQLiteOpenHelper {
 					+ COLUMN_DAY + " text not null,"
 					+ COLUMN_ACTIVE + " text not null,"
 					+ COLUMN_DESCRIPTION + " text not null,"
-					+ COLUMN_RINGTONE + " text not null);";
+					+ COLUMN_RINGTONE + " text not null,"
+					+ COLUMN_VIBRATE + " text not null);";
 
 	public Database(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);

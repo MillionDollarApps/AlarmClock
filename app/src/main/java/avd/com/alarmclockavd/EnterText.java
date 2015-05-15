@@ -1,7 +1,10 @@
 package avd.com.alarmclockavd;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -19,10 +22,15 @@ public class EnterText extends Activity {
 		setTitle("Enter text!");
 		//cannot be canceled
 		setFinishOnTouchOutside(false);
+		Intent intent = getIntent();
+		String uri = intent.getStringExtra("uri");
 		//using mediaplayer to play alarm
-
-//		final MediaPlayer player = MediaPlayer.create(this, R.raw.salesleap);
+//		final MediaPlayer player = MediaPlayer.create(this, Uri.parse(uri));
 //		player.start();
+		final Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+		vibrator.vibrate(Integer.MAX_VALUE);
+
+
 		TextView randomText = (TextView) findViewById(R.id.randomTextView);
 		final EditText inputString = (EditText) findViewById(R.id.inputMatcherEditText);
 		final String random = generateRandom();
@@ -36,6 +44,7 @@ public class EnterText extends Activity {
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				if (inputString.getText().toString().equals(random)) {
 					finish();
+					vibrator.cancel();
 				}
 			}
 			@Override
