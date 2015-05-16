@@ -43,6 +43,11 @@ public class SetAlarmActivity extends Activity {
 	private String uri;
 	private String title;
 	private String vibrate;
+    private String hour;
+    private String minute;
+    private String ampm;
+    private String days;
+
 
 
 	//implementating cancelButtonListener
@@ -57,23 +62,42 @@ public class SetAlarmActivity extends Activity {
 	private View.OnClickListener confirmButtonListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			String minute;
-			String hour = (hourWheel.getCurrentItem() + 1) + "";
-			String ampm = ampmButton.isChecked() ? "PM" : "AM";
-			String days = getDaysOfWeek();
-			if (minuteWheel.getCurrentItem() < 10)
+            hour = (hourWheel.getCurrentItem() + 1) + "";
+            ampm = ampmButton.isChecked() ? "PM" : "AM";
+            days = getDaysOfWeek();
+            if (minuteWheel.getCurrentItem() < 10)
 				minute = "0" + minuteWheel.getCurrentItem() + "";
 			else
 				minute = minuteWheel.getCurrentItem() + "";
 			//initiate and open dataSource in order to create the alarm
 			dataSource = new AlarmsDataSource(getApplicationContext());
 			dataSource.open();
-			dataSource.createAlarm(hour, minute, ampm, days, " ", description.getText().toString(), uri == null ? " " : uri, vibrate == null ? " " : vibrate);
-			Toast.makeText(getApplicationContext(), days, Toast.LENGTH_LONG).show();
+            Alarm alarm = setAlarm();
+            dataSource.createAlarm(alarm);
+            Toast.makeText(getApplicationContext(), days, Toast.LENGTH_LONG).show();
 			dataSource.close();
 			finish();
 		}
 	};
+
+    private Alarm setAlarm() {
+        Alarm alarm = new Alarm();
+        alarm.setHour(hour);
+        alarm.setMinute(minute);
+        alarm.setAmpm(ampm);
+        alarm.setDays(days);
+        alarm.setActive(" ");
+        alarm.setDescription(description.getText().toString());
+        alarm.setRingtone(uri);
+        alarm.setVibrate(vibrate == null ? " " : vibrate);
+        return alarm;
+    }
+
+    private void setUpDefaultRingtone() {
+        title = getRingtones().keySet().toArray()[0].toString();
+        uri = getRingtones().get(title);
+        ringtoneTextView.setText("Default " + title);
+    }
 
 	//getters and setters to get around static concept
 	private View getView() {
@@ -85,10 +109,6 @@ public class SetAlarmActivity extends Activity {
 		this.view = view;
 	}
 
-
-	private void setUri(String uri) {
-		this.uri = uri;
-	}
 
 	private void playMediaPlayer(MediaPlayer mp) {
 		mp.reset();
@@ -102,11 +122,11 @@ public class SetAlarmActivity extends Activity {
 		mp.start();
 		System.out.println(mp.getDuration() * 1000);
 		mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-			@Override
-			public void onCompletion(MediaPlayer mp) {
-				mp.stop();
-			}
-		});
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.stop();
+            }
+        });
 
 	}
 
@@ -115,10 +135,6 @@ public class SetAlarmActivity extends Activity {
 		mp.release();
 	}
 
-
-	private void setTitle(String title) {
-		this.title = title;
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -153,11 +169,10 @@ public class SetAlarmActivity extends Activity {
 		ImageView cancelButton = (ImageView) findViewById(R.id.cancelButton);
 		description = (EditText) findViewById(R.id.editTextDescription);
 		ringtoneTextView = (TextView) findViewById(R.id.ringtoneTextView);
-
-		//setting buttons listeners
+        setUpDefaultRingtone();
+        //setting buttons listeners
 		confirmButton.setOnClickListener(confirmButtonListener);
 		cancelButton.setOnClickListener(cancelButtonListener);
-
 	}
 
 	private String getDaysOfWeek() {
@@ -190,13 +205,15 @@ public class SetAlarmActivity extends Activity {
 		final MediaPlayer mp = new MediaPlayer();
 		ImageView confirmButton = (ImageView) dialog.findViewById(R.id.confirmButton);
 		ImageView cancelButton = (ImageView) dialog.findViewById(R.id.cancelButton);
-		final ListView ringtoneListView = (ListView) dialog.findViewById(R.id.ringtoneListView);
+        //Setting up the listviews;
+        final ListView ringtoneListView = (ListView) dialog.findViewById(R.id.ringtoneListView);
 		ListView musicListView = (ListView) dialog.findViewById(R.id.musicListView);
 		final ArrayList<String> ringtoneList = new ArrayList<>(getRingtones().keySet());
 		final ArrayList<String> musicList = new ArrayList<>(getMusic().keySet());
 		ArrayAdapter<String> adapterRingtone = new ArrayAdapter<>(this, R.layout.choose_ringtone_row, R.id.rowTextView, ringtoneList);
 		ArrayAdapter<String> adapterMusic;
-		if (musicList.size() == 0) {
+        //set musicListView to display Empty or the music if it find any
+        if (musicList.size() == 0) {
 			adapterMusic = new ArrayAdapter<>(this, R.layout.choose_music_row, R.id.musicRowText, musicList);
 			musicListView.setAdapter(adapterMusic);
 			musicListView.setFocusable(false);
@@ -207,37 +224,45 @@ public class SetAlarmActivity extends Activity {
 			adapterMusic = new ArrayAdapter<>(this, R.layout.choose_ringtone_row, R.id.rowTextView, musicList);
 			//setting up adapters for listviews
 			musicListView.setAdapter(adapterMusic);
-			ringtoneListView.setAdapter(adapterRingtone);
 			//set up itemclicklisteners for listviews
 			musicListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					if (getView() != null) {
+                    //setting up the selection process for the listview
+                    if (getView() != null) {
 						getView().setSelected(false);
 						getView().setBackgroundResource(R.mipmap.back);
 						getView().setActivated(false);
 					}
 					setView(view);
-					String uri = getMusic().get(musicList.get(position));
-					setTitle(musicList.get(position));
-					setUri(uri);
-					playMediaPlayer(mp);
+                    //setting up the ringtone to be played
+                    uri = getMusic().get(musicList.get(position));
+                    //setting up the title to be displayed
+                    title = musicList.get(position);
+                    //starting media player to play the selected item
+                    playMediaPlayer(mp);
 				}
 			});
 		}
-		ringtoneListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //setting adapter for ringtoneListView
+        ringtoneListView.setAdapter(adapterRingtone);
+        //setting onItemClickListeners for the ringtoneListView
+        ringtoneListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if (getView() != null) {
+                //setting up the selection process for the listviews
+                if (getView() != null) {
 					getView().setSelected(false);
 					getView().setBackgroundResource(R.mipmap.back);
 					getView().setActivated(false);
 				}
 				setView(view);
-				String uri = getRingtones().get(ringtoneList.get(position));
-				setTitle(ringtoneList.get(position));
-				setUri(uri);
-				playMediaPlayer(mp);
+                //setting up the ringtone to be played
+                uri = getRingtones().get(ringtoneList.get(position));
+                //setting up the title to be displayed
+                title = ringtoneList.get(position);
+                //starting up media player to play the selected item
+                playMediaPlayer(mp);
 			}
 		});
 
@@ -245,9 +270,9 @@ public class SetAlarmActivity extends Activity {
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				stopMediaPlayer(mp);
-				ringtoneTextView.setText(title);
-				dialog.dismiss();
+                ringtoneTextView.setText(title);
+                stopMediaPlayer(mp);
+                dialog.dismiss();
 			}
 		});
 		cancelButton.setOnClickListener(new View.OnClickListener() {

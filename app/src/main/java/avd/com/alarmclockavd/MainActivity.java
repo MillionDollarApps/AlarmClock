@@ -29,8 +29,6 @@ public class MainActivity extends Activity {
         datasource.open();
         adapter = new AlarmListAdapter(getApplicationContext(), datasource.getAllAlarms());
         alarmList.setAdapter(adapter);
-
-
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

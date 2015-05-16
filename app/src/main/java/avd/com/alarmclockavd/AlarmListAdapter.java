@@ -23,13 +23,11 @@ import static java.lang.Integer.parseInt;
 
 public class AlarmListAdapter extends BaseAdapter {
 	private Context ctx;
-	private LayoutInflater inflater;
 	private List<Alarm> alarmList;
 	private AlarmsDataSource dataSource;
 
 	public AlarmListAdapter(Context context, List<Alarm> alarms){
 		ctx = context;
-		inflater = LayoutInflater.from(this.ctx);
 		alarmList = alarms;
 	}
 
@@ -76,12 +74,8 @@ public class AlarmListAdapter extends BaseAdapter {
 			public void onSwipeLeft() {
 				Intent intent = new Intent(ctx, SetAlarmActivity.class);
 				Alarm alarm = alarmList.get(position);
-				intent.putExtra("hour", alarm.getHour());
-				intent.putExtra("minute", alarm.getMinute());
-				intent.putExtra("ampm", alarm.getAmpm());
-				intent.putExtra("days", alarm.getDays());
-				intent.putExtra("id", alarm.getId());
-				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("alarm", alarm.getId());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				ctx.startActivity(intent);
 			}
 		});
@@ -129,7 +123,8 @@ public class AlarmListAdapter extends BaseAdapter {
 		}, anim.getDuration());
 	}
 
-	private void setViewHolderItems(int position, Holder viewHolder) {
+
+    private void setViewHolderItems(int position, Holder viewHolder) {
 		viewHolder.alarmTime.setText(alarmList.get(position).toString());
 		viewHolder.description.setText(alarmList.get(position).getDescription());
 		viewHolder.checkbox.setOnCheckedChangeListener(checkBoxListener(position));

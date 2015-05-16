@@ -1,6 +1,8 @@
 package avd.com.alarmclockavd;
 
 
+import static java.lang.Integer.parseInt;
+
 public class Alarm {
 	private long id;
 	private String hour;
@@ -90,5 +92,19 @@ public class Alarm {
 		return hour + " : " + minute + " " + ampm;
 	}
 
+
+    public int getTime() {
+        int hours = parseInt(hour);
+        int minutes = parseInt(minute);
+        int indicator = ampm.equals("AM") ? 0 : 1;
+        int time;
+        if (hours == 12 && indicator == 0)
+            time = minutes;
+        else if (hours < 12 && indicator == 1)
+            time = (hours + 12) * 60 + minutes;
+        else
+            time = hours * 60 + minutes;
+        return time;
+    }
 }
 

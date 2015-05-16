@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AlarmsDataSource {
@@ -31,45 +32,45 @@ public class AlarmsDataSource {
 		dbHelper.close();
 	}
 
-	public Alarm createAlarm(String hour, String minute, String ampm, String days, String active, String description, String ringtone, String vibrate) {
-		ContentValues values = new ContentValues();
-		values.put(Database.COLUMN_HOUR, hour);
-		values.put(Database.COLUMN_MINUTE, minute);
-		values.put(Database.COLUMN_AMPM, ampm);
-		values.put(Database.COLUMN_DAY, days);
-		values.put(Database.COLUMN_ACTIVE, active);
-		values.put(Database.COLUMN_DESCRIPTION, description);
-		values.put(Database.COLUMN_RINGTONE, ringtone);
-		values.put(Database.COLUMN_VIBRATE, vibrate);
-		long insertId = database.insert(Database.TABLE_ALARM, null,
+    public Alarm createAlarm(Alarm alarm) {
+        ContentValues values = new ContentValues();
+        values.put(Database.COLUMN_HOUR, alarm.getHour());
+        values.put(Database.COLUMN_MINUTE, alarm.getMinute());
+        values.put(Database.COLUMN_AMPM, alarm.getAmpm());
+        values.put(Database.COLUMN_DAY, alarm.getDays());
+        values.put(Database.COLUMN_ACTIVE, alarm.getActive());
+        values.put(Database.COLUMN_DESCRIPTION, alarm.getDescription());
+        values.put(Database.COLUMN_RINGTONE, alarm.getRingtone());
+        values.put(Database.COLUMN_VIBRATE, alarm.getVibrate());
+        long insertId = database.insert(Database.TABLE_ALARM, null,
 				values);
 		Cursor cursor = database.query(Database.TABLE_ALARM,
 				allColumns, Database.COLUMN_ID + " = " + insertId, null,
 				null, null, null);
-		cursor.moveToFirst();
-		Alarm newAlarm = cursorToAlarm(cursor);
-		cursor.close();
-		return newAlarm;
-	}
+//		cursor.moveToFirst();
+//		Alarm newAlarm = cursorToAlarm(cursor);
+//		cursor.close();
+        return alarm;
+    }
 
 	public void deleteAlarm(Alarm alarm) {
 		long id = alarm.getId();
 		System.out.println("Alarm deleted with id: " + id);
 		database.delete(Database.TABLE_ALARM, Database.COLUMN_ID
-				+ " = " + id, null);
-	}
+                + " = " + id, null);
+    }
 
-	public void update(Alarm alarm, String hour, String minute, String ampm, String days, String description, String ringtone, String vibrate) {
-		long id = alarm.getId();
+    public void update(Alarm alarm) {
+        long id = alarm.getId();
 		ContentValues values = new ContentValues();
-		values.put(Database.COLUMN_HOUR, hour);
-		values.put(Database.COLUMN_MINUTE, minute);
-		values.put(Database.COLUMN_AMPM, ampm);
-		values.put(Database.COLUMN_DAY, days);
-		values.put(Database.COLUMN_DESCRIPTION, description);
-		values.put(Database.COLUMN_RINGTONE, ringtone);
-		values.put(Database.COLUMN_VIBRATE, vibrate);
-		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
+        values.put(Database.COLUMN_HOUR, alarm.getHour());
+        values.put(Database.COLUMN_MINUTE, alarm.getMinute());
+        values.put(Database.COLUMN_AMPM, alarm.getAmpm());
+        values.put(Database.COLUMN_DAY, alarm.getDays());
+        values.put(Database.COLUMN_DESCRIPTION, alarm.getDescription());
+        values.put(Database.COLUMN_RINGTONE, alarm.getRingtone());
+        values.put(Database.COLUMN_VIBRATE, alarm.getVibrate());
+        database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
 	}
 
 
@@ -88,8 +89,9 @@ public class AlarmsDataSource {
 			Alarm alarm = cursorToAlarm(cursor);
 			alarms.add(alarm);
 		}
-		cursor.close();
-		return alarms;
+        Collections.sort(alarms, new TimeComparator());
+        cursor.close();
+        return alarms;
 	}
 
 	public Alarm getAlarm(long id) {
