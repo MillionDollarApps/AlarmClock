@@ -3,6 +3,8 @@ package avd.com.alarmclockavd;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.Editable;
@@ -23,14 +25,15 @@ public class EnterText extends Activity {
 		//cannot be canceled
 		setFinishOnTouchOutside(false);
 		Intent intent = getIntent();
-		String uri = intent.getStringExtra("uri");
+		String uri = intent.getStringExtra ("uri");
+		String vibrate = intent.getStringExtra ("vibrate");
 		//using mediaplayer to play alarm
-//		final MediaPlayer player = MediaPlayer.create(this, Uri.parse(uri));
-//		player.start();
+		final MediaPlayer player = MediaPlayer.create (this, Uri.parse (uri));
+		player.start ();
 		final Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-		vibrator.vibrate(Integer.MAX_VALUE);
-
-
+		if (vibrate.equals ("vibrate")) {
+			vibrator.vibrate (Integer.MAX_VALUE);
+		}
 		TextView randomText = (TextView) findViewById(R.id.randomTextView);
 		final EditText inputString = (EditText) findViewById(R.id.inputMatcherEditText);
 		final String random = generateRandom();
@@ -44,6 +47,8 @@ public class EnterText extends Activity {
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				if (inputString.getText().toString().equals(random)) {
 					finish();
+					player.stop ();
+					player.release ();
 					vibrator.cancel();
 				}
 			}
@@ -68,4 +73,9 @@ public class EnterText extends Activity {
 //		this.finishFromChild(this);
 	}
 
+
+	@Override
+	public void onBackPressed () {
+
+	}
 }

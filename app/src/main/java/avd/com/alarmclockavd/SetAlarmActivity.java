@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class SetAlarmActivity extends Activity {
     private String ampm;
     private String days;
     private Cursor cursor;
+	private LinearLayout ringtoneLayout;
 
 
 
@@ -55,8 +57,7 @@ public class SetAlarmActivity extends Activity {
 	private View.OnClickListener cancelButtonListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-//			finish();
-			dialogRingtonePicker();
+			finish ();
 		}
 	};
 	//implementing confirmButtonListener
@@ -81,6 +82,13 @@ public class SetAlarmActivity extends Activity {
 		}
 	};
 
+	private View.OnClickListener ringtoneListener = new View.OnClickListener () {
+		@Override
+		public void onClick (View v) {
+			dialogRingtonePicker ();
+		}
+	};
+
     private Alarm setAlarm() {
         Alarm alarm = new Alarm();
         alarm.setHour(hour);
@@ -90,86 +98,103 @@ public class SetAlarmActivity extends Activity {
         alarm.setActive(" ");
         alarm.setDescription(description.getText().toString());
         alarm.setRingtone(getRingtones().get(title[0]));
-        alarm.setVibrate(vibrate == null ? " " : vibrate);
+	    alarm.setTitle (title[0]);
+	    alarm.setVibrate(vibrate == null ? " " : vibrate);
         return alarm;
     }
 
-
-	//getters and setters to get around static concept
-	private View getView() {
-		return view;
-	}
-
-	private void setView(View view) {
-		view.setBackgroundResource(R.drawable.selector_ringtone);
-		this.view = view;
-	}
-
-
-	private void playMediaPlayer(MediaPlayer mp) {
-		mp.reset();
-		try {
-			mp.setDataSource(getApplicationContext(), Uri.parse(uri));
-			mp.prepare();
-		} catch (IOException e) {
-			e.printStackTrace();
+	private LinkedHashMap<String, String> getRingtones () {
+		LinkedHashMap<String, String> ringtone = new LinkedHashMap<> ();
+		RingtoneManager manager = new RingtoneManager (this);
+		cursor = manager.getCursor ();
+		while (cursor.moveToNext ()) {
+			ringtone.put (cursor.getString (1), cursor.getString (2) + "/" + cursor.getString (0));
 		}
-		mp.setLooping(false);
-		mp.start();
-		System.out.println(mp.getDuration() * 1000);
-		mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.stop();
-            }
-        });
-
+		return ringtone;
 	}
-
-	private void stopMediaPlayer(MediaPlayer mp) {
-		mp.stop();
-		mp.release();
-	}
-
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.set_alarm);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	protected void onCreate (Bundle savedInstanceState) {
+		super.onCreate (savedInstanceState);
+		setContentView (R.layout.set_alarm);
+		setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		//initiates the Views of this activity
-		initiateViews();
+		initiateViews ();
 		//setHour, setMinute wheels configuration
-		hourWheel.setCyclic(true);
-		hourWheel.setVisibleItems(4);
-		hourWheel.setViewAdapter(new NumericWheelAdapter(this, 1, 12));
-		hourWheel.setCurrentItem(0);
-		minuteWheel.setCyclic(true);
-		minuteWheel.setVisibleItems(4);
+		hourWheel.setCyclic (true);
+		hourWheel.setVisibleItems (4);
+		hourWheel.setViewAdapter (new NumericWheelAdapter (this, 1, 12));
+		hourWheel.setCurrentItem (0);
+		minuteWheel.setCyclic (true);
+		minuteWheel.setVisibleItems (4);
 		String[] minutes = new String[60];
-		for (int i = 0; i < minutes.length; i++)
-			if (i < 10)
+		for (int i = 0; i < minutes.length; i++) {
+			if (i < 10) {
 				minutes[i] = "0" + i;
-			else
+			} else {
 				minutes[i] = i + "";
-		minuteWheel.setViewAdapter(new ArrayWheelAdapter<>(getApplicationContext(), minutes));
-		minuteWheel.setCurrentItem(0);
+			}
+		}
+		minuteWheel.setViewAdapter (new ArrayWheelAdapter<> (getApplicationContext (), minutes));
+		minuteWheel.setCurrentItem (0);
 	}
 
-	private void initiateViews() {
-        title = new String[]{getRingtones().keySet().toArray()[0].toString(), null};
-        //instantiating widgets
-        hourWheel = (WheelView) findViewById(R.id.hourWheel);
-        minuteWheel = (WheelView) findViewById(R.id.minuteWheel);
-		ampmButton = (ToggleButton) findViewById(R.id.ampmToggleButton);
-		ImageView confirmButton = (ImageView) findViewById(R.id.confirmButton);
-		ImageView cancelButton = (ImageView) findViewById(R.id.cancelButton);
-		description = (EditText) findViewById(R.id.editTextDescription);
-		ringtoneTextView = (TextView) findViewById(R.id.ringtoneTextView);
-        ringtoneTextView.setText(title[0]);
-        //setting buttons listeners
-		confirmButton.setOnClickListener(confirmButtonListener);
-		cancelButton.setOnClickListener(cancelButtonListener);
+	private void initiateViews () {
+		title = new String[] {getRingtones ().keySet ().toArray ()[0].toString (), null};
+		//instantiating widgets
+		hourWheel = (WheelView) findViewById (R.id.hourWheel);
+		minuteWheel = (WheelView) findViewById (R.id.minuteWheel);
+		ampmButton = (ToggleButton) findViewById (R.id.ampmToggleButton);
+		ImageView confirmButton = (ImageView) findViewById (R.id.confirmButton);
+		ImageView cancelButton = (ImageView) findViewById (R.id.cancelButton);
+		description = (EditText) findViewById (R.id.editTextDescription);
+		ringtoneLayout = (LinearLayout) findViewById (R.id.ringtoneLayout);
+		ringtoneTextView = (TextView) findViewById (R.id.ringtoneTextView);
+		ringtoneTextView.setText (title[0]);
+
+		//setting buttons listeners
+		confirmButton.setOnClickListener (confirmButtonListener);
+		cancelButton.setOnClickListener (cancelButtonListener);
+		ringtoneLayout.setOnClickListener (ringtoneListener);
+	}
+
+	@Override
+	protected void onResume () {
+		super.onResume ();
+	}
+
+	@Override
+	protected void onPause () {
+		super.onPause ();
+
+	}
+
+	@Override
+	protected void onDestroy () {
+		super.onDestroy ();
+		cursor.close ();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu (Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater ().inflate (R.menu.menu_main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected (MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId ();
+
+		//noinspection SimplifiableIfStatement
+		if (id == R.id.action_settings) {
+			return true;
+		}
+
+		return super.onOptionsItemSelected (item);
 	}
 
 	private String getDaysOfWeek() {
@@ -279,16 +304,6 @@ public class SetAlarmActivity extends Activity {
         dialog.show();
 	}
 
-	private LinkedHashMap<String, String> getRingtones() {
-		LinkedHashMap<String, String> ringtone = new LinkedHashMap<>();
-		RingtoneManager manager = new RingtoneManager(this);
-        cursor = manager.getCursor();
-        while (cursor.moveToNext()) {
-			ringtone.put(cursor.getString(1), cursor.getString(2) + "/" + cursor.getString(0));
-		}
-		return ringtone;
-	}
-
 	private LinkedHashMap<String, String> getMusic() {
 		LinkedHashMap<String, String> music = new LinkedHashMap<>();
 		ContentResolver musicResolver = getContentResolver();
@@ -308,42 +323,38 @@ public class SetAlarmActivity extends Activity {
 
 	}
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        cursor.close();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-
-    }
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-		return true;
+	//getters and setters to get around static concept
+	private View getView () {
+		return view;
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
+	private void setView (View view) {
+		view.setBackgroundResource (R.drawable.selector_ringtone);
+		this.view = view;
+	}
 
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			return true;
+	private void playMediaPlayer (MediaPlayer mp) {
+		mp.reset ();
+		try {
+			mp.setDataSource (getApplicationContext (), Uri.parse (uri));
+			mp.prepare ();
+		} catch (IOException e) {
+			e.printStackTrace ();
 		}
+		mp.setLooping (false);
+		mp.start ();
+		System.out.println (mp.getDuration () * 1000);
+		mp.setOnCompletionListener (new MediaPlayer.OnCompletionListener () {
+			@Override
+			public void onCompletion (MediaPlayer mp) {
+				mp.stop ();
+			}
+		});
 
-		return super.onOptionsItemSelected(item);
+	}
+
+	private void stopMediaPlayer (MediaPlayer mp) {
+		mp.stop ();
+		mp.release ();
 	}
 }

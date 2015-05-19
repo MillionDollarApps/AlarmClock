@@ -12,12 +12,11 @@ import static java.lang.Integer.parseInt;
 public class AlarmReceiver extends BroadcastReceiver {
 
     private AlarmsDataSource dataSource;
-    private long id;
     private Calendar cal;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        id = intent.getExtras().getLong("requestCode");
+        long id = intent.getExtras ().getLong ("requestCode");
         boolean oneTime = intent.getExtras().getBoolean("oneTime");
         System.out.println("onetime" + oneTime);
         dataSource = new AlarmsDataSource(context);
@@ -26,24 +25,41 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (oneTime) {
             dataSource.updateActive(id, " ");
             System.out.println("onetime");
-            adapter.refreshList(dataSource.getAllAlarms());
+            adapter.refreshList (dataSource.getAllAlarms ());
             Intent isnt = new Intent(context, EnterText.class);
-            isnt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            isnt.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra ("uri", dataSource.getAlarm (id).getRingtone ());
+            intent.putExtra ("vibrate", dataSource.getAlarm (id).getVibrate ());
             context.startActivity(isnt);
         } else {
-            setAlarm();
+            setAlarm (id);
             System.out.println("repeating");
             if (System.currentTimeMillis() == cal.getTimeInMillis()) {
-                Intent isnt = new Intent(context, EnterText.class);
+                Intent isnt = new Intent (context, EnterText.class);
                 isnt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra ("uri", dataSource.getAlarm (id).getRingtone ());
+                intent.putExtra ("vibrate", dataSource.getAlarm (id).getVibrate ());
                 context.startActivity(isnt);
             }
         }
         dataSource.close();
     }
 
-    private void setCalendar(int day) {
+    private void setAlarm (long id) {
         Alarm alarm = dataSource.getAlarm(id);
+        for (int i = 0; i < alarm.getDays ().length (); i++) {
+            int day = parseInt (alarm.getDays ().charAt (i) + "");
+            System.out.println (day);
+            System.out.println (Calendar.getInstance ().get (Calendar.DAY_OF_WEEK) + "asd");
+            if (Calendar.getInstance ().get (Calendar.DAY_OF_WEEK) == day) {
+                setCalendar (day, alarm);
+                break;
+            }
+
+        }
+    }
+
+    private void setCalendar (int day, Alarm alarm) {
         cal = Calendar.getInstance();
         cal.set(Calendar.HOUR, parseInt(alarm.getHour()));
         cal.set(Calendar.MINUTE, parseInt(alarm.getMinute()));
@@ -51,19 +67,5 @@ public class AlarmReceiver extends BroadcastReceiver {
         cal.set(Calendar.DAY_OF_WEEK, day);
         if (System.currentTimeMillis() > cal.getTimeInMillis())
             cal.set(Calendar.WEEK_OF_MONTH, Calendar.WEEK_OF_MONTH + 1);
-    }
-
-    private void setAlarm() {
-        Alarm alarm = dataSource.getAlarm(id);
-        for (int i = 0; i < alarm.getDays().length(); i++) {
-            int day = parseInt(alarm.getDays().charAt(i) + "");
-            System.out.println(day);
-            System.out.println(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) + "asd");
-            if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == day) {
-                setCalendar(day);
-                break;
-            }
-
-        }
     }
 }

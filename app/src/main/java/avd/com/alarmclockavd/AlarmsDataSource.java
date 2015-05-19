@@ -18,7 +18,7 @@ public class AlarmsDataSource {
 	private String[] allColumns = { Database.COLUMN_ID,
 			Database.COLUMN_HOUR, Database.COLUMN_MINUTE, Database.COLUMN_AMPM,
 			Database.COLUMN_DAY, Database.COLUMN_ACTIVE, Database.COLUMN_DESCRIPTION,
-			Database.COLUMN_RINGTONE, Database.COLUMN_VIBRATE};
+			Database.COLUMN_RINGTONE, Database.COLUMN_VIBRATE, Database.COLUMN_TITLE};
 
 	public AlarmsDataSource(Context context) {
 		dbHelper = new Database(context);
@@ -42,22 +42,38 @@ public class AlarmsDataSource {
         values.put(Database.COLUMN_DESCRIPTION, alarm.getDescription());
         values.put(Database.COLUMN_RINGTONE, alarm.getRingtone());
         values.put(Database.COLUMN_VIBRATE, alarm.getVibrate());
-        long insertId = database.insert(Database.TABLE_ALARM, null,
+	    values.put (Database.COLUMN_TITLE, alarm.getTitle ());
+	    long insertId = database.insert(Database.TABLE_ALARM, null,
 				values);
 		Cursor cursor = database.query(Database.TABLE_ALARM,
 				allColumns, Database.COLUMN_ID + " = " + insertId, null,
 				null, null, null);
-//		cursor.moveToFirst();
-//		Alarm newAlarm = cursorToAlarm(cursor);
-//		cursor.close();
+	    cursor.moveToFirst ();
+	    Alarm newAlarm = cursorToAlarm (cursor);
+	    cursor.close ();
         return alarm;
     }
 
+	private Alarm cursorToAlarm (Cursor cursor) {
+		Alarm alarm = new Alarm ();
+		alarm.setId (cursor.getLong (0));
+		alarm.setHour (cursor.getString (1));
+		alarm.setMinute (cursor.getString (2));
+		alarm.setAmpm (cursor.getString (3));
+		alarm.setDays (cursor.getString (4));
+		alarm.setActive (cursor.getString (5));
+		alarm.setDescription (cursor.getString (6));
+		alarm.setRingtone (cursor.getString (7));
+		alarm.setVibrate (cursor.getString (8));
+		alarm.setTitle (cursor.getString (9));
+		return alarm;
+	}
+
 	public void deleteAlarm(Alarm alarm) {
 		long id = alarm.getId();
-		System.out.println("Alarm deleted with id: " + id);
-		database.delete(Database.TABLE_ALARM, Database.COLUMN_ID
-                + " = " + id, null);
+		System.out.println ("Alarm deleted with id: " + id);
+		database.delete (Database.TABLE_ALARM, Database.COLUMN_ID
+				+ " = " + id, null);
     }
 
     public void update(Alarm alarm) {
@@ -70,16 +86,15 @@ public class AlarmsDataSource {
         values.put(Database.COLUMN_DESCRIPTION, alarm.getDescription());
         values.put(Database.COLUMN_RINGTONE, alarm.getRingtone());
         values.put(Database.COLUMN_VIBRATE, alarm.getVibrate());
-        database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
+	    values.put (Database.COLUMN_TITLE, alarm.getTitle ());
+	    database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
 	}
-
 
 	public void updateActive(long id, String active) {
 		ContentValues values = new ContentValues();
-		values.put(Database.COLUMN_ACTIVE, active);
-		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
+		values.put (Database.COLUMN_ACTIVE, active);
+		database.update (Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
 	}
-
 
 	public List<Alarm> getAllAlarms() {
 		List<Alarm> alarms = new ArrayList<>();
@@ -90,28 +105,15 @@ public class AlarmsDataSource {
 			alarms.add(alarm);
 		}
         Collections.sort(alarms, new TimeComparator());
-        cursor.close();
+        cursor.close ();
         return alarms;
 	}
 
 	public Alarm getAlarm(long id) {
 		Cursor cursor = database.query(Database.TABLE_ALARM,
 				allColumns, Database.COLUMN_ID + "=" + id, null, null, null, null);
-		cursor.moveToFirst();
+		cursor.moveToFirst ();
 		return cursorToAlarm(cursor);
-	}
-	private Alarm cursorToAlarm(Cursor cursor) {
-		Alarm alarm = new Alarm();
-		alarm.setId(cursor.getLong(0));
-		alarm.setHour(cursor.getString(1));
-		alarm.setMinute(cursor.getString(2));
-		alarm.setAmpm(cursor.getString(3));
-		alarm.setDays(cursor.getString(4));
-		alarm.setActive(cursor.getString(5));
-		alarm.setDescription(cursor.getString(6));
-		alarm.setRingtone(cursor.getString(7));
-		alarm.setVibrate(cursor.getString(8));
-		return alarm;
 	}
 }
 
