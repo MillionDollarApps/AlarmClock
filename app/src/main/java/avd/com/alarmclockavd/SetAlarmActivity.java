@@ -37,19 +37,17 @@ public class SetAlarmActivity extends Activity {
 	private WheelView hourWheel;
 	private WheelView minuteWheel;
 	private ToggleButton ampmButton;
-	private AlarmsDataSource dataSource;
 	private EditText description;
 	private TextView ringtoneTextView;
 	private View view;
 	private String uri;
     private String[] title;
-    private String vibrate;
     private String hour;
     private String minute;
     private String ampm;
     private String days;
     private Cursor cursor;
-	private LinearLayout ringtoneLayout;
+	private ToggleButton vibrate;
 
 
 
@@ -72,8 +70,8 @@ public class SetAlarmActivity extends Activity {
 			else
 				minute = minuteWheel.getCurrentItem() + "";
 			//initiate and open dataSource in order to create the alarm
-            dataSource = new AlarmsDataSource(getApplicationContext());
-            dataSource.open();
+			AlarmsDataSource dataSource = new AlarmsDataSource (getApplicationContext ());
+			dataSource.open();
             Alarm alarm = setAlarm();
             dataSource.createAlarm(alarm);
             dataSource.close();
@@ -91,16 +89,16 @@ public class SetAlarmActivity extends Activity {
 
     private Alarm setAlarm() {
         Alarm alarm = new Alarm();
-        alarm.setHour(hour);
-        alarm.setMinute(minute);
-        alarm.setAmpm(ampm);
-        alarm.setDays(days);
-        alarm.setActive(" ");
-        alarm.setDescription(description.getText().toString());
-        alarm.setRingtone(getRingtones().get(title[0]));
+	    alarm.setHour (hour);
+	    alarm.setMinute (minute);
+	    alarm.setAmpm (ampm);
+	    alarm.setDays (days);
+	    alarm.setActive (" ");
+	    alarm.setDescription (description.getText ().toString ());
+	    alarm.setRingtone (getRingtones ().get (title[0]) == null ? getMusic ().get (title[0]) : getRingtones ().get (title[0]));
 	    alarm.setTitle (title[0]);
-	    alarm.setVibrate(vibrate == null ? " " : vibrate);
-        return alarm;
+	    alarm.setVibrate (vibrate.isChecked () ? " " : "vibrate");
+	    return alarm;
     }
 
 	private LinkedHashMap<String, String> getRingtones () {
@@ -111,6 +109,25 @@ public class SetAlarmActivity extends Activity {
 			ringtone.put (cursor.getString (1), cursor.getString (2) + "/" + cursor.getString (0));
 		}
 		return ringtone;
+	}
+
+	private LinkedHashMap<String, String> getMusic () {
+		LinkedHashMap<String, String> music = new LinkedHashMap<> ();
+		ContentResolver musicResolver = getContentResolver ();
+		Uri musicUri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+		Cursor cursor = musicResolver.query (musicUri, null, null, null, "title ASC");
+		if (cursor != null && cursor.moveToFirst ()) {
+			int titleColumn = cursor.getColumnIndex (android.provider.MediaStore.Audio.Media.TITLE);
+			do {
+				music.put (cursor.getString (titleColumn), musicUri + "/" + cursor.getString (0));
+			}
+			while (cursor.moveToNext ());
+		}
+		if (cursor != null) {
+			cursor.close ();
+		}
+		return music;
+
 	}
 
 	@Override
@@ -148,9 +165,10 @@ public class SetAlarmActivity extends Activity {
 		ImageView confirmButton = (ImageView) findViewById (R.id.confirmButton);
 		ImageView cancelButton = (ImageView) findViewById (R.id.cancelButton);
 		description = (EditText) findViewById (R.id.editTextDescription);
-		ringtoneLayout = (LinearLayout) findViewById (R.id.ringtoneLayout);
+		LinearLayout ringtoneLayout = (LinearLayout) findViewById (R.id.ringtoneLayout);
 		ringtoneTextView = (TextView) findViewById (R.id.ringtoneTextView);
 		ringtoneTextView.setText (title[0]);
+		vibrate = (ToggleButton) findViewById (R.id.vibrateToogle);
 
 		//setting buttons listeners
 		confirmButton.setOnClickListener (confirmButtonListener);
@@ -302,25 +320,6 @@ public class SetAlarmActivity extends Activity {
             }
         });
         dialog.show();
-	}
-
-	private LinkedHashMap<String, String> getMusic() {
-		LinkedHashMap<String, String> music = new LinkedHashMap<>();
-		ContentResolver musicResolver = getContentResolver();
-		Uri musicUri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-		Cursor cursor = musicResolver.query(musicUri, null, null, null, "title ASC");
-		if (cursor != null && cursor.moveToFirst()) {
-			int titleColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
-			do {
-				music.put(cursor.getString(titleColumn), musicUri + "/" + cursor.getString(0));
-			}
-			while (cursor.moveToNext());
-		}
-		if (cursor != null) {
-			cursor.close();
-		}
-		return music;
-
 	}
 
 	//getters and setters to get around static concept

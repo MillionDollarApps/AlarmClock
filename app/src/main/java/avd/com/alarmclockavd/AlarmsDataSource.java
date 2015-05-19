@@ -45,13 +45,13 @@ public class AlarmsDataSource {
 	    values.put (Database.COLUMN_TITLE, alarm.getTitle ());
 	    long insertId = database.insert(Database.TABLE_ALARM, null,
 				values);
-		Cursor cursor = database.query(Database.TABLE_ALARM,
+	    Cursor cursor = database.query (Database.TABLE_ALARM,
 				allColumns, Database.COLUMN_ID + " = " + insertId, null,
 				null, null, null);
 	    cursor.moveToFirst ();
 	    Alarm newAlarm = cursorToAlarm (cursor);
 	    cursor.close ();
-        return alarm;
+	    return newAlarm;
     }
 
 	private Alarm cursorToAlarm (Cursor cursor) {

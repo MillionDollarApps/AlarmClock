@@ -192,6 +192,7 @@
             android:layout_weight="1">
 
             <ToggleButton
+	            android:id="@+id/vibrateToogle"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/toggle_button"

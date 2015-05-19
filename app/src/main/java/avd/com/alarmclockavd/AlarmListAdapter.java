@@ -68,8 +68,8 @@ public class AlarmListAdapter extends BaseAdapter {
 			public void onSwipeLeft () {
 				Intent intent = new Intent (ctx, SetAlarmActivity.class);
 				Alarm alarm = alarmList.get (position);
-				intent.putExtra("alarm", alarm.getId());
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.putExtra ("id", alarm.getId ());
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				ctx.startActivity (intent);
 			}
 		});

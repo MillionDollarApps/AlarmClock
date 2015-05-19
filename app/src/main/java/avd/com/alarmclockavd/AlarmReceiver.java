@@ -26,20 +26,20 @@ public class AlarmReceiver extends BroadcastReceiver {
             dataSource.updateActive(id, " ");
             System.out.println("onetime");
             adapter.refreshList (dataSource.getAllAlarms ());
-            Intent isnt = new Intent(context, EnterText.class);
-            isnt.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra ("uri", dataSource.getAlarm (id).getRingtone ());
-            intent.putExtra ("vibrate", dataSource.getAlarm (id).getVibrate ());
-            context.startActivity(isnt);
+	        Intent alarm = new Intent (context, EnterText.class);
+	        alarm.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
+	        alarm.putExtra ("uri", dataSource.getAlarm (id).getRingtone ());
+	        alarm.putExtra ("vibrate", dataSource.getAlarm (id).getVibrate ());
+	        context.startActivity (alarm);
         } else {
             setAlarm (id);
             System.out.println("repeating");
             if (System.currentTimeMillis() == cal.getTimeInMillis()) {
-                Intent isnt = new Intent (context, EnterText.class);
-                isnt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra ("uri", dataSource.getAlarm (id).getRingtone ());
-                intent.putExtra ("vibrate", dataSource.getAlarm (id).getVibrate ());
-                context.startActivity(isnt);
+	            Intent alarm = new Intent (context, EnterText.class);
+	            alarm.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
+	            alarm.putExtra ("uri", dataSource.getAlarm (id).getRingtone ());
+	            alarm.putExtra ("vibrate", dataSource.getAlarm (id).getVibrate ());
+	            context.startActivity (alarm);
             }
         }
         dataSource.close();
