@@ -71,8 +71,8 @@ public class SetAlarmActivity extends Activity {
 				minute = minuteWheel.getCurrentItem() + "";
 			//initiate and open dataSource in order to create the alarm
 			AlarmsDataSource dataSource = new AlarmsDataSource (getApplicationContext ());
-			dataSource.open();
-            Alarm alarm = setAlarm();
+			dataSource.open ();
+			Alarm alarm = setAlarm();
             dataSource.createAlarm(alarm);
             dataSource.close();
             Toast.makeText(getApplicationContext(), days, Toast.LENGTH_LONG).show();

@@ -31,7 +31,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 	        alarm.putExtra ("uri", dataSource.getAlarm (id).getRingtone ());
 	        alarm.putExtra ("vibrate", dataSource.getAlarm (id).getVibrate ());
 	        context.startActivity (alarm);
-        } else {
+	    } else {
             setAlarm (id);
             System.out.println("repeating");
             if (System.currentTimeMillis() == cal.getTimeInMillis()) {
@@ -40,7 +40,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 	            alarm.putExtra ("uri", dataSource.getAlarm (id).getRingtone ());
 	            alarm.putExtra ("vibrate", dataSource.getAlarm (id).getVibrate ());
 	            context.startActivity (alarm);
-            }
+	        }
         }
         dataSource.close();
     }
