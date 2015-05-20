@@ -3,14 +3,13 @@ package avd.com.alarmclockavd;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -31,6 +30,8 @@ import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import kankan.wheel.widget.adapters.NumericWheelAdapter;
 
+import static java.lang.Integer.parseInt;
+
 
 public class SetAlarmActivity extends Activity {
 
@@ -40,14 +41,17 @@ public class SetAlarmActivity extends Activity {
 	private EditText description;
 	private TextView ringtoneTextView;
 	private View view;
-	private String uri;
     private String[] title;
-    private String hour;
-    private String minute;
-    private String ampm;
-    private String days;
     private Cursor cursor;
 	private ToggleButton vibrate;
+	private ToggleButton sun;
+	private ToggleButton mon;
+	private ToggleButton tues;
+	private ToggleButton weds;
+	private ToggleButton thurs;
+	private ToggleButton fri;
+	private ToggleButton sat;
+	private Bundle extras;
 
 
 
@@ -62,20 +66,17 @@ public class SetAlarmActivity extends Activity {
 	private View.OnClickListener confirmButtonListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-            hour = (hourWheel.getCurrentItem() + 1) + "";
-            ampm = ampmButton.isChecked() ? "PM" : "AM";
-            days = getDaysOfWeek();
-            if (minuteWheel.getCurrentItem() < 10)
-				minute = "0" + minuteWheel.getCurrentItem() + "";
-			else
-				minute = minuteWheel.getCurrentItem() + "";
 			//initiate and open dataSource in order to create the alarm
+			Alarm alarm = getAlarm ();
 			AlarmsDataSource dataSource = new AlarmsDataSource (getApplicationContext ());
 			dataSource.open ();
-			Alarm alarm = setAlarm();
-            dataSource.createAlarm(alarm);
-            dataSource.close();
-            Toast.makeText(getApplicationContext(), days, Toast.LENGTH_LONG).show();
+			if (extras != null) {
+				dataSource.updateAlarm (alarm);
+			} else {
+				dataSource.createAlarm (alarm);
+			}
+			dataSource.close();
+			Toast.makeText (getApplicationContext (), getDaysOfWeek (), Toast.LENGTH_LONG).show ();
 			finish();
 		}
 	};
@@ -87,19 +88,70 @@ public class SetAlarmActivity extends Activity {
 		}
 	};
 
-    private Alarm setAlarm() {
-        Alarm alarm = new Alarm();
-	    alarm.setHour (hour);
-	    alarm.setMinute (minute);
-	    alarm.setAmpm (ampm);
-	    alarm.setDays (days);
-	    alarm.setActive (" ");
+	private Alarm getAlarm () {
+		int minute = minuteWheel.getCurrentItem ();
+		Alarm alarm = new Alarm();
+		if (extras != null) {
+			alarm.setId (extras.getLong ("id"));
+		}
+		alarm.setHour ((hourWheel.getCurrentItem () + 1) + "");
+		alarm.setMinute (minute < 10 ? "0" + minute : minute + "");
+		alarm.setAmpm (ampmButton.isChecked () ? "PM" : "AM");
+		alarm.setDays (getDaysOfWeek ());
+		alarm.setActive (" ");
 	    alarm.setDescription (description.getText ().toString ());
-	    alarm.setRingtone (getRingtones ().get (title[0]) == null ? getMusic ().get (title[0]) : getRingtones ().get (title[0]));
-	    alarm.setTitle (title[0]);
-	    alarm.setVibrate (vibrate.isChecked () ? " " : "vibrate");
-	    return alarm;
+		alarm.setRingtone (getUri ());
+		alarm.setTitle (title[0]);
+		alarm.setVibrate (vibrate.isChecked () ? "vibrate" : " ");
+		return alarm;
     }
+
+	private String getDaysOfWeek () {
+		StringBuilder daysOfWeek = new StringBuilder ();
+		daysOfWeek.append (sun.isChecked () ? "1" : "");
+		daysOfWeek.append (mon.isChecked () ? "2" : "");
+		daysOfWeek.append (tues.isChecked () ? "3" : "");
+		daysOfWeek.append (weds.isChecked () ? "4" : "");
+		daysOfWeek.append (thurs.isChecked () ? "5" : "");
+		daysOfWeek.append (fri.isChecked () ? "6" : "");
+		daysOfWeek.append (sat.isChecked () ? "7" : "");
+		if (daysOfWeek.length () == 0) {
+			daysOfWeek.append ("0");
+		}
+		return daysOfWeek.toString ();
+	}
+
+	private void setDaysOfWeek (String days) {
+		for (int i = 0; i < days.length (); i++) {
+			switch (parseInt (days.charAt (i) + "")) {
+				case 1:
+					sun.setChecked (true);
+					break;
+				case 2:
+					mon.setChecked (true);
+					break;
+				case 3:
+					tues.setChecked (true);
+					break;
+				case 4:
+					weds.setChecked (true);
+					break;
+				case 5:
+					thurs.setChecked (true);
+					break;
+				case 6:
+					fri.setChecked (true);
+					break;
+				case 7:
+					sat.setChecked (true);
+					break;
+			}
+		}
+	}
+
+	private String getUri () {
+		return getRingtones ().get (title[0]) == null ? getMusic ().get (title[0]) : getRingtones ().get (title[0]);
+	}
 
 	private LinkedHashMap<String, String> getRingtones () {
 		LinkedHashMap<String, String> ringtone = new LinkedHashMap<> ();
@@ -138,10 +190,59 @@ public class SetAlarmActivity extends Activity {
 		//initiates the Views of this activity
 		initiateViews ();
 		//setHour, setMinute wheels configuration
+		Intent intent = getIntent ();
+		extras = intent.getExtras ();
+		if (extras != null) {
+			AlarmsDataSource dataSource = new AlarmsDataSource (getApplicationContext ());
+			dataSource.open ();
+			long id = extras.getLong ("id");
+			Alarm alarm = dataSource.getAlarm (id);
+			setWheels (parseInt (alarm.getHour ()) - 1, parseInt (alarm.getMinute ()));
+			setDaysOfWeek (alarm.getDays ());
+			setVibrate (alarm.getVibrate ());
+			setAmpmButton (alarm.getAmpm ());
+			setTitle (alarm.getTitle ());
+			description.setText (alarm.getDescription ());
+			dataSource.close ();
+		} else {
+			setWheels (0, 0);
+		}
+
+
+	}
+
+	private void initiateViews () {
+		sun = (ToggleButton) findViewById (R.id.toggleSun);
+		mon = (ToggleButton) findViewById (R.id.toggleMon);
+		tues = (ToggleButton) findViewById (R.id.toggleTues);
+		weds = (ToggleButton) findViewById (R.id.toggleWeds);
+		thurs = (ToggleButton) findViewById (R.id.toggleThurs);
+		sat = (ToggleButton) findViewById (R.id.toggleSat);
+		fri = (ToggleButton) findViewById (R.id.toggleFri);
+		ampmButton = (ToggleButton) findViewById (R.id.ampmToggleButton);
+		ImageView confirmButton = (ImageView) findViewById (R.id.confirmButton);
+		ImageView cancelButton = (ImageView) findViewById (R.id.cancelButton);
+		description = (EditText) findViewById (R.id.editTextDescription);
+		LinearLayout ringtoneLayout = (LinearLayout) findViewById (R.id.ringtoneLayout);
+		ringtoneTextView = (TextView) findViewById (R.id.ringtoneTextView);
+		title = new String[] {getRingtones ().keySet ().toArray ()[0].toString (), null};
+		ringtoneTextView.setText (title[0]);
+		vibrate = (ToggleButton) findViewById (R.id.vibrateToogle);
+		LinearLayout daysLayout = (LinearLayout) findViewById (R.id.daysLayout);
+
+		//setting buttons listeners
+		confirmButton.setOnClickListener (confirmButtonListener);
+		cancelButton.setOnClickListener (cancelButtonListener);
+		ringtoneLayout.setOnClickListener (ringtoneListener);
+	}
+
+	private void setWheels (int hour, int minute) {
+		hourWheel = (WheelView) findViewById (R.id.hourWheel);
+		minuteWheel = (WheelView) findViewById (R.id.minuteWheel);
 		hourWheel.setCyclic (true);
 		hourWheel.setVisibleItems (4);
 		hourWheel.setViewAdapter (new NumericWheelAdapter (this, 1, 12));
-		hourWheel.setCurrentItem (0);
+		hourWheel.setCurrentItem (hour);
 		minuteWheel.setCyclic (true);
 		minuteWheel.setVisibleItems (4);
 		String[] minutes = new String[60];
@@ -153,27 +254,28 @@ public class SetAlarmActivity extends Activity {
 			}
 		}
 		minuteWheel.setViewAdapter (new ArrayWheelAdapter<> (getApplicationContext (), minutes));
-		minuteWheel.setCurrentItem (0);
+		minuteWheel.setCurrentItem (minute);
 	}
 
-	private void initiateViews () {
-		title = new String[] {getRingtones ().keySet ().toArray ()[0].toString (), null};
-		//instantiating widgets
-		hourWheel = (WheelView) findViewById (R.id.hourWheel);
-		minuteWheel = (WheelView) findViewById (R.id.minuteWheel);
-		ampmButton = (ToggleButton) findViewById (R.id.ampmToggleButton);
-		ImageView confirmButton = (ImageView) findViewById (R.id.confirmButton);
-		ImageView cancelButton = (ImageView) findViewById (R.id.cancelButton);
-		description = (EditText) findViewById (R.id.editTextDescription);
-		LinearLayout ringtoneLayout = (LinearLayout) findViewById (R.id.ringtoneLayout);
-		ringtoneTextView = (TextView) findViewById (R.id.ringtoneTextView);
-		ringtoneTextView.setText (title[0]);
-		vibrate = (ToggleButton) findViewById (R.id.vibrateToogle);
+	private void setVibrate (String vibrate) {
+		if (vibrate.equals ("vibrate")) {
+			this.vibrate.setChecked (true);
+		} else {
+			this.vibrate.setChecked (false);
+		}
+	}
 
-		//setting buttons listeners
-		confirmButton.setOnClickListener (confirmButtonListener);
-		cancelButton.setOnClickListener (cancelButtonListener);
-		ringtoneLayout.setOnClickListener (ringtoneListener);
+	private void setAmpmButton (String ampm) {
+		if (ampm.equals ("AM")) {
+			ampmButton.setChecked (false);
+		} else {
+			ampmButton.setChecked (true);
+		}
+	}
+
+	private void setTitle (String title) {
+		this.title[0] = title;
+		ringtoneTextView.setText (this.title[0]);
 	}
 
 	@Override
@@ -193,49 +295,6 @@ public class SetAlarmActivity extends Activity {
 		cursor.close ();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu (Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater ().inflate (R.menu.menu_main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected (MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId ();
-
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			return true;
-		}
-
-		return super.onOptionsItemSelected (item);
-	}
-
-	private String getDaysOfWeek() {
-		StringBuilder daysOfWeek = new StringBuilder();
-		ToggleButton sun = (ToggleButton) findViewById(R.id.toggleSun);
-		ToggleButton tues = (ToggleButton) findViewById(R.id.toggleTues);
-		ToggleButton mon = (ToggleButton) findViewById(R.id.toggleMon);
-		ToggleButton weds = (ToggleButton) findViewById(R.id.toggleWeds);
-		ToggleButton thurs = (ToggleButton) findViewById(R.id.toggleThurs);
-		ToggleButton sat = (ToggleButton) findViewById(R.id.toggleSat);
-		ToggleButton fri = (ToggleButton) findViewById(R.id.toggleFri);
-		daysOfWeek.append(sun.isChecked() ? "1" : "");
-		daysOfWeek.append(mon.isChecked() ? "2" : "");
-		daysOfWeek.append(tues.isChecked() ? "3" : "");
-		daysOfWeek.append(weds.isChecked() ? "4" : "");
-		daysOfWeek.append(thurs.isChecked() ? "5" : "");
-		daysOfWeek.append(fri.isChecked() ? "6" : "");
-		daysOfWeek.append(sat.isChecked() ? "7" : "");
-		if (daysOfWeek.length() == 0)
-			daysOfWeek.append("0");
-		return daysOfWeek.toString();
-	}
-
 	private void dialogRingtonePicker() {
 		final Dialog dialog = new Dialog(this);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -251,12 +310,11 @@ public class SetAlarmActivity extends Activity {
 		ListView musicListView = (ListView) dialog.findViewById(R.id.musicListView);
 		final ArrayList<String> ringtoneList = new ArrayList<>(getRingtones().keySet());
 		final ArrayList<String> musicList = new ArrayList<>(getMusic().keySet());
-
-        ArrayAdapter<String> adapterRingtone = new ArrayAdapter<>(this, R.layout.choose_ringtone_row, R.id.rowTextView, ringtoneList);
+		//intializing adapters
+		ArrayAdapter<String> adapterRingtone = new ArrayAdapter<>(this, R.layout.choose_ringtone_row, R.id.rowTextView, ringtoneList);
         ArrayAdapter<String> adapterMusic = new ArrayAdapter<>(this, R.layout.choose_ringtone_row, R.id.rowTextView, musicList);
         //setting up adapters for listviews
         musicListView.setAdapter(adapterMusic);
-        //setting adapter for ringtoneListView
         ringtoneListView.setAdapter(adapterRingtone);
         //set up itemclicklisteners for listviews
         musicListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -270,15 +328,14 @@ public class SetAlarmActivity extends Activity {
                 }
                 setView(view);
                 //setting up the ringtone to be played
-                uri = getMusic().get(musicList.get(position));
-                //setting up the title to be displayed
+	            // uri = getMusic().get(musicList.get(position));
+	            //setting up the title to be displayed
                 title[1] = musicList.get(position);
                 //starting media player to play the selected item
                 playMediaPlayer(mp);
                 confirmButton.setVisibility(View.VISIBLE);
             }
         });
-
 
         //setting onItemClickListeners for the ringtoneListView
         ringtoneListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -292,8 +349,8 @@ public class SetAlarmActivity extends Activity {
                 }
                 setView(view);
                 //setting up the ringtone to be played
-                uri = getRingtones().get(ringtoneList.get(position));
-                //setting up the title to be displayed
+	            //   uri = getRingtones().get(ringtoneList.get(position));
+	            //setting up the title to be displayed
                 title[1] = ringtoneList.get(position);
                 //starting up media player to play the selected item
                 playMediaPlayer(mp);
@@ -335,25 +392,27 @@ public class SetAlarmActivity extends Activity {
 	private void playMediaPlayer (MediaPlayer mp) {
 		mp.reset ();
 		try {
-			mp.setDataSource (getApplicationContext (), Uri.parse (uri));
+			mp.setDataSource (getApplicationContext (), getMediaPlayerUri ());
 			mp.prepare ();
 		} catch (IOException e) {
 			e.printStackTrace ();
 		}
 		mp.setLooping (false);
 		mp.start ();
-		System.out.println (mp.getDuration () * 1000);
 		mp.setOnCompletionListener (new MediaPlayer.OnCompletionListener () {
 			@Override
 			public void onCompletion (MediaPlayer mp) {
 				mp.stop ();
 			}
 		});
-
 	}
 
 	private void stopMediaPlayer (MediaPlayer mp) {
 		mp.stop ();
 		mp.release ();
+	}
+
+	private Uri getMediaPlayerUri () {
+		return Uri.parse (getRingtones ().get (title[1]) == null ? getMusic ().get (title[1]) : getRingtones ().get (title[1]));
 	}
 }

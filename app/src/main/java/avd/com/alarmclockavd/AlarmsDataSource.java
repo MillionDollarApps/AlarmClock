@@ -45,29 +45,15 @@ public class AlarmsDataSource {
 	    values.put (Database.COLUMN_TITLE, alarm.getTitle ());
 	    long insertId = database.insert(Database.TABLE_ALARM, null,
 				values);
-	    Cursor cursor = database.query (Database.TABLE_ALARM,
-				allColumns, Database.COLUMN_ID + " = " + insertId, null,
-				null, null, null);
-	    cursor.moveToFirst ();
-	    Alarm newAlarm = cursorToAlarm (cursor);
-	    cursor.close ();
-	    return newAlarm;
+//	    Cursor cursor = database.query (Database.TABLE_ALARM,
+//				allColumns, Database.COLUMN_ID + " = " + insertId, null,
+//				null, null, null);
+//	    cursor.moveToFirst ();
+//	    Alarm newAlarm = cursorToAlarm (cursor);
+//	    cursor.close ();
+	    alarm.setId (insertId);
+	    return alarm;
     }
-
-	private Alarm cursorToAlarm (Cursor cursor) {
-		Alarm alarm = new Alarm ();
-		alarm.setId (cursor.getLong (0));
-		alarm.setHour (cursor.getString (1));
-		alarm.setMinute (cursor.getString (2));
-		alarm.setAmpm (cursor.getString (3));
-		alarm.setDays (cursor.getString (4));
-		alarm.setActive (cursor.getString (5));
-		alarm.setDescription (cursor.getString (6));
-		alarm.setRingtone (cursor.getString (7));
-		alarm.setVibrate (cursor.getString (8));
-		alarm.setTitle (cursor.getString (9));
-		return alarm;
-	}
 
 	public void deleteAlarm(Alarm alarm) {
 		long id = alarm.getId();
@@ -76,8 +62,8 @@ public class AlarmsDataSource {
 				+ " = " + id, null);
     }
 
-    public void update(Alarm alarm) {
-        long id = alarm.getId();
+	public void updateAlarm (Alarm alarm) {
+		long id = alarm.getId();
 		ContentValues values = new ContentValues();
         values.put(Database.COLUMN_HOUR, alarm.getHour());
         values.put(Database.COLUMN_MINUTE, alarm.getMinute());
@@ -87,7 +73,7 @@ public class AlarmsDataSource {
         values.put(Database.COLUMN_RINGTONE, alarm.getRingtone());
         values.put(Database.COLUMN_VIBRATE, alarm.getVibrate());
 	    values.put (Database.COLUMN_TITLE, alarm.getTitle ());
-	    database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
+	    database.update (Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
 	}
 
 	public void updateActive(long id, String active) {
@@ -104,9 +90,24 @@ public class AlarmsDataSource {
 			Alarm alarm = cursorToAlarm(cursor);
 			alarms.add(alarm);
 		}
-        Collections.sort(alarms, new TimeComparator());
+        Collections.sort (alarms, new TimeComparator ());
         cursor.close ();
         return alarms;
+	}
+
+	private Alarm cursorToAlarm (Cursor cursor) {
+		Alarm alarm = new Alarm ();
+		alarm.setId (cursor.getLong (0));
+		alarm.setHour (cursor.getString (1));
+		alarm.setMinute (cursor.getString (2));
+		alarm.setAmpm (cursor.getString (3));
+		alarm.setDays (cursor.getString (4));
+		alarm.setActive (cursor.getString (5));
+		alarm.setDescription (cursor.getString (6));
+		alarm.setRingtone (cursor.getString (7));
+		alarm.setVibrate (cursor.getString (8));
+		alarm.setTitle (cursor.getString (9));
+		return alarm;
 	}
 
 	public Alarm getAlarm(long id) {

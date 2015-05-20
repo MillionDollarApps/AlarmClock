@@ -79,7 +79,14 @@ public class AlarmListAdapter extends BaseAdapter {
 
 	public void refreshList (List<Alarm> list) {
 		alarmList.clear ();
-		alarmList.addAll (list);
+		for (int i = 0; i < list.size (); i++) {
+			if (list.get (i).getActive ().equals ("active")) {
+				setAlarm (list.get (i));
+			} else {
+				cancelAlarm (list.get (i));
+			}
+			alarmList.add (list.get (i));
+		}
 		this.notifyDataSetChanged ();
 	}
 
@@ -91,10 +98,8 @@ public class AlarmListAdapter extends BaseAdapter {
 			public void onCheckedChanged (CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
 					updateCheck (position, "active");
-					setAlarm (alarm);
 				} else {
 					updateCheck (position, " ");
-					cancelAlarm (alarm);
 				}
 			}
 		};
@@ -148,18 +153,17 @@ public class AlarmListAdapter extends BaseAdapter {
 	}
 
 	private void setAlarm (Alarm alarm) {
-		boolean oneTime = isOneTime (alarm);
+		boolean oneTime = alarm.getDays ().charAt (0) == '0';
 		//Create an offset from the current time in which the alarm will go off.
 		Calendar cal = Calendar.getInstance ();
-		cal.set (Calendar.HOUR, parseInt (alarm.getHour ()));
-		cal.set (Calendar.AM_PM, alarm.getAmpm ().equals ("AM") ? 0 : 1);
+		cal.set (Calendar.HOUR_OF_DAY, alarm.getHourOfDay ());
 		cal.set (Calendar.MINUTE, parseInt (alarm.getMinute ()));
 		cal.set (Calendar.SECOND, 0);
 		if (!oneTime) {
 			cal.set (Calendar.DAY_OF_WEEK, parseInt (alarm.getDays ().charAt (0) + ""));
 		}
 		//Create a new PendingIntent and add it to the AlarmManager
-		if (oneTime && System.currentTimeMillis () > cal.getTimeInMillis ()) {
+		if (oneTime && Calendar.getInstance ().getTimeInMillis () > cal.getTimeInMillis ()) {
 			cal.set (Calendar.DAY_OF_WEEK, cal.get (Calendar.DAY_OF_WEEK) + 1);
 		}
 		Intent intent = new Intent (ctx, AlarmReceiver.class);
@@ -180,17 +184,13 @@ public class AlarmListAdapter extends BaseAdapter {
 
 	private void cancelAlarm (Alarm alarm) {
 		Intent intent = new Intent (ctx, AlarmReceiver.class);
-		boolean oneTime = isOneTime (alarm);
+		boolean oneTime = alarm.getDays ().charAt (0) == '0';
 		intent.putExtra ("requestCode", alarm.getId ());
 		intent.putExtra ("oneTime", oneTime);
 		PendingIntent pi = PendingIntent.getBroadcast (ctx, (int) alarm.getId (), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager am = (AlarmManager) ctx.getSystemService (Context.ALARM_SERVICE);
 		am.cancel (pi);
 		System.out.println ("alarm canceled");
-	}
-
-	private boolean isOneTime (Alarm alarm) {
-		return alarm.getDays ().equals ("0");
 	}
 
 	private String getWeekDays (Alarm alarm) {

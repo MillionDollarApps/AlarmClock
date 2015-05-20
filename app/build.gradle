@@ -25,9 +25,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'org.apache.commons:commons-lang3:3.3.2'
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.googlecode.android-wheel:datetime-picker:1.1'
-    compile 'com.yooiistudios:alarm-manager:0.2.3'
 }

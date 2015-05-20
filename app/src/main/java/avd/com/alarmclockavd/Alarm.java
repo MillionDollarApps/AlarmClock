@@ -115,5 +115,19 @@ public class Alarm {
             time = hours * 60 + minutes;
         return time;
     }
+
+	public int getHourOfDay () {
+		int hours = parseInt (hour);
+		int indicator = ampm.equals ("AM") ? 0 : 1;
+		int time;
+		if (hours == 12 && indicator == 0) {
+			time = 0;
+		} else if (hours < 12 && indicator == 1) {
+			time = (hours + 12);
+		} else {
+			time = hours;
+		}
+		return time;
+	}
 }
 

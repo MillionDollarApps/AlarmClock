@@ -67,7 +67,7 @@
             android:background="@android:drawable/edit_text"
             android:hint="@string/description"
             android:inputType="text"
-            android:maxLength="35"
+            android:maxLength="25"
             android:scrollbarStyle="insideInset"
             android:scrollbars="vertical"
             android:singleLine="true"
@@ -91,86 +91,88 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/setDaysText"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:gravity="center"
         android:orientation="horizontal">
 
         <ToggleButton
             android:id="@+id/toggleSun"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:background="@drawable/selector_sun"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleMon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="7dp"
             android:background="@drawable/selector_mon"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleTues"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="7dp"
             android:background="@drawable/selector_tue"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleWeds"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="7dp"
             android:background="@drawable/selector_wed"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleThurs"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="7dp"
             android:background="@drawable/selector_thu"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleFri"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="7dp"
             android:background="@drawable/selector_fri"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleSat"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="7dp"
             android:background="@drawable/selector_sat"
             android:textOff=""
             android:textOn="" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ringtoneLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttons"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/daysLayout"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal">
         <LinearLayout
+            android:id="@+id/ringtoneLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -189,13 +191,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
             android:layout_weight="1">
 
             <ToggleButton
 	            android:id="@+id/vibrateToogle"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/toggle_button"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/selector_vibrate"
                 android:textOff=""
                 android:textOn="" />
             <TextView
@@ -219,7 +224,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="10dp"
         android:layout_weight="1"
         android:src="@drawable/selector_button_confirm" />
 
