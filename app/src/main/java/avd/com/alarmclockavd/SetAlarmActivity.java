@@ -98,8 +98,8 @@ public class SetAlarmActivity extends Activity {
 		alarm.setMinute (minute < 10 ? "0" + minute : minute + "");
 		alarm.setAmpm (ampmButton.isChecked () ? "PM" : "AM");
 		alarm.setDays (getDaysOfWeek ());
-		alarm.setActive (" ");
-	    alarm.setDescription (description.getText ().toString ());
+		alarm.setActive ("active");
+		alarm.setDescription (description.getText ().toString ());
 		alarm.setRingtone (getUri ());
 		alarm.setTitle (title[0]);
 		alarm.setVibrate (vibrate.isChecked () ? "vibrate" : " ");
