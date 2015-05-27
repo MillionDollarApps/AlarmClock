@@ -65,9 +65,9 @@ public class AlarmsDataSource {
 		values.put(Database.COLUMN_DAY, alarm.getDays());
 		values.put(Database.COLUMN_ACTIVE, alarm.getActive());
 		values.put(Database.COLUMN_DESCRIPTION, alarm.getDescription());
-		values.put(Database.COLUMN_RINGTONE, alarm.getRingtone());
-		values.put(Database.COLUMN_VIBRATE, alarm.getVibrate());
-		values.put (Database.COLUMN_TITLE, alarm.getTitle ());
+        values.put(Database.COLUMN_RINGTONE, alarm.getRingtone());
+        values.put(Database.COLUMN_VIBRATE, alarm.getVibrate());
+	    values.put (Database.COLUMN_TITLE, alarm.getTitle ());
 	    database.update (Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
 	}
 

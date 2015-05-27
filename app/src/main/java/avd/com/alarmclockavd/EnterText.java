@@ -72,10 +72,13 @@ public class EnterText extends Activity {
 		inputString.addTextChangedListener(new TextWatcher() {
 			//logic for waiting pausing 3 seconds than starting again if nothing is typed
 			final Handler handler = new Handler ();
-			Runnable runnable = () -> {
-				if (!inputString.getText().toString().equals(random)) {
-					player.start();
-					startVibrator(vibrate, vibrator);
+			Runnable runnable = new Runnable () {
+				@Override
+				public void run () {
+					if (!inputString.getText ().toString ().equals (random)) {
+						player.start ();
+						startVibrator(vibrate, vibrator);
+					}
 				}
 			};
 			@Override

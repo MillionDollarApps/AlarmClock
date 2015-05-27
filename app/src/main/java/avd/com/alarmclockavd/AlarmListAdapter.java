@@ -22,10 +22,10 @@ import static java.lang.Integer.parseInt;
 
 
 public class AlarmListAdapter extends BaseAdapter {
+	private static boolean done = false;
 	private Context ctx;
 	private List<Alarm> alarmList;
 	private AlarmsDataSource dataSource;
-	private static boolean done = false;
 
 	public AlarmListAdapter (Context context, List<Alarm> alarms) {
 		ctx = context;
@@ -95,13 +95,16 @@ public class AlarmListAdapter extends BaseAdapter {
 
 	//implements the toglebutton(checkbox) listener
 	private CompoundButton.OnCheckedChangeListener checkBoxListener (final int position) {
-		return (buttonView, isChecked) -> {
-			if (isChecked) {
-				updateCheck(position, "active");
-				setAlarm(alarmList.get(position));
-			} else {
-				updateCheck(position, " ");
-				cancelAlarm(alarmList.get(position));
+		return new CompoundButton.OnCheckedChangeListener () {
+			@Override
+			public void onCheckedChanged (CompoundButton buttonView, boolean isChecked) {
+				if (isChecked) {
+					updateCheck (position, "active");
+					setAlarm(alarmList.get(position));
+				} else {
+					updateCheck (position, " ");
+					cancelAlarm(alarmList.get(position));
+				}
 			}
 		};
 	}
@@ -115,10 +118,13 @@ public class AlarmListAdapter extends BaseAdapter {
 		dataSource.deleteAlarm (alarmList.get (position));
 		final Handler handler = new Handler ();
 		// do something after animation finishes
-		handler.postDelayed(() -> {
-			refreshList(dataSource.getAllAlarms());
-			dataSource.close();
-		}, anim.getDuration());
+		handler.postDelayed (new Runnable () {
+			@Override
+			public void run () {
+				refreshList (dataSource.getAllAlarms ());
+				dataSource.close ();
+			}
+		}, anim.getDuration ());
 
 	}
 

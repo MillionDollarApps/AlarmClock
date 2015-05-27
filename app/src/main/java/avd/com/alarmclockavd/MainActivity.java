@@ -27,16 +27,24 @@ public class MainActivity extends Activity {
         datasource.open();
         adapter = new AlarmListAdapter(getApplicationContext(), datasource.getAllAlarms());
         alarmList.setAdapter (adapter);
-        alarmList.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-            if (alarmList.getCount() > 10)
-                buttonAdd.setVisibility(View.GONE);
-            else
-                buttonAdd.setVisibility(View.VISIBLE);
+        alarmList.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if (alarmList.getCount() > 10)
+                    buttonAdd.setVisibility(View.GONE);
+                else
+                    buttonAdd.setVisibility(View.VISIBLE);
+            }
         });
 
-        buttonAdd.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), SetAlarmActivity.class);
-            startActivity(intent);
+        buttonAdd.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View v) {
+                Intent intent = new Intent (getApplicationContext (), SetAlarmActivity.class);
+                startActivity (intent);
+            }
+
+
         });
     }
 
