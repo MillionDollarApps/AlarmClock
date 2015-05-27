@@ -45,12 +45,6 @@ public class AlarmsDataSource {
 	    values.put (Database.COLUMN_TITLE, alarm.getTitle ());
 	    long insertId = database.insert(Database.TABLE_ALARM, null,
 				values);
-//	    Cursor cursor = database.query (Database.TABLE_ALARM,
-//				allColumns, Database.COLUMN_ID + " = " + insertId, null,
-//				null, null, null);
-//	    cursor.moveToFirst ();
-//	    Alarm newAlarm = cursorToAlarm (cursor);
-//	    cursor.close ();
 	    alarm.setId (insertId);
 	    return alarm;
     }
@@ -66,13 +60,14 @@ public class AlarmsDataSource {
 		long id = alarm.getId();
 		ContentValues values = new ContentValues();
         values.put(Database.COLUMN_HOUR, alarm.getHour());
-        values.put(Database.COLUMN_MINUTE, alarm.getMinute());
-        values.put(Database.COLUMN_AMPM, alarm.getAmpm());
-        values.put(Database.COLUMN_DAY, alarm.getDays());
-        values.put(Database.COLUMN_DESCRIPTION, alarm.getDescription());
-        values.put(Database.COLUMN_RINGTONE, alarm.getRingtone());
-        values.put(Database.COLUMN_VIBRATE, alarm.getVibrate());
-	    values.put (Database.COLUMN_TITLE, alarm.getTitle ());
+		values.put(Database.COLUMN_MINUTE, alarm.getMinute());
+		values.put(Database.COLUMN_AMPM, alarm.getAmpm());
+		values.put(Database.COLUMN_DAY, alarm.getDays());
+		values.put(Database.COLUMN_ACTIVE, alarm.getActive());
+		values.put(Database.COLUMN_DESCRIPTION, alarm.getDescription());
+		values.put(Database.COLUMN_RINGTONE, alarm.getRingtone());
+		values.put(Database.COLUMN_VIBRATE, alarm.getVibrate());
+		values.put (Database.COLUMN_TITLE, alarm.getTitle ());
 	    database.update (Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
 	}
 
@@ -81,7 +76,6 @@ public class AlarmsDataSource {
 		values.put (Database.COLUMN_ACTIVE, active);
 		database.update (Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
 	}
-
 	public List<Alarm> getAllAlarms() {
 		List<Alarm> alarms = new ArrayList<>();
 		Cursor cursor = database.query(Database.TABLE_ALARM,

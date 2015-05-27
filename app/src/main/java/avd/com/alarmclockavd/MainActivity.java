@@ -27,20 +27,23 @@ public class MainActivity extends Activity {
         datasource.open();
         adapter = new AlarmListAdapter(getApplicationContext(), datasource.getAllAlarms());
         alarmList.setAdapter (adapter);
-        buttonAdd.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick (View v) {
-                Intent intent = new Intent (getApplicationContext (), SetAlarmActivity.class);
-                startActivity (intent);
-            }
+        alarmList.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (alarmList.getCount() > 10)
+                buttonAdd.setVisibility(View.GONE);
+            else
+                buttonAdd.setVisibility(View.VISIBLE);
+        });
 
-
+        buttonAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), SetAlarmActivity.class);
+            startActivity(intent);
         });
     }
 
     private void initiateViews() {
         alarmList = (ListView) findViewById(R.id.alarmsListView);
         buttonAdd = (ImageView) findViewById(R.id.buttonAdd);
+
 
     }
 

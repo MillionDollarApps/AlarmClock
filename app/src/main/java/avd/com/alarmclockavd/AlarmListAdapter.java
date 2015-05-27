@@ -25,6 +25,7 @@ public class AlarmListAdapter extends BaseAdapter {
 	private Context ctx;
 	private List<Alarm> alarmList;
 	private AlarmsDataSource dataSource;
+	private static boolean done = false;
 
 	public AlarmListAdapter (Context context, List<Alarm> alarms) {
 		ctx = context;
@@ -81,42 +82,26 @@ public class AlarmListAdapter extends BaseAdapter {
 		cancelAlarm (alarm);
 		intent.putExtra ("id", alarm.getId ());
 		intent.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
-		Animation anim = AnimationUtils.loadAnimation (ctx, android.R.anim.fade_in);
-		view.startAnimation (anim);
-		final Handler handler = new Handler ();
-		// do something after animation finishes
-		handler.postDelayed (new Runnable () {
-			@Override
-			public void run () {
-				ctx.startActivity (intent);
-			}
-		}, anim.getDuration ());
+		ctx.startActivity(intent);
 	}
 
 
 	public void refreshList (List<Alarm> list) {
+		System.out.println("once");
 		alarmList.clear ();
-		for (int i = 0; i < list.size (); i++) {
-			if (list.get (i).getActive ().equals ("active")) {
-				setAlarm (list.get (i));
-			} else {
-				cancelAlarm (list.get (i));
-			}
-			alarmList.add (list.get (i));
-		}
+		alarmList.addAll(list);
 		this.notifyDataSetChanged ();
 	}
 
 	//implements the toglebutton(checkbox) listener
 	private CompoundButton.OnCheckedChangeListener checkBoxListener (final int position) {
-		return new CompoundButton.OnCheckedChangeListener () {
-			@Override
-			public void onCheckedChanged (CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					updateCheck (position, "active");
-				} else {
-					updateCheck (position, " ");
-				}
+		return (buttonView, isChecked) -> {
+			if (isChecked) {
+				updateCheck(position, "active");
+				setAlarm(alarmList.get(position));
+			} else {
+				updateCheck(position, " ");
+				cancelAlarm(alarmList.get(position));
 			}
 		};
 	}
@@ -130,13 +115,10 @@ public class AlarmListAdapter extends BaseAdapter {
 		dataSource.deleteAlarm (alarmList.get (position));
 		final Handler handler = new Handler ();
 		// do something after animation finishes
-		handler.postDelayed (new Runnable () {
-			@Override
-			public void run () {
-				refreshList (dataSource.getAllAlarms ());
-				dataSource.close ();
-			}
-		}, anim.getDuration ());
+		handler.postDelayed(() -> {
+			refreshList(dataSource.getAllAlarms());
+			dataSource.close();
+		}, anim.getDuration());
 
 	}
 
@@ -154,8 +136,10 @@ public class AlarmListAdapter extends BaseAdapter {
 	private void checkboxUpdate (int position, Holder viewHolder) {
 		if (alarmList.get (position).getActive ().equals ("active")) {
 			viewHolder.checkbox.setChecked (true);
+			setAlarm(alarmList.get(position));
 		} else {
 			viewHolder.checkbox.setChecked (false);
+			cancelAlarm(alarmList.get(position));
 		}
 	}
 
@@ -164,84 +148,86 @@ public class AlarmListAdapter extends BaseAdapter {
 		dataSource = new AlarmsDataSource (ctx);
 		dataSource.open ();
 		dataSource.updateActive (alarmList.get (position).getId (), active);
-		refreshList (dataSource.getAllAlarms ());
 		dataSource.close ();
 	}
 
-	private void setAlarm (Alarm alarm) {
-		String days = alarm.getDays ();
-		//Create an offset from the current time in which the alarm will go off.
-		Calendar cal = Calendar.getInstance ();
-		cal.set (Calendar.HOUR_OF_DAY, alarm.getHourOfDay ());
-		cal.set (Calendar.MINUTE, parseInt (alarm.getMinute ()));
-		cal.set (Calendar.SECOND, 0);
-		//
 
+	public void setAlarm(Alarm alarm) {
+		System.out.println("alarm set");
+		String days = alarm.getDays();
 		Intent intent = new Intent (ctx, AlarmReceiver.class);
 		intent.putExtra ("requestCode", alarm.getId ());
-		PendingIntent pi = null;
+		int id = (int) alarm.getId();
 		for (int i = 0; i < days.length (); i++) {
-			int piFlag = (int) alarm.getId () + i * 1000;
-			switch (parseInt (days.charAt (i) + "")) {
+			int day = parseInt(days.charAt(i) + "");
+			switch (day) {
 				case 0:
-					pi = getPendingIntent (cal, intent, piFlag, i);
+					setAlarmManager(alarm, day, id, intent);
 					break;
 				case 1:
-					pi = getPendingIntent (cal, intent, piFlag, i);
+					setAlarmManager(alarm, day, id, intent);
 					break;
 				case 2:
-					pi = getPendingIntent (cal, intent, piFlag, i);
+					setAlarmManager(alarm, day, id, intent);
 					break;
 				case 3:
-					pi = getPendingIntent (cal, intent, piFlag, i);
+					setAlarmManager(alarm, day, id, intent);
 					break;
 				case 4:
-					pi = getPendingIntent (cal, intent, piFlag, i);
+					setAlarmManager(alarm, day, id, intent);
 					break;
 				case 5:
-					pi = getPendingIntent (cal, intent, piFlag, i);
+					setAlarmManager(alarm, day, id, intent);
 					break;
 				case 6:
-					pi = getPendingIntent (cal, intent, piFlag, i);
+					setAlarmManager(alarm, day, id, intent);
 					break;
 				case 7:
-					pi = getPendingIntent (cal, intent, piFlag, i);
+					setAlarmManager(alarm, day, id, intent);
 					break;
+
 			}
 		}
-		AlarmManager am = (AlarmManager) ctx.getSystemService (Context.ALARM_SERVICE);
-		//set up alarm
-		am.set (AlarmManager.RTC_WAKEUP, cal.getTimeInMillis (), pi);
-		System.out.println ("alarm set");
 	}
 
-	private PendingIntent getPendingIntent (Calendar cal, Intent intent, int piFlag, int day) {
-		PendingIntent pi = PendingIntent.getBroadcast (ctx, piFlag, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+	private void setAlarmManager(Alarm alarm, int day, int id, Intent intent) {
+		AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+		Calendar calendar = generateCalendar(alarm, day);
+		PendingIntent pendingIntent = generatePendingIntent(day, id, intent);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+	}
+
+	private PendingIntent generatePendingIntent(int day, int id, Intent intent) {
+		return PendingIntent.getBroadcast(ctx, id + day * 1000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+	}
+
+	private Calendar generateCalendar(Alarm alarm, int day) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, alarm.getHourOfDay());
+		calendar.set(Calendar.MINUTE, parseInt(alarm.getMinute()));
+		calendar.set(Calendar.SECOND, 0);
 		if (day != 0) {
-			cal.set (Calendar.DAY_OF_WEEK, day);
+			calendar.set(Calendar.DAY_OF_WEEK, day);
 		}
-		if (Calendar.getInstance ().getTimeInMillis () > cal.getTimeInMillis ()) {
+		if (Calendar.getInstance().getTimeInMillis() > calendar.getTimeInMillis()) {
 			if (day == 0) {
-				cal.set (Calendar.DAY_OF_WEEK, cal.get (Calendar.DAY_OF_WEEK) + 1);
+				calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK) + 1);
 			} else {
-				cal.set (Calendar.WEEK_OF_MONTH, cal.get (Calendar.WEEK_OF_MONTH) + 1);
+				calendar.set(Calendar.WEEK_OF_MONTH, calendar.get(Calendar.WEEK_OF_MONTH) + 1);
 			}
 		}
-		return pi;
+		return calendar;
 	}
 
-
-	private void cancelAlarm (Alarm alarm) {
+	public void cancelAlarm(Alarm alarm) {
+		System.out.println("alarm cancel");
 		Intent intent = new Intent (ctx, AlarmReceiver.class);
-		boolean oneTime = alarm.getDays ().charAt (0) == '0';
 		intent.putExtra ("requestCode", alarm.getId ());
-//		intent.putExtra ("oneTime", oneTime);
-		for (int i = 0; i <= 8000; i += 1000) {
+		for (int i = 0; i <= 7000; i += 1000) {
 			PendingIntent pi = PendingIntent.getBroadcast (ctx, i + (int) alarm.getId (), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 			AlarmManager am = (AlarmManager) ctx.getSystemService (Context.ALARM_SERVICE);
 			am.cancel (pi);
 		}
-		System.out.println ("alarm canceled" + (oneTime ? " one time" : " repeating"));
 	}
 
 	private String getWeekDays (Alarm alarm) {

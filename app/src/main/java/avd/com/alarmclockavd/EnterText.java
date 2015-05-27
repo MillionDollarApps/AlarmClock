@@ -3,12 +3,10 @@ package avd.com.alarmclockavd;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.os.Vibrator;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,17 +17,25 @@ import android.widget.TextView;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 
 public class EnterText extends Activity {
-	private PowerManager.WakeLock mWakeLock;
+
+	private AlarmsDataSource dataSource;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate (savedInstanceState);
 		//receiving the intent that triggered this Activity
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras ();
-		String uri = extras.getString ("uri");
-		String vibrate = extras.getString ("vibrate");
-		String description = extras.getString ("description");
-		String time = extras.getString ("time");
+		dataSource = new AlarmsDataSource(this);
+		dataSource.open();
+		long id = extras.getLong("id");
+		Alarm alarm = dataSource.getAlarm(id);
+		String uri = alarm.getRingtone();
+		final String vibrate = alarm.getVibrate();
+		String description = alarm.getDescription();
+		String time = alarm.toString();
+		dataSource.close();
+		//
 		//setting up the layout
 		setContentView (R.layout.dialog_enter_text);
 		//setting up power managers
@@ -37,6 +43,7 @@ public class EnterText extends Activity {
 		getWindow ().addFlags (WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 		getWindow ().addFlags (WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		getWindow ().addFlags (WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+		//sets up the title for the dialogbox
 		TextView title = (TextView) findViewById (R.id.enterTextTitle);
 		if (description.length () > 0) {
 			title.setText (time + " - " + description);
@@ -44,37 +51,31 @@ public class EnterText extends Activity {
 			title.setText (time);
 		}
 
-		setVolumeControlStream (AudioManager.STREAM_ALARM);
-		//cannot be canceled
-
+		//dialogbox cannot be canceled
 		setFinishOnTouchOutside (false);
-		setTitle (time + " - " + description);
 
 		//setting up MediaPlayer to play the alarm
 		final MediaPlayer player = MediaPlayer.create (this, Uri.parse (uri));
 		player.setLooping (true);
+		player.setVolume(1.0f, 1.0f);
 		player.start ();
-		player.setAudioStreamType (AudioManager.STREAM_MUSIC);
-
 
 		//Setting up the vibrator
 		final Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-		if (vibrate.equals ("vibrate")) {
-			vibrator.vibrate (new long[] {0, 250, 500}, 0);
-		}
-		//
+		startVibrator(vibrate, vibrator);
+		//generating and setting the textview
 		TextView randomText = (TextView) findViewById(R.id.randomTextView);
 		final EditText inputString = (EditText) findViewById(R.id.inputMatcherEditText);
 		final String random = generateRandom();
 		randomText.setText("Text: " + random);
+		//setting a textchangelistener to finish the alarm when the text has been entered, and perform additional operations
 		inputString.addTextChangedListener(new TextWatcher() {
+			//logic for waiting pausing 3 seconds than starting again if nothing is typed
 			final Handler handler = new Handler ();
-			Runnable runnable = new Runnable () {
-				@Override
-				public void run () {
-					if (!inputString.getText ().toString ().equals (random)) {
-						player.start ();
-					}
+			Runnable runnable = () -> {
+				if (!inputString.getText().toString().equals(random)) {
+					player.start();
+					startVibrator(vibrate, vibrator);
 				}
 			};
 			@Override
@@ -83,16 +84,16 @@ public class EnterText extends Activity {
 			@Override
 			public void onTextChanged (final CharSequence s, int start, int before, int count) {
 				if (inputString.getText ().toString ().equals (random)) {
-					finish ();
 					player.stop ();
 					player.release ();
 					vibrator.cancel ();
 					handler.removeCallbacks (runnable);
+					finish();
 				} else {
 					player.pause ();
+					vibrator.cancel();
 					handler.removeCallbacks (runnable);
 				}
-
 			}
 			@Override
 			public void afterTextChanged(Editable s) {
@@ -102,6 +103,12 @@ public class EnterText extends Activity {
 		});
 
 
+	}
+
+	private void startVibrator(String vibrate, Vibrator vibrator) {
+		if (vibrate.equals("vibrate")) {
+			vibrator.vibrate(new long[]{0, 250, 500}, 0);
+		}
 	}
 
 	private String generateRandom(){
