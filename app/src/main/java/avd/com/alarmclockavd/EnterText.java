@@ -18,15 +18,13 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 
 public class EnterText extends Activity {
 
-	private AlarmsDataSource dataSource;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate (savedInstanceState);
 		//receiving the intent that triggered this Activity
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras ();
-		dataSource = new AlarmsDataSource(this);
+		AlarmsDataSource dataSource = new AlarmsDataSource(this);
 		dataSource.open();
 		long id = extras.getLong("id");
 		Alarm alarm = dataSource.getAlarm(id);
@@ -72,13 +70,10 @@ public class EnterText extends Activity {
 		inputString.addTextChangedListener(new TextWatcher() {
 			//logic for waiting pausing 3 seconds than starting again if nothing is typed
 			final Handler handler = new Handler ();
-			Runnable runnable = new Runnable () {
-				@Override
-				public void run () {
-					if (!inputString.getText ().toString ().equals (random)) {
-						player.start ();
-						startVibrator(vibrate, vibrator);
-					}
+			Runnable runnable = () -> {
+				if (!inputString.getText().toString().equals(random)) {
+					player.start();
+					startVibrator(vibrate, vibrator);
 				}
 			};
 			@Override
