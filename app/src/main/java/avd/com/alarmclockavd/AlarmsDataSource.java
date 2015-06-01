@@ -106,9 +106,11 @@ public class AlarmsDataSource {
 
 	public Alarm getAlarm(long id) {
 		Cursor cursor = database.query(Database.TABLE_ALARM,
-				allColumns, Database.COLUMN_ID + "=" + id, null, null, null, null);
-		cursor.moveToFirst ();
-		return cursorToAlarm(cursor);
-	}
+                allColumns, Database.COLUMN_ID + " = " + id, null, null, null, null);
+        cursor.moveToNext();
+        Alarm alarm = cursorToAlarm(cursor);
+        cursor.close();
+        return alarm;
+    }
 }
 

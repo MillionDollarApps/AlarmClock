@@ -97,62 +97,63 @@
 
         <ToggleButton
             android:id="@+id/toggleSun"
-            android:layout_width="35dp"
+            android:layout_width="40dp"
             android:layout_height="35dp"
+            android:layout_marginLeft="1dp"
             android:background="@drawable/selector_sun"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleMon"
-            android:layout_width="35dp"
+            android:layout_width="40dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginLeft="1dp"
             android:background="@drawable/selector_mon"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleTues"
-            android:layout_width="35dp"
+            android:layout_width="40dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginLeft="1dp"
             android:background="@drawable/selector_tue"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleWeds"
-            android:layout_width="35dp"
+            android:layout_width="40dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginLeft="1dp"
             android:background="@drawable/selector_wed"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleThurs"
-            android:layout_width="35dp"
+            android:layout_width="40dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginLeft="1dp"
             android:background="@drawable/selector_thu"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleFri"
-            android:layout_width="35dp"
+            android:layout_width="40dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginLeft="1dp"
             android:background="@drawable/selector_fri"
             android:textOff=""
             android:textOn="" />
 
         <ToggleButton
             android:id="@+id/toggleSat"
-            android:layout_width="35dp"
+            android:layout_width="40dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginLeft="1dp"
             android:background="@drawable/selector_sat"
             android:textOff=""
             android:textOn="" />

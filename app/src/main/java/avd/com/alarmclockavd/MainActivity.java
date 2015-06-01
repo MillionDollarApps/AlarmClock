@@ -43,9 +43,23 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent (getApplicationContext (), SetAlarmActivity.class);
                 startActivity (intent);
             }
-
-
         });
+//        Runnable runnable = new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                List<Alarm> alarms = datasource.getAllAlarms();
+//                for(int i = 0;i<alarms.size();i++)
+//                    if(alarms.get(i).getActive().equals("active"))
+//                        adapter.setAlarm(alarms.get(i));
+//                    else
+//                        adapter.cancelAlarm(alarms.get(i));
+//            }
+//        };
+//        Thread thread= new Thread(runnable);
+//        thread.start();
+
     }
 
     private void initiateViews() {

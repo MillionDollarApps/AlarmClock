@@ -7,5 +7,5 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="description">Description</string>
     <string name="time">Time: </string>
-    <string name="days_of_week">Set repeating: </string>
+    <string name="days_of_week">Repeat </string>
 </resources>

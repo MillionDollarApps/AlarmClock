@@ -22,7 +22,6 @@ import static java.lang.Integer.parseInt;
 
 
 public class AlarmListAdapter extends BaseAdapter {
-	private static boolean done = false;
 	private Context ctx;
 	private List<Alarm> alarmList;
 	private AlarmsDataSource dataSource;
@@ -34,13 +33,13 @@ public class AlarmListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount () {
-		return alarmList.size ();
-	}
+        return alarmList.size();
+    }
 
 	@Override
 	public Alarm getItem (int position) {
-		return alarmList.get (position);
-	}
+        return alarmList.get(position);
+    }
 
 	@Override
 	public long getItemId (int position) {
@@ -72,152 +71,183 @@ public class AlarmListAdapter extends BaseAdapter {
 
 		});
 
-		setViewHolderItems (position, viewHolder);
-		return view;
-	}
+        setViewHolderItems(position, viewHolder);
+        return view;
+    }
 
 	private void modifyAlarm (int position, View view) {
-		final Intent intent = new Intent (ctx, SetAlarmActivity.class);
-		Alarm alarm = alarmList.get (position);
-		cancelAlarm (alarm);
-		intent.putExtra ("id", alarm.getId ());
-		intent.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
-		ctx.startActivity(intent);
-	}
+        //get the alarm item from the position
+        Alarm alarm = alarmList.get(position);
+        //build the intent to be run
+        final Intent intent = new Intent(ctx, SetAlarmActivity.class);
+        intent.putExtra("id", alarm.getId());
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //cancel the alarm
+        cancelAlarm(alarm);
+        //set up the animation
+        Animation anim = AnimationUtils.loadAnimation(ctx, android.R.anim.fade_in);
+        view.startAnimation(anim);
+        final Handler handler = new Handler();
+        // do something after animation finishes
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //start the intent
+                ctx.startActivity(intent);
+            }
+        }, anim.getDuration());
+    }
 
-
-	public void refreshList (List<Alarm> list) {
-		System.out.println("once");
-		alarmList.clear ();
-		alarmList.addAll(list);
+    //refresh the list
+    protected void refreshList(List<Alarm> list) {
+        System.out.println("once");
+        alarmList.clear();
+        alarmList.addAll(list);
 		this.notifyDataSetChanged ();
 	}
 
 	//implements the toglebutton(checkbox) listener
 	private CompoundButton.OnCheckedChangeListener checkBoxListener (final int position) {
-		return new CompoundButton.OnCheckedChangeListener () {
-			@Override
-			public void onCheckedChanged (CompoundButton buttonView, boolean isChecked) {
+        final Alarm alarm = alarmList.get(position);
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged (CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
-					updateCheck (position, "active");
-					setAlarm(alarmList.get(position));
+                    updateCheck(alarm, "active");
+                    setAlarm(alarm);
+
 				} else {
-					updateCheck (position, " ");
-					cancelAlarm(alarmList.get(position));
-				}
-			}
-		};
+                    updateCheck(alarm, " ");
+                    cancelAlarm(alarm);
+                }
+            }
+        };
 	}
 
-	private void removeAlarm (View view, int position) {
-		Animation anim = AnimationUtils.loadAnimation (ctx, android.R.anim.slide_out_right);
-		view.startAnimation (anim);
-		dataSource = new AlarmsDataSource (ctx);
-		dataSource.open ();
-		cancelAlarm (alarmList.get (position));
-		dataSource.deleteAlarm (alarmList.get (position));
-		final Handler handler = new Handler ();
-		// do something after animation finishes
-		handler.postDelayed (new Runnable () {
-			@Override
-			public void run () {
-				refreshList (dataSource.getAllAlarms ());
-				dataSource.close ();
-			}
-		}, anim.getDuration ());
+    //removes the alarm
+    private void removeAlarm(View view, int position) {
+        //get the alarm object from the position
+        Alarm alarm = alarmList.get(position);
+        //set up the animation
+        Animation anim = AnimationUtils.loadAnimation(ctx, android.R.anim.slide_out_right);
+        view.startAnimation(anim);
+        //create and open the datasource in order to delete the alarm from the database
+        dataSource = new AlarmsDataSource(ctx);
+        dataSource.open();
+        //cancel the alarm
+        cancelAlarm(alarm);
+        //delete the alarm from the database
+        dataSource.deleteAlarm(alarm);
+        final Handler handler = new Handler();
+        // do something after animation finishes
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //refresh the list and close the datasource
+                refreshList(dataSource.getAllAlarms());
+                dataSource.close();
+            }
+        }, anim.getDuration());
 
 	}
 
 
     private void setViewHolderItems(int position, Holder viewHolder) {
-	    Alarm alarm = alarmList.get (position);
-	    viewHolder.alarmTime.setText (alarm.toString ());
-	    viewHolder.description.setText (alarm.getDescription ());
-	    viewHolder.days.setText (getWeekDays (alarm));
-	    viewHolder.checkbox.setOnCheckedChangeListener (checkBoxListener (position));
-	    checkboxUpdate (position, viewHolder);
+        //get alarm object from position
+        Alarm alarm = alarmList.get(position);
+        //set the text for the time, description, and days
+        viewHolder.alarmTime.setText(alarm.toString());
+        viewHolder.description.setText(alarm.getDescription());
+        viewHolder.days.setText (getWeekDays (alarm));
+        //set up listeners for the checkboxes, in order to set or cancel the alarm when the user interacts with the UI
+        viewHolder.checkbox.setOnCheckedChangeListener(checkBoxListener(position));
+        //update the checkbox as the user scrools down, or a new Instance of the list is created
+        checkboxUpdate(alarm, viewHolder);
     }
 
 	//update checkbox for when items are reused or alarm is deleted
-	private void checkboxUpdate (int position, Holder viewHolder) {
-		if (alarmList.get (position).getActive ().equals ("active")) {
-			viewHolder.checkbox.setChecked (true);
-			setAlarm(alarmList.get(position));
-		} else {
-			viewHolder.checkbox.setChecked (false);
-			cancelAlarm(alarmList.get(position));
-		}
-	}
+    private void checkboxUpdate(final Alarm alarm, Holder viewHolder) {
+        if (alarm.getActive().equals("active")) {
+            viewHolder.checkbox.setChecked(true);
+            //re-set the alarms
+            setAlarm(alarm);
+        } else {
+            viewHolder.checkbox.setChecked(false);
+        }
+    }
 
 	//updates the check field for the alarm in the database
-	private void updateCheck (int position, String active) {
-		dataSource = new AlarmsDataSource (ctx);
-		dataSource.open ();
-		dataSource.updateActive (alarmList.get (position).getId (), active);
-		dataSource.close ();
-	}
+    private void updateCheck(Alarm alarm, String active) {
+        dataSource = new AlarmsDataSource(ctx);
+        dataSource.open();
+        dataSource.updateActive(alarm.getId(), active);
+        dataSource.close();
+    }
 
 
-	public void setAlarm(Alarm alarm) {
-		System.out.println("alarm set");
-		String days = alarm.getDays();
-		Intent intent = new Intent (ctx, AlarmReceiver.class);
-		intent.putExtra ("requestCode", alarm.getId ());
-		int id = (int) alarm.getId();
-		for (int i = 0; i < days.length (); i++) {
-			int day = parseInt(days.charAt(i) + "");
-			switch (day) {
-				case 0:
-					setAlarmManager(alarm, day, id, intent);
-					break;
-				case 1:
-					setAlarmManager(alarm, day, id, intent);
-					break;
-				case 2:
-					setAlarmManager(alarm, day, id, intent);
-					break;
-				case 3:
-					setAlarmManager(alarm, day, id, intent);
-					break;
-				case 4:
-					setAlarmManager(alarm, day, id, intent);
-					break;
-				case 5:
-					setAlarmManager(alarm, day, id, intent);
-					break;
-				case 6:
-					setAlarmManager(alarm, day, id, intent);
-					break;
-				case 7:
-					setAlarmManager(alarm, day, id, intent);
-					break;
+    protected void setAlarm(Alarm alarm) {
+        System.out.println("alarm set");
+        String days = alarm.getDays();
+        int id = (int) alarm.getId();
+        AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+        for (int i = 0; i < days.length(); i++) {
+            int day = parseInt(days.charAt(i) + "");
+            switch (day) {
+                case 0:
+                    setAlarmManager(alarm, alarmManager, day, id);
+                    break;
+                case 1:
+                    setAlarmManager(alarm, alarmManager, day, id);
+                    break;
+                case 2:
+                    setAlarmManager(alarm, alarmManager, day, id);
+                    break;
+                case 3:
+                    setAlarmManager(alarm, alarmManager, day, id);
+                    break;
+                case 4:
+                    setAlarmManager(alarm, alarmManager, day, id);
+                    break;
+                case 5:
+                    setAlarmManager(alarm, alarmManager, day, id);
+                    break;
+                case 6:
+                    setAlarmManager(alarm, alarmManager, day, id);
+                    break;
+                case 7:
+                    setAlarmManager(alarm, alarmManager, day, id);
+                    break;
 
 			}
 		}
 	}
 
-	private void setAlarmManager(Alarm alarm, int day, int id, Intent intent) {
-		AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-		Calendar calendar = generateCalendar(alarm, day);
-		PendingIntent pendingIntent = generatePendingIntent(day, id, intent);
-		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    private void setAlarmManager(Alarm alarm, AlarmManager alarmManager, int day, int id) {
+        Intent intent = new Intent(ctx, AlarmReceiver.class);
+        intent.putExtra("requestCode", alarm.getId());
+        intent.putExtra("day", day);
+        Calendar calendar = generateCalendar(alarm, day);
+        PendingIntent pendingIntent = generatePendingIntent(day, id, intent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 	}
 
 	private PendingIntent generatePendingIntent(int day, int id, Intent intent) {
 		return PendingIntent.getBroadcast(ctx, id + day * 1000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 	}
 
-	private Calendar generateCalendar(Alarm alarm, int day) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY, alarm.getHourOfDay());
-		calendar.set(Calendar.MINUTE, parseInt(alarm.getMinute()));
+    protected Calendar generateCalendar(Alarm alarm, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, alarm.getHourOfDay());
+        calendar.set(Calendar.MINUTE, parseInt(alarm.getMinute()));
 		calendar.set(Calendar.SECOND, 0);
 		if (day != 0) {
 			calendar.set(Calendar.DAY_OF_WEEK, day);
-		}
-		if (Calendar.getInstance().getTimeInMillis() > calendar.getTimeInMillis()) {
-			if (day == 0) {
-				calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK) + 1);
+        } else {
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+        }
+        if (Calendar.getInstance().getTimeInMillis() > calendar.getTimeInMillis()) {
+            if (day == 0) {
+                calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK) + 1);
 			} else {
 				calendar.set(Calendar.WEEK_OF_MONTH, calendar.get(Calendar.WEEK_OF_MONTH) + 1);
 			}
@@ -225,20 +255,20 @@ public class AlarmListAdapter extends BaseAdapter {
 		return calendar;
 	}
 
-	public void cancelAlarm(Alarm alarm) {
-		System.out.println("alarm cancel");
-		Intent intent = new Intent (ctx, AlarmReceiver.class);
-		intent.putExtra ("requestCode", alarm.getId ());
-		for (int i = 0; i <= 7000; i += 1000) {
-			PendingIntent pi = PendingIntent.getBroadcast (ctx, i + (int) alarm.getId (), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-			AlarmManager am = (AlarmManager) ctx.getSystemService (Context.ALARM_SERVICE);
-			am.cancel (pi);
-		}
+    protected void cancelAlarm(Alarm alarm) {
+        System.out.println("alarm cancel");
+        Intent intent = new Intent(ctx, AlarmReceiver.class);
+        AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+        for (int i = 0; i <= 7000; i += 1000) {
+            PendingIntent pi = PendingIntent.getBroadcast(ctx, i + (int) alarm.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            am.cancel(pi);
+        }
 	}
 
-	private String getWeekDays (Alarm alarm) {
-		String days = alarm.getDays ();
-		StringBuilder builder = new StringBuilder ();
+    //sets up the weekdays textview from the listview row
+    private String getWeekDays(Alarm alarm) {
+        String days = alarm.getDays();
+        StringBuilder builder = new StringBuilder ();
 		if (days.charAt (0) == '0') {
 			builder.append ("Once only");
 		} else {
@@ -271,10 +301,10 @@ public class AlarmListAdapter extends BaseAdapter {
 		return builder.toString ();
 	}
 
-	public class Holder {
-		private TextView alarmTime;
-		private TextView description;
-		private TextView days;
+    private class Holder {
+        private TextView alarmTime;
+        private TextView description;
+        private TextView days;
 		private ToggleButton checkbox;
 
 		Holder(View v) {

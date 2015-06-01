@@ -129,5 +129,25 @@ public class Alarm {
 		}
 		return time;
 	}
+
+//    private Calendar getDaySpecificCalendar(int day) {
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(Calendar.HOUR_OF_DAY, alarm.getHourOfDay());
+//        calendar.set(Calendar.MINUTE, parseInt(alarm.getMinute()));
+//        calendar.set(Calendar.SECOND, 0);
+//        if (day != 0) {
+//            calendar.set(Calendar.DAY_OF_WEEK, day);
+//        }
+//        if (Calendar.getInstance().getTimeInMillis() > calendar.getTimeInMillis()) {
+//            if (day == 0) {
+//                calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK) + 1);
+//            } else {
+//                calendar.set(Calendar.WEEK_OF_MONTH, calendar.get(Calendar.WEEK_OF_MONTH) + 1);
+//            }
+//        }
+//        return calendar;
+//    }
+
+
 }
 

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.io.IOException;
@@ -57,7 +58,6 @@ public class SetAlarmActivity extends Activity {
 	private String currentAMPM;
 	private String currentActive;
 
-
 	//implementating cancelButtonListener
 	private View.OnClickListener cancelButtonListener = new View.OnClickListener() {
 		@Override
@@ -78,9 +78,10 @@ public class SetAlarmActivity extends Activity {
 			} else {
 				dataSource.createAlarm (alarm);
 			}
-			dataSource.close();
-			finish();
-		}
+            Toast.makeText(getApplicationContext(), "Alarm is set for " + alarm.toString(), Toast.LENGTH_LONG).show();
+            dataSource.close();
+            finish();
+        }
 	};
 
 	private View.OnClickListener ringtoneListener = new View.OnClickListener () {
@@ -117,10 +118,10 @@ public class SetAlarmActivity extends Activity {
 
 	//checks what checkBoxes are checked and returns a string based on it(can be implemented using bitmask)
 	private String getDaysOfWeek () {
-		StringBuilder daysOfWeek = new StringBuilder ();
-		daysOfWeek.append (sun.isChecked () ? "1" : "");
-		daysOfWeek.append (mon.isChecked () ? "2" : "");
-		daysOfWeek.append (tues.isChecked () ? "3" : "");
+        StringBuilder daysOfWeek = new StringBuilder();
+        daysOfWeek.append(sun.isChecked() ? "1" : "");
+        daysOfWeek.append(mon.isChecked() ? "2" : "");
+        daysOfWeek.append (tues.isChecked () ? "3" : "");
 		daysOfWeek.append (weds.isChecked () ? "4" : "");
 		daysOfWeek.append (thurs.isChecked () ? "5" : "");
 		daysOfWeek.append (fri.isChecked () ? "6" : "");
