@@ -23,8 +23,8 @@ public class Database extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 2;
 	// Database creation sql statement
 	private static final String DATABASE_CREATE =
-			"create table "	+ TABLE_ALARM + "("
-					+ COLUMN_ID	+ " integer primary key autoincrement, "
+			"create table " + TABLE_ALARM + "("
+					+ COLUMN_ID + " integer primary key autoincrement, "
 					+ COLUMN_HOUR + " text not null,"
 					+ COLUMN_MINUTE + " text not null,"
 					+ COLUMN_AMPM + " text not null,"

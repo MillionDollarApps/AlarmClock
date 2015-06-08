@@ -30,6 +30,7 @@ android {
 
 dependencies {
     compile 'org.apache.commons:commons-lang3:3.3.2'
-    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.googlecode.android-wheel:datetime-picker:1.1'
+    compile 'com.google.android.gms:play-services:7.5.0'
 }

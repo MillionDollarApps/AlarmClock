@@ -2,88 +2,81 @@ package avd.com.alarmclockavd;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 public class MainActivity extends Activity {
 
-    private ListView alarmList;
-    private ImageView buttonAdd;
-    private AlarmsDataSource datasource;
-    private AlarmListAdapter adapter;
+	private ListView alarmList;
+	private ImageView buttonAdd;
+	private AlarmsDataSource datasource;
+	private AlarmListAdapter adapter;
+	private Intent intent;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //initiating views
-        initiateViews();
-        datasource = new AlarmsDataSource(this);
-        datasource.open();
-        adapter = new AlarmListAdapter(getApplicationContext(), datasource.getAllAlarms());
-        alarmList.setAdapter (adapter);
-        alarmList.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if (alarmList.getCount() > 10)
-                    buttonAdd.setVisibility(View.GONE);
-                else
-                    buttonAdd.setVisibility(View.VISIBLE);
-            }
-        });
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		//adview
+		AdView mAdView = (AdView) findViewById(R.id.adView);
+		AdRequest adRequest = new AdRequest.Builder().build();
+		mAdView.loadAd(adRequest);
+		//initiating views
+		initiateViews();
+		datasource = new AlarmsDataSource(this);
+		datasource.open();
+		adapter = new AlarmListAdapter(getApplicationContext(), datasource.getAllAlarms());
+		alarmList.setAdapter(adapter);
+		alarmList.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+			@Override
+			public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+				if (alarmList.getCount() > 10) {
+					buttonAdd.setVisibility(View.GONE);
+				} else {
+					buttonAdd.setVisibility(View.VISIBLE);
+				}
+			}
+		});
 
-        buttonAdd.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick (View v) {
-                Intent intent = new Intent (getApplicationContext (), SetAlarmActivity.class);
-                startActivity (intent);
-            }
-        });
-//        Runnable runnable = new Runnable()
-//        {
-//            @Override
-//            public void run()
-//            {
-//                List<Alarm> alarms = datasource.getAllAlarms();
-//                for(int i = 0;i<alarms.size();i++)
-//                    if(alarms.get(i).getActive().equals("active"))
-//                        adapter.setAlarm(alarms.get(i));
-//                    else
-//                        adapter.cancelAlarm(alarms.get(i));
-//            }
-//        };
-//        Thread thread= new Thread(runnable);
-//        thread.start();
-
-    }
-
-    private void initiateViews() {
-        alarmList = (ListView) findViewById(R.id.alarmsListView);
-        buttonAdd = (ImageView) findViewById(R.id.buttonAdd);
+		buttonAdd.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), SetAlarmActivity.class);
+				startActivity(intent);
+			}
+		});
 
 
-    }
+	}
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //open database
-        datasource.open();
-        //refresh alarmList after adding an alarm
-        adapter.refreshList(datasource.getAllAlarms());
+	private void initiateViews() {
+		alarmList = (ListView) findViewById(R.id.alarmsListView);
+		buttonAdd = (ImageView) findViewById(R.id.buttonAdd);
 
-    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        datasource.close();
-    }
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		//open database
+		datasource.open();
+		//refresh alarmList after adding an alarm
+		adapter.refreshList(datasource.getAllAlarms());
+		//
+	}
+
+	@Override
+	protected void onPause() {
+		datasource.close();
+		super.onPause();
+	}
 
 
 }

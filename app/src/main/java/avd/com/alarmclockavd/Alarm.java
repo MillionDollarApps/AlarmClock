@@ -15,11 +15,11 @@ public class Alarm {
 	private String vibrate;
 	private String title;
 
-	public String getTitle () {
+	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle (String title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
@@ -56,20 +56,20 @@ public class Alarm {
 		this.description = description;
 	}
 
-	public String getActive(){
+	public String getActive() {
 		return active;
 	}
 
-	public void setActive(String active){
+	public void setActive(String active) {
 		this.active = active;
 	}
 
-	public String getDays(){
+	public String getDays() {
 		return days;
 	}
 
-	public void setDays(String days){
-		this.days=days;
+	public void setDays(String days) {
+		this.days = days;
 	}
 
 	public String getAmpm() {
@@ -79,6 +79,7 @@ public class Alarm {
 	public void setAmpm(String ampm) {
 		this.ampm = ampm;
 	}
+
 	public String getHour() {
 		return hour;
 	}
@@ -87,11 +88,11 @@ public class Alarm {
 		this.hour = hour;
 	}
 
-	public String getMinute(){
+	public String getMinute() {
 		return minute;
 	}
 
-	public void setMinute(String minute){
+	public void setMinute(String minute) {
 		this.minute = minute;
 	}
 
@@ -102,23 +103,24 @@ public class Alarm {
 	}
 
 
-    public int getTime() {
-        int hours = parseInt(hour);
-        int minutes = parseInt(minute);
-        int indicator = ampm.equals("AM") ? 0 : 1;
-        int time;
-        if (hours == 12 && indicator == 0)
-            time = minutes;
-        else if (hours < 12 && indicator == 1)
-            time = (hours + 12) * 60 + minutes;
-        else
-            time = hours * 60 + minutes;
-        return time;
-    }
+	public int getTime() {
+		int hours = parseInt(hour);
+		int minutes = parseInt(minute);
+		int indicator = ampm.equals("AM") ? 0 : 1;
+		int time;
+		if (hours == 12 && indicator == 0) {
+			time = minutes;
+		} else if (hours < 12 && indicator == 1) {
+			time = (hours + 12) * 60 + minutes;
+		} else {
+			time = hours * 60 + minutes;
+		}
+		return time;
+	}
 
-	public int getHourOfDay () {
-		int hours = parseInt (hour);
-		int indicator = ampm.equals ("AM") ? 0 : 1;
+	public int getHourOfDay() {
+		int hours = parseInt(hour);
+		int indicator = ampm.equals("AM") ? 0 : 1;
 		int time;
 		if (hours == 12 && indicator == 0) {
 			time = 0;

@@ -6,9 +6,10 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
-    <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -22,10 +23,10 @@
             android:theme="@android:style/Theme.Holo.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SetAlarmActivity"
             android:label="Set Alarm"
@@ -43,10 +44,13 @@
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:taskAffinity=".MainActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
         </activity>
 
         <receiver android:name=".AlarmReceiver">
+        </receiver>
+
+        <receiver android:name=".StateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.TIME_SET" />
@@ -56,10 +60,13 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".AlarmService"
-            android:icon="@mipmap/ic_launcher"
-            android:label="Alarm">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
+
+        <service android:name=".EnterTextService">
+
         </service>
 
     </application>
