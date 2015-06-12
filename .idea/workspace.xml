@@ -44,44 +44,34 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="29522-29522" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2948876-dcfa-423f-95f9-7306a7e49b8e" name="Default" comment="no message(final version)">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/repeat.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/repeat_p.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterTextService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/StateReceiver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_enter_text.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/selector_repeat.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/set_alarm.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_1_1.xml" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmProvider.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/RingtonePicker.java" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/commons_lang3_3_3_2.xml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/datetime_picker_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_22_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Alarm.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Alarm.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmListAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmsDataSource.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmsDataSource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Database.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Database.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterTextService.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterTextService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/OnSwipeTouchListener.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/OnSwipeTouchListener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/SetAlarmActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/SetAlarmActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/StateReceiver.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/StateReceiver.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/TimeComparator.java" afterPath="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/TimeComparator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/alarm_row.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/alarm_row.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_enter_text.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_enter_text.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/set_alarm.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/set_alarm.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/set_alarm.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/set_alarm.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="AlarmClock.iws" />
@@ -114,112 +104,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dialog_enter_text.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_enter_text.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SetAlarmActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/SetAlarmActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.60402685">
-              <caret line="82" column="12" selection-start-line="82" selection-start-column="12" selection-end-line="82" selection-end-column="12" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#12887#13285#0" expanded="true" />
-                <element signature="e#13284#13285#0" expanded="true" />
-                <element signature="e#14722#15312#0" expanded="true" />
-                <element signature="e#15311#15312#0" expanded="true" />
-                <element signature="e#15416#16013#0" expanded="true" />
-                <element signature="e#16012#16013#0" expanded="true" />
-                <element signature="e#16085#16280#0" expanded="true" />
-                <element signature="e#16279#16280#0" expanded="true" />
-                <element signature="e#16317#16468#0" expanded="true" />
-                <element signature="e#16467#16468#0" expanded="true" />
-                <element signature="e#16568#16569#0" expanded="true" />
-                <element signature="e#16586#16587#0" expanded="true" />
-                <element signature="e#16985#17108#0" expanded="true" />
-                <element signature="e#17107#17108#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AlarmReceiver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="90" column="9" selection-start-line="90" selection-start-column="9" selection-end-line="90" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EnterTextService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterTextService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.958333">
-              <caret line="46" column="81" selection-start-line="46" selection-start-column="81" selection-end-line="46" selection-end-column="81" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EnterText.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="179" column="62" selection-start-line="179" selection-start-column="62" selection-end-line="179" selection-end-column="62" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="StateReceiver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/StateReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <caret line="25" column="62" selection-start-line="25" selection-start-column="62" selection-end-line="25" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -229,24 +118,125 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="219" column="26" selection-start-line="219" selection-start-column="26" selection-end-line="219" selection-end-column="26" />
+              <caret line="82" column="40" selection-start-line="82" selection-start-column="40" selection-end-line="82" selection-end-column="40" />
+              <folding>
+                <element signature="e#932#933#0" expanded="true" />
+                <element signature="e#962#963#0" expanded="true" />
+                <element signature="e#1012#1013#0" expanded="true" />
+                <element signature="e#1049#1050#0" expanded="true" />
+                <element signature="e#1100#1101#0" expanded="true" />
+                <element signature="e#1145#1146#0" expanded="true" />
+                <element signature="e#2737#3243#0" expanded="true" />
+                <element signature="e#3242#3243#0" expanded="true" />
+                <marker date="1434126699443" expanded="true" signature="4208:5670" placeholder="{...}" />
+                <marker date="1434126699443" expanded="true" signature="4311:4904" placeholder="{...}" />
+                <marker date="1434126699443" expanded="false" signature="4715:4771" placeholder="() → {" />
+                <marker date="1434126699443" expanded="false" signature="4869:4877" placeholder="}" />
+                <marker date="1434126699443" expanded="true" signature="4994:5666" placeholder="{...}" />
+                <marker date="1434126699443" expanded="true" signature="5207:5278" placeholder="//..." />
+                <marker date="1434126699443" expanded="false" signature="5508:5564" placeholder="() → {" />
+                <marker date="1434126699443" expanded="false" signature="5631:5639" placeholder="}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SetAlarmActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/SetAlarmActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-103.548386">
+              <caret line="260" column="0" selection-start-line="260" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#921#922#0" expanded="true" />
-                <element signature="e#951#952#0" expanded="true" />
-                <element signature="e#1001#1002#0" expanded="true" />
-                <element signature="e#1038#1039#0" expanded="true" />
-                <element signature="e#1089#1090#0" expanded="true" />
-                <element signature="e#1134#1135#0" expanded="true" />
-                <element signature="e#1637#1638#0" expanded="true" />
-                <element signature="e#1675#1676#0" expanded="true" />
-                <element signature="e#1716#1717#0" expanded="true" />
-                <element signature="e#1754#1755#0" expanded="true" />
-                <element signature="e#2428#2543#0" expanded="true" />
-                <element signature="e#2542#2543#0" expanded="true" />
-                <marker date="1433790816073" expanded="true" signature="4910:5049" placeholder="(buttonView, isChecked) → {" />
-                <marker date="1433790816073" expanded="true" signature="5394:5400" placeholder="}" />
+                <element signature="e#5037#5134#0" expanded="true" />
+                <element signature="e#5133#5134#0" expanded="true" />
+                <element signature="e#5246#5946#0" expanded="true" />
+                <element signature="e#5945#5946#0" expanded="true" />
+                <element signature="e#7952#8196#0" expanded="true" />
+                <element signature="e#8195#8196#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AlarmProvider.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmProvider.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <marker date="1434126699451" expanded="true" signature="2094:2521" placeholder="{...}" />
+                <marker date="1434126699451" expanded="true" signature="3043:3317" placeholder="{...}" />
+                <marker date="1434126699451" expanded="true" signature="3346:3690" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Alarm.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Alarm.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
+              <folding>
+                <element signature="e#6323#6324#0" expanded="true" />
+                <element signature="e#6354#6355#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AlarmUtils.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7852349">
+              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EnterText.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="52" column="79" selection-start-line="52" selection-start-column="79" selection-end-line="52" selection-end-column="79" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3110#3315#0" expanded="false" />
+                <element signature="e#3314#3315#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="104" column="26" selection-start-line="104" selection-start-column="26" selection-end-line="104" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AlarmReceiver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -258,8 +248,9 @@
       <list>
         <option value="layoutResourceFile_vertical" />
         <option value="layoutResourceFile" />
-        <option value="Class" />
         <option value="resourceFile" />
+        <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -1535,7 +1526,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4296337451980" />
+        <entry key="$PROJECT_DIR$" value="4296725693155" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -1808,57 +1799,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_fri.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_mon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_sat.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_sun.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_thu.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_tue.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_wed.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_button_cancel.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_button_confirm.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/RingtoneList.java" />
-        <option value="$PROJECT_DIR$/captures/SystemInfo_2015.05.12_21.05.33.txt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_title.xml" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_ringtone.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/choose_music_row.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmRingtoneProvider.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Database.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/update_alarm.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Settings.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_choose_ringtone.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_vibrate.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/choose_ringtone_row.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/alarm_row.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/TimeComparator.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmsDataSource.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Alarm.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/OnSwipeTouchListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_ad.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AdsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AdFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/RingtonePicker.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterTextService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/SetAlarmService.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/selector_repeat.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_enter_text.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/set_alarm.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/RandomStringUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/StaticValues.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/State.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Values.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/DialogRingtonePicker.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/SetAlarmActivityListeners.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/RingtoneListViewItemClickListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/RingtoneDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/alarm_row.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Test.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmStates.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Calendar.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/CustomCalendar.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/set_alarm.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/set_alarm.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/OnSwipeTouchListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/TimeCalculations.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Database.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/TimeCalculator.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/TimeComparator.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterTextService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/SetAlarmsService.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmsService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Alarm.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/RingtonePicker.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_enter_text.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmsDataSource.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/StateReceiver.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmProvider.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/StateReceiver.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/SetAlarmActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmUtils.java" />
       </list>
     </option>
   </component>
@@ -1874,9 +1865,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="65" />
-    <option name="y" value="-4" />
+    <option name="y" value="24" />
     <option name="width" value="1855" />
-    <option name="height" value="1084" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -1920,7 +1911,10 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1942,6 +1936,10 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1953,8 +1951,34 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AlarmClock" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dialog_enter_text.xml" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResGroupNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1985,15 +2009,26 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alarmclockavd" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AlarmClock" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2008,11 +2043,11 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="SH4A9WT00594" />
     <property name="FullScreen" value="false" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
@@ -2021,7 +2056,14 @@
     <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/app" />
     <property name="ExportApk.Flavors" value="" />
     <property name="ExportApk.BuildType" value="release" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd" />
+    <property name="SearchEverywhereHistoryKey" value="StateReceiver&#9;PSI&#9;JAVA://avd.com.alarmclockavd.StateReceiver&#10;stateReceiver&#9;PSI&#9;JAVA://avd.com.alarmclockavd.StateReceiver" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="NexusOne" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateBuilderDialog.RecentsKey">
+      <recent name="avd.com.alarmclockavd" />
+    </key>
   </component>
   <component name="RunManager" selected="Android Application.app">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -2404,12 +2446,18 @@
       <option name="project" value="LOCAL" />
       <updated>1433152100747</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="no message(final version)">
+      <created>1433790906014</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1433790906014</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
-    <editor active="false" />
+    <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3290461" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -2418,15 +2466,15 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.50193477" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946378" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.49806523" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946378" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.49806523" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31939977" sideWeight="0.49806523" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2498618" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2498618" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -2437,7 +2485,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946378" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -2478,89 +2526,16 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/OnSwipeTouchListener.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="80" column="17" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="49" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/set_alarm.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/cancel_button.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/toggle_button.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/selector_button_confirm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="44" column="27" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2606,30 +2581,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/alarm_row.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.67742">
-          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/TimeComparator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="53" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../Android/Sdk/sources/android-22/android/app/ActivityThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2638,14 +2589,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/set_alarm_24.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="45" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/selector_thu.xml">
@@ -2655,32 +2606,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Alarm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="129" column="20" selection-start-line="129" selection-start-column="20" selection-end-line="129" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/OnSwipeTouchListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="80" column="17" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../Android/Sdk/sources/android-22/com/android/internal/os/ZygoteInit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="857" column="0" selection-start-line="857" selection-start-column="0" selection-end-line="857" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -2705,35 +2635,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.903226">
-          <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../Android/Sdk/sources/android-22/android/content/ContextWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="515" column="34" selection-start-line="515" selection-start-column="34" selection-end-line="515" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmsDataSource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#738#739#0" expanded="false" />
-            <element signature="e#777#778#0" expanded="false" />
-            <element signature="e#892#893#0" expanded="false" />
-            <element signature="e#915#916#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2758,110 +2663,418 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_enter_text.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.8/c5af7fffd48cf620183ba19d12f55f6154f039f2/joda-time-2.8-sources.jar!/org/joda/time/format/DateTimeFormatter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="88" column="3" selection-start-line="88" selection-start-column="3" selection-end-line="88" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/set_alarm.xml">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.3.2/d2a489573c0ed2c4942b3660decad5d65087b406/commons-lang3-3.3.2-sources.jar!/org/apache/commons/lang3/RandomStringUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="334" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_choose_ringtone.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="13.090909">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Android/Sdk/sources/android-22/android/app/Dialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="68" column="38" selection-start-line="68" selection-start-column="38" selection-end-line="68" selection-end-column="38" />
+          <caret line="80" column="13" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Android/Sdk/sources/android-22/android/view/ViewGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="433" column="24" selection-start-line="433" selection-start-column="24" selection-end-line="433" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Android/Sdk/sources/android-22/android/widget/AdapterView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="254" column="21" selection-start-line="254" selection-start-column="21" selection-end-line="254" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/alarm_row.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Android/Sdk/sources/android-22/com/android/internal/os/ZygoteInit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="736" column="0" selection-start-line="736" selection-start-column="0" selection-end-line="736" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/set_alarm.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.090909">
+          <caret line="192" column="46" selection-start-line="192" selection-start-column="46" selection-end-line="192" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/set_alarm.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="54" column="17" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="48" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/TimeComparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_enter_text.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/../../../Android/Sdk/sources/android-22/android/widget/TextView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="60" column="36" selection-start-line="60" selection-start-column="36" selection-end-line="60" selection-end-column="36" />
-          <folding />
+          <caret line="231" column="13" selection-start-line="231" selection-start-column="13" selection-end-line="231" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#354418#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#25222#25223#0" expanded="false" />
+            <element signature="e#25257#25258#0" expanded="false" />
+            <element signature="e#25534#25566#0" expanded="false" />
+            <element signature="e#58925#58926#0" expanded="false" />
+            <element signature="e#58953#58954#0" expanded="false" />
+            <element signature="e#59098#59099#0" expanded="false" />
+            <element signature="e#59125#59126#0" expanded="false" />
+            <element signature="e#59663#59664#0" expanded="false" />
+            <element signature="e#59691#59692#0" expanded="false" />
+            <element signature="e#59813#59814#0" expanded="false" />
+            <element signature="e#59850#59851#0" expanded="false" />
+            <element signature="e#60737#60738#0" expanded="false" />
+            <element signature="e#60767#60768#0" expanded="false" />
+            <element signature="e#60925#60926#0" expanded="false" />
+            <element signature="e#60959#60960#0" expanded="false" />
+            <element signature="e#66098#66099#0" expanded="false" />
+            <element signature="e#66130#66131#0" expanded="false" />
+            <element signature="e#67917#67918#0" expanded="false" />
+            <element signature="e#67955#67956#0" expanded="false" />
+            <element signature="e#74181#74182#0" expanded="false" />
+            <element signature="e#74228#74229#0" expanded="false" />
+            <element signature="e#74381#74382#0" expanded="false" />
+            <element signature="e#74429#74430#0" expanded="false" />
+            <element signature="e#74582#74583#0" expanded="false" />
+            <element signature="e#74630#74631#0" expanded="false" />
+            <element signature="e#74777#74778#0" expanded="false" />
+            <element signature="e#74823#74824#0" expanded="false" />
+            <element signature="e#75079#75080#0" expanded="false" />
+            <element signature="e#75151#75152#0" expanded="false" />
+            <element signature="e#95342#95343#0" expanded="false" />
+            <element signature="e#95378#95379#0" expanded="false" />
+            <element signature="e#99357#99358#0" expanded="false" />
+            <element signature="e#99406#99407#0" expanded="false" />
+            <element signature="e#99847#99848#0" expanded="false" />
+            <element signature="e#99895#99896#0" expanded="false" />
+            <element signature="e#100075#100076#0" expanded="false" />
+            <element signature="e#100122#100123#0" expanded="false" />
+            <element signature="e#100329#100330#0" expanded="false" />
+            <element signature="e#100397#100398#0" expanded="false" />
+            <element signature="e#100826#100827#0" expanded="false" />
+            <element signature="e#100884#100885#0" expanded="false" />
+            <element signature="e#101279#101280#0" expanded="false" />
+            <element signature="e#101340#101341#0" expanded="false" />
+            <element signature="e#102445#102446#0" expanded="false" />
+            <element signature="e#102494#102495#0" expanded="false" />
+            <element signature="e#104180#104181#0" expanded="false" />
+            <element signature="e#104227#104228#0" expanded="false" />
+            <element signature="e#104672#104673#0" expanded="false" />
+            <element signature="e#104728#104729#0" expanded="false" />
+            <element signature="e#104968#104969#0" expanded="false" />
+            <element signature="e#105020#105021#0" expanded="false" />
+            <element signature="e#105950#105951#0" expanded="false" />
+            <element signature="e#106008#106009#0" expanded="false" />
+            <element signature="e#108081#108082#0" expanded="false" />
+            <element signature="e#108114#108115#0" expanded="false" />
+            <element signature="e#108295#108296#0" expanded="false" />
+            <element signature="e#108331#108332#0" expanded="false" />
+            <element signature="e#108921#108922#0" expanded="false" />
+            <element signature="e#108959#108960#0" expanded="false" />
+            <element signature="e#110997#110998#0" expanded="false" />
+            <element signature="e#111033#111034#0" expanded="false" />
+            <element signature="e#111263#111264#0" expanded="false" />
+            <element signature="e#111295#111296#0" expanded="false" />
+            <element signature="e#111523#111524#0" expanded="false" />
+            <element signature="e#111555#111556#0" expanded="false" />
+            <element signature="e#111777#111778#0" expanded="false" />
+            <element signature="e#111812#111813#0" expanded="false" />
+            <element signature="e#111999#112000#0" expanded="false" />
+            <element signature="e#112032#112033#0" expanded="false" />
+            <element signature="e#112342#112343#0" expanded="false" />
+            <element signature="e#112378#112379#0" expanded="false" />
+            <element signature="e#112794#112795#0" expanded="false" />
+            <element signature="e#112835#112836#0" expanded="false" />
+            <element signature="e#113204#113205#0" expanded="false" />
+            <element signature="e#113242#113243#0" expanded="false" />
+            <element signature="e#115116#115117#0" expanded="false" />
+            <element signature="e#115153#115154#0" expanded="false" />
+            <element signature="e#116593#116594#0" expanded="false" />
+            <element signature="e#116630#116631#0" expanded="false" />
+            <element signature="e#118193#118194#0" expanded="false" />
+            <element signature="e#118224#118225#0" expanded="false" />
+            <element signature="e#118371#118372#0" expanded="false" />
+            <element signature="e#118415#118416#0" expanded="false" />
+            <element signature="e#119753#119754#0" expanded="false" />
+            <element signature="e#119798#119799#0" expanded="false" />
+            <element signature="e#120626#120627#0" expanded="false" />
+            <element signature="e#120682#120683#0" expanded="false" />
+            <element signature="e#121446#121447#0" expanded="false" />
+            <element signature="e#121503#121504#0" expanded="false" />
+            <element signature="e#122240#122241#0" expanded="false" />
+            <element signature="e#122296#122297#0" expanded="false" />
+            <element signature="e#123144#123145#0" expanded="false" />
+            <element signature="e#123201#123202#0" expanded="false" />
+            <element signature="e#124941#124942#0" expanded="false" />
+            <element signature="e#125001#125002#0" expanded="false" />
+            <element signature="e#125685#125686#0" expanded="false" />
+            <element signature="e#125748#125749#0" expanded="false" />
+            <element signature="e#126421#126422#0" expanded="false" />
+            <element signature="e#126481#126482#0" expanded="false" />
+            <element signature="e#127164#127165#0" expanded="false" />
+            <element signature="e#127227#127228#0" expanded="false" />
+            <element signature="e#129246#129247#0" expanded="false" />
+            <element signature="e#129281#129282#0" expanded="false" />
+            <element signature="e#129637#129638#0" expanded="false" />
+            <element signature="e#129671#129672#0" expanded="false" />
+            <element signature="e#129907#129908#0" expanded="false" />
+            <element signature="e#129953#129954#0" expanded="false" />
+            <element signature="e#136978#136979#0" expanded="false" />
+            <element signature="e#137033#137034#0" expanded="false" />
+            <element signature="e#137818#137819#0" expanded="false" />
+            <element signature="e#137860#137861#0" expanded="false" />
+            <element signature="e#138126#138127#0" expanded="false" />
+            <element signature="e#138161#138162#0" expanded="false" />
+            <element signature="e#139348#139349#0" expanded="false" />
+            <element signature="e#139390#139391#0" expanded="false" />
+            <element signature="e#139734#139735#0" expanded="false" />
+            <element signature="e#139785#139786#0" expanded="false" />
+            <element signature="e#148022#148023#0" expanded="false" />
+            <element signature="e#148089#148090#0" expanded="false" />
+            <element signature="e#149252#149253#0" expanded="false" />
+            <element signature="e#149319#149320#0" expanded="false" />
+            <element signature="e#149555#149556#0" expanded="false" />
+            <element signature="e#149583#149584#0" expanded="false" />
+            <element signature="e#149613#149614#0" expanded="false" />
+            <element signature="e#149647#149648#0" expanded="false" />
+            <element signature="e#167439#167440#0" expanded="false" />
+            <element signature="e#167501#167502#0" expanded="false" />
+            <element signature="e#171342#171343#0" expanded="false" />
+            <element signature="e#171373#171374#0" expanded="false" />
+            <element signature="e#181914#181915#0" expanded="false" />
+            <element signature="e#181977#181978#0" expanded="false" />
+            <element signature="e#182217#182218#0" expanded="false" />
+            <element signature="e#182284#182285#0" expanded="false" />
+            <element signature="e#182344#182345#0" expanded="false" />
+            <element signature="e#182411#182412#0" expanded="false" />
+            <element signature="e#193837#193838#0" expanded="false" />
+            <element signature="e#193861#193862#0" expanded="false" />
+            <element signature="e#203324#203325#0" expanded="false" />
+            <element signature="e#203391#203392#0" expanded="false" />
+            <element signature="e#228758#228759#0" expanded="false" />
+            <element signature="e#228819#228820#0" expanded="false" />
+            <element signature="e#228853#228854#0" expanded="false" />
+            <element signature="e#228912#228913#0" expanded="false" />
+            <element signature="e#229892#229893#0" expanded="false" />
+            <element signature="e#229920#229921#0" expanded="false" />
+            <element signature="e#244158#244159#0" expanded="false" />
+            <element signature="e#244221#244222#0" expanded="false" />
+            <element signature="e#245835#245836#0" expanded="false" />
+            <element signature="e#245869#245870#0" expanded="false" />
+            <element signature="e#270774#270775#0" expanded="false" />
+            <element signature="e#270832#270833#0" expanded="false" />
+            <element signature="e#271909#271910#0" expanded="false" />
+            <element signature="e#271970#271971#0" expanded="false" />
+            <element signature="e#272131#272132#0" expanded="false" />
+            <element signature="e#272190#272191#0" expanded="false" />
+            <element signature="e#272744#272745#0" expanded="false" />
+            <element signature="e#272779#272780#0" expanded="false" />
+            <element signature="e#276919#276920#0" expanded="false" />
+            <element signature="e#276969#276970#0" expanded="false" />
+            <element signature="e#277398#277399#0" expanded="false" />
+            <element signature="e#277440#277441#0" expanded="false" />
+            <element signature="e#277646#277647#0" expanded="false" />
+            <element signature="e#277679#277680#0" expanded="false" />
+            <element signature="e#299661#299662#0" expanded="false" />
+            <element signature="e#299730#299731#0" expanded="false" />
+            <element signature="e#300267#300268#0" expanded="false" />
+            <element signature="e#300296#300297#0" expanded="false" />
+            <element signature="e#312085#312086#0" expanded="false" />
+            <element signature="e#312149#312150#0" expanded="false" />
+            <element signature="e#329392#329393#0" expanded="false" />
+            <element signature="e#329441#329442#0" expanded="false" />
+            <element signature="e#338447#338448#0" expanded="false" />
+            <element signature="e#338475#338476#0" expanded="false" />
+            <element signature="e#340000#340001#0" expanded="false" />
+            <element signature="e#340042#340043#0" expanded="false" />
+            <element signature="e#340130#340131#0" expanded="false" />
+            <element signature="e#340157#340158#0" expanded="false" />
+            <element signature="e#340249#340250#0" expanded="false" />
+            <element signature="e#340289#340290#0" expanded="false" />
+            <element signature="e#341488#341489#0" expanded="false" />
+            <element signature="e#341529#341530#0" expanded="false" />
+            <element signature="e#342408#342435#0" expanded="false" />
+            <element signature="e#342618#342619#0" expanded="false" />
+            <element signature="e#342675#342676#0" expanded="false" />
+            <element signature="e#342729#342730#0" expanded="false" />
+            <element signature="e#342788#342789#0" expanded="false" />
+            <element signature="e#343716#343717#0" expanded="false" />
+            <element signature="e#343754#343755#0" expanded="false" />
+            <element signature="e#343793#343794#0" expanded="false" />
+            <element signature="e#343844#343845#0" expanded="false" />
+            <element signature="e#343898#343899#0" expanded="false" />
+            <element signature="e#343964#343965#0" expanded="false" />
+            <element signature="e#347792#347793#0" expanded="false" />
+            <element signature="e#347830#347831#0" expanded="false" />
+            <element signature="e#351111#351112#0" expanded="false" />
+            <element signature="e#351154#351155#0" expanded="false" />
+            <element signature="e#351183#351184#0" expanded="false" />
+            <element signature="e#351221#351222#0" expanded="false" />
+            <element signature="e#351257#351258#0" expanded="false" />
+            <element signature="e#351302#351303#0" expanded="false" />
+            <element signature="e#351342#351343#0" expanded="false" />
+            <element signature="e#351393#351394#0" expanded="false" />
+            <element signature="e#351430#351431#0" expanded="false" />
+            <element signature="e#351512#351513#0" expanded="false" />
+            <element signature="e#351543#351544#0" expanded="false" />
+            <element signature="e#351600#351601#0" expanded="false" />
+            <element signature="e#351631#351632#0" expanded="false" />
+            <element signature="e#351688#351689#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_enter_text.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Database.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+          <caret line="30" column="53" selection-start-line="30" selection-start-column="53" selection-end-line="30" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.958333">
-          <caret line="46" column="81" selection-start-line="46" selection-start-column="81" selection-end-line="46" selection-end-column="81" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Android/Sdk/sources/android-22/java/lang/Override.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37190083">
+          <caret line="32" column="18" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/OnSwipeTouchListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/RingtonePicker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_enter_text.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.0">
+          <caret line="30" column="52" selection-start-line="30" selection-start-column="52" selection-end-line="30" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterTextService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmListAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmsDataSource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="219" column="26" selection-start-line="219" selection-start-column="26" selection-end-line="219" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#921#922#0" expanded="true" />
-            <element signature="e#951#952#0" expanded="true" />
-            <element signature="e#1001#1002#0" expanded="true" />
-            <element signature="e#1038#1039#0" expanded="true" />
-            <element signature="e#1089#1090#0" expanded="true" />
-            <element signature="e#1134#1135#0" expanded="true" />
-            <element signature="e#1637#1638#0" expanded="true" />
-            <element signature="e#1675#1676#0" expanded="true" />
-            <element signature="e#1716#1717#0" expanded="true" />
-            <element signature="e#1754#1755#0" expanded="true" />
-            <element signature="e#2428#2543#0" expanded="true" />
-            <element signature="e#2542#2543#0" expanded="true" />
-            <marker date="1433790816073" expanded="true" signature="4910:5049" placeholder="(buttonView, isChecked) → {" />
-            <marker date="1433790816073" expanded="true" signature="5394:5400" placeholder="}" />
-          </folding>
+          <caret line="87" column="30" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/StateReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="90" column="9" selection-start-line="90" selection-start-column="9" selection-end-line="90" selection-end-column="9" />
+          <caret line="25" column="62" selection-start-line="25" selection-start-column="62" selection-end-line="25" selection-end-column="62" />
           <folding />
         </state>
       </provider>
@@ -2869,7 +3082,53 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <caret line="104" column="26" selection-start-line="104" selection-start-column="26" selection-end-line="104" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <marker date="1434126699451" expanded="true" signature="2094:2521" placeholder="{...}" />
+            <marker date="1434126699451" expanded="true" signature="3043:3317" placeholder="{...}" />
+            <marker date="1434126699451" expanded="true" signature="3346:3690" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="82" column="40" selection-start-line="82" selection-start-column="40" selection-end-line="82" selection-end-column="40" />
+          <folding>
+            <element signature="e#932#933#0" expanded="true" />
+            <element signature="e#962#963#0" expanded="true" />
+            <element signature="e#1012#1013#0" expanded="true" />
+            <element signature="e#1049#1050#0" expanded="true" />
+            <element signature="e#1100#1101#0" expanded="true" />
+            <element signature="e#1145#1146#0" expanded="true" />
+            <element signature="e#2737#3243#0" expanded="true" />
+            <element signature="e#3242#3243#0" expanded="true" />
+            <marker date="1434126699443" expanded="true" signature="4208:5670" placeholder="{...}" />
+            <marker date="1434126699443" expanded="true" signature="4311:4904" placeholder="{...}" />
+            <marker date="1434126699443" expanded="false" signature="4715:4771" placeholder="() → {" />
+            <marker date="1434126699443" expanded="false" signature="4869:4877" placeholder="}" />
+            <marker date="1434126699443" expanded="true" signature="4994:5666" placeholder="{...}" />
+            <marker date="1434126699443" expanded="true" signature="5207:5278" placeholder="//..." />
+            <marker date="1434126699443" expanded="false" signature="5508:5564" placeholder="() → {" />
+            <marker date="1434126699443" expanded="false" signature="5631:5639" placeholder="}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2877,42 +3136,55 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/EnterText.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="179" column="62" selection-start-line="179" selection-start-column="62" selection-end-line="179" selection-end-column="62" />
+          <caret line="52" column="79" selection-start-line="52" selection-start-column="79" selection-end-line="52" selection-end-column="79" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#3110#3315#0" expanded="false" />
+            <element signature="e#3314#3315#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/StateReceiver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/SetAlarmActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60402685">
-          <caret line="82" column="12" selection-start-line="82" selection-start-column="12" selection-end-line="82" selection-end-column="12" />
+        <state vertical-scroll-proportion="-103.548386">
+          <caret line="260" column="0" selection-start-line="260" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#12887#13285#0" expanded="true" />
-            <element signature="e#13284#13285#0" expanded="true" />
-            <element signature="e#14722#15312#0" expanded="true" />
-            <element signature="e#15311#15312#0" expanded="true" />
-            <element signature="e#15416#16013#0" expanded="true" />
-            <element signature="e#16012#16013#0" expanded="true" />
-            <element signature="e#16085#16280#0" expanded="true" />
-            <element signature="e#16279#16280#0" expanded="true" />
-            <element signature="e#16317#16468#0" expanded="true" />
-            <element signature="e#16467#16468#0" expanded="true" />
-            <element signature="e#16568#16569#0" expanded="true" />
-            <element signature="e#16586#16587#0" expanded="true" />
-            <element signature="e#16985#17108#0" expanded="true" />
-            <element signature="e#17107#17108#0" expanded="true" />
+            <element signature="e#5037#5134#0" expanded="true" />
+            <element signature="e#5133#5134#0" expanded="true" />
+            <element signature="e#5246#5946#0" expanded="true" />
+            <element signature="e#5945#5946#0" expanded="true" />
+            <element signature="e#7952#8196#0" expanded="true" />
+            <element signature="e#8195#8196#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/Alarm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
+          <folding>
+            <element signature="e#6323#6324#0" expanded="true" />
+            <element signature="e#6354#6355#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/avd/com/alarmclockavd/AlarmUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7852349">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

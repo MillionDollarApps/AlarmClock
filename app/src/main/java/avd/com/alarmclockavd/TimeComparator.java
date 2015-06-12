@@ -6,9 +6,13 @@ public class TimeComparator implements Comparator<Alarm> {
 
 	@Override
 	public int compare(Alarm lhs, Alarm rhs) {
-		if (lhs.getTime() > rhs.getTime()) {
+		AlarmUtils lhsTime = new AlarmUtils(lhs);
+		AlarmUtils rhsTime = new AlarmUtils(rhs);
+		int lTime = lhsTime.getTimeInMinutes();
+		int rTime = rhsTime.getTimeInMinutes();
+		if (lTime > rTime) {
 			return 1;
-		} else if (lhs.getTime() < rhs.getTime()) {
+		} else if (lTime < rTime) {
 			return -1;
 		}
 		return 0;

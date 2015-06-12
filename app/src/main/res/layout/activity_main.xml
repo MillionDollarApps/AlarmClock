@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/adView"
         android:choiceMode="singleChoice"
-        android:descendantFocusability="blocksDescendants"
         android:scrollbars="vertical"/>
 
 

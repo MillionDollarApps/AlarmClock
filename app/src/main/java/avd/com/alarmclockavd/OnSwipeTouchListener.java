@@ -10,32 +10,26 @@ public class OnSwipeTouchListener implements OnTouchListener {
 
 	private final GestureDetector mGestureDetector;
 
-	public OnSwipeTouchListener(Context ctx) {
-		mGestureDetector = new GestureDetector(ctx, new GestureListener());
+	public OnSwipeTouchListener(Context context) {
+		mGestureDetector = new GestureDetector(context, new GestureListener());
+
 	}
-
-
-	public GestureDetector getmGestureDetector() {
-		return mGestureDetector;
-	}
-
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		return mGestureDetector.onTouchEvent(event);
 	}
 
-	public void onSwipeRight() {
-	}
 
 	public void onSwipeLeft() {
+	}
+
+	public void onSwipeRight() {
 	}
 
 	public void onClick() {
 	}
 
-	public void onSwipeBottom() {
-	}
 
 	private final class GestureListener implements GestureDetector.OnGestureListener {
 
@@ -71,9 +65,9 @@ public class OnSwipeTouchListener implements OnTouchListener {
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 			boolean result = false;
-			float diffY = e2.getY() - e1.getY();
 			float diffX = e2.getX() - e1.getX();
-			if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+			if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) >
+					SWIPE_VELOCITY_THRESHOLD) {
 				if (diffX > 0) {
 					onSwipeRight();
 				} else {

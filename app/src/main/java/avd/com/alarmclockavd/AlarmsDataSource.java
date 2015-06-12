@@ -18,7 +18,7 @@ public class AlarmsDataSource {
 	private String[] allColumns = {Database.COLUMN_ID,
 			Database.COLUMN_HOUR, Database.COLUMN_MINUTE, Database.COLUMN_AMPM,
 			Database.COLUMN_DAY, Database.COLUMN_ACTIVE, Database.COLUMN_DESCRIPTION,
-			Database.COLUMN_RINGTONE, Database.COLUMN_VIBRATE, Database.COLUMN_TITLE};
+			Database.COLUMN_RINGTONETITLE, Database.COLUMN_RINGTONEURI, Database.COLUMN_VIBRATE,};
 
 	public AlarmsDataSource(Context context) {
 		dbHelper = new Database(context);
@@ -33,20 +33,44 @@ public class AlarmsDataSource {
 	}
 
 	public Alarm createAlarm(Alarm alarm) {
+		ContentValues values = getContentValues(alarm);
+		long insertId = database.insert(Database.TABLE_ALARM, null,
+				values);
+		Cursor cursor = database.query(Database.TABLE_ALARM,
+				allColumns, Database.COLUMN_ID + " = " + insertId, null,
+				null, null, null);
+		cursor.moveToNext();
+		Alarm newAlarm = cursorToAlarm(cursor);
+		cursor.close();
+		return newAlarm;
+	}
+
+	private Alarm cursorToAlarm(Cursor cursor) {
+		return new Alarm.Builder().
+				id(cursor.getLong(0)).
+				hour(cursor.getInt(1)).
+				minute(cursor.getInt(2)).
+				ampm(cursor.getInt(3) == 1).
+				days(cursor.getInt(4)).
+				active(cursor.getInt(5) == 1).
+				description(cursor.getString(6)).
+				ringtoneTitle(cursor.getString(7)).
+				ringtoneUri(cursor.getString(8)).
+				vibrate(cursor.getInt(9) == 1).build();
+	}
+
+	private ContentValues getContentValues(Alarm alarm) {
 		ContentValues values = new ContentValues();
 		values.put(Database.COLUMN_HOUR, alarm.getHour());
 		values.put(Database.COLUMN_MINUTE, alarm.getMinute());
-		values.put(Database.COLUMN_AMPM, alarm.getAmpm());
+		values.put(Database.COLUMN_AMPM, alarm.isAmpm() ? 1 : 0);
 		values.put(Database.COLUMN_DAY, alarm.getDays());
-		values.put(Database.COLUMN_ACTIVE, alarm.getActive());
+		values.put(Database.COLUMN_ACTIVE, alarm.isActive() ? 1 : 0);
 		values.put(Database.COLUMN_DESCRIPTION, alarm.getDescription());
-		values.put(Database.COLUMN_RINGTONE, alarm.getRingtone());
-		values.put(Database.COLUMN_VIBRATE, alarm.getVibrate());
-		values.put(Database.COLUMN_TITLE, alarm.getTitle());
-		long insertId = database.insert(Database.TABLE_ALARM, null,
-				values);
-		alarm.setId(insertId);
-		return alarm;
+		values.put(Database.COLUMN_RINGTONETITLE, alarm.getRingtoneTitle());
+		values.put(Database.COLUMN_RINGTONEURI, alarm.getRingtoneUri());
+		values.put(Database.COLUMN_VIBRATE, alarm.isVibrate() ? 1 : 0);
+		return values;
 	}
 
 	public void deleteAlarm(Alarm alarm) {
@@ -56,24 +80,14 @@ public class AlarmsDataSource {
 				+ " = " + id, null);
 	}
 
-	public void updateAlarm(Alarm alarm) {
-		long id = alarm.getId();
-		ContentValues values = new ContentValues();
-		values.put(Database.COLUMN_HOUR, alarm.getHour());
-		values.put(Database.COLUMN_MINUTE, alarm.getMinute());
-		values.put(Database.COLUMN_AMPM, alarm.getAmpm());
-		values.put(Database.COLUMN_DAY, alarm.getDays());
-		values.put(Database.COLUMN_ACTIVE, alarm.getActive());
-		values.put(Database.COLUMN_DESCRIPTION, alarm.getDescription());
-		values.put(Database.COLUMN_RINGTONE, alarm.getRingtone());
-		values.put(Database.COLUMN_VIBRATE, alarm.getVibrate());
-		values.put(Database.COLUMN_TITLE, alarm.getTitle());
+	public void updateAlarm(long id, Alarm alarm) {
+		ContentValues values = getContentValues(alarm);
 		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
 	}
 
-	public void updateActive(long id, String active) {
+	public void updateActive(long id, boolean isActive) {
 		ContentValues values = new ContentValues();
-		values.put(Database.COLUMN_ACTIVE, active);
+		values.put(Database.COLUMN_ACTIVE, isActive ? 1 : 0);
 		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
 	}
 
@@ -90,28 +104,6 @@ public class AlarmsDataSource {
 		return alarms;
 	}
 
-	private Alarm cursorToAlarm(Cursor cursor) {
-		Alarm alarm = new Alarm();
-		alarm.setId(cursor.getLong(0));
-		alarm.setHour(cursor.getString(1));
-		alarm.setMinute(cursor.getString(2));
-		alarm.setAmpm(cursor.getString(3));
-		alarm.setDays(cursor.getString(4));
-		alarm.setActive(cursor.getString(5));
-		alarm.setDescription(cursor.getString(6));
-		alarm.setRingtone(cursor.getString(7));
-		alarm.setVibrate(cursor.getString(8));
-		alarm.setTitle(cursor.getString(9));
-		return alarm;
-	}
 
-	public Alarm getAlarm(long id) {
-		Cursor cursor = database.query(Database.TABLE_ALARM,
-				allColumns, Database.COLUMN_ID + " = " + id, null, null, null, null);
-		cursor.moveToNext();
-		Alarm alarm = cursorToAlarm(cursor);
-		cursor.close();
-		return alarm;
-	}
 }
 
