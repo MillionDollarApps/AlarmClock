@@ -80,15 +80,15 @@ public class AlarmsDataSource {
 				+ " = " + id, null);
 	}
 
-	public void updateAlarm(long id, Alarm alarm) {
+	public void updateAlarm(Alarm alarm) {
 		ContentValues values = getContentValues(alarm);
-		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
+		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + alarm.getId(), null);
 	}
 
-	public void updateActive(long id, boolean isActive) {
+	public void updateActive(Alarm alarm, boolean isActive) {
 		ContentValues values = new ContentValues();
 		values.put(Database.COLUMN_ACTIVE, isActive ? 1 : 0);
-		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + id, null);
+		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + alarm.getId(), null);
 	}
 
 	public List<Alarm> getAllAlarms() {

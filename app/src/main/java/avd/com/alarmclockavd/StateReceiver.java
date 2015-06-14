@@ -11,9 +11,6 @@ public class StateReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		System.out.print("received date.. w/e");
-		System.out.print(intent.getAction());
-		System.out.println("serviceregister");
 		AlarmsDataSource dataSource = new AlarmsDataSource(context);
 		dataSource.open();
 		List<Alarm> alarms = dataSource.getAllAlarms();
@@ -25,7 +22,7 @@ public class StateReceiver extends BroadcastReceiver {
 				AlarmProvider alarmProvider = new AlarmProvider(context, alarm);
 				AlarmUtils alarmUtils = new AlarmUtils(alarm);
 				if (alarmUtils.isExpired()) {
-					dataSource.updateActive(alarm.getId(), false);
+					dataSource.updateActive(alarm, false);
 					alarmProvider.cancelAlarm();
 				}
 			}

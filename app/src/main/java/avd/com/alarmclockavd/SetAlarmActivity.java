@@ -139,8 +139,6 @@ public class SetAlarmActivity extends Activity {
 		ringtoneLayoutOnClickListener(ringtoneLayout);
 		//set up check listener for the repeat button
 		repeatOnCheckedChangeListener(repeatDaysToggle);
-		//set up check listeners for daysOfTheWeek toogle buttons
-//		repeaLayoutOnCheckedChildListener(daysLayout, repeatDaysToggle);
 	}
 
 	private void cancelButtonOnClickListener(ImageView cancelButton) {
@@ -160,10 +158,11 @@ public class SetAlarmActivity extends Activity {
 				dataSource.open();
 				Alarm updatedAlarm = getAlarm();
 				if (extras != null) {
-					dataSource.updateAlarm(alarm.getId(), updatedAlarm);
+					dataSource.updateAlarm(updatedAlarm);
 				} else {
 					dataSource.createAlarm(updatedAlarm);
 				}
+                // sets up the alarm after creating/updating it
 				AlarmProvider alarmProvider = new AlarmProvider(getApplicationContext(), updatedAlarm);
 				if (updatedAlarm.isActive()) {
 					alarmProvider.setAlarm();
@@ -179,9 +178,9 @@ public class SetAlarmActivity extends Activity {
 	//builds the alarm object that gets passed to the database
 	private Alarm getAlarm() {
 		long id = 0;
-		boolean active = true;
 		int hour = hourWheel.getCurrentItem() + 1;
 		int minute = minuteWheel.getCurrentItem();
+        boolean active = true;
 		boolean vibrate = vibrateToggle.isChecked();
 		boolean ampm = !ampmToogle.isChecked();
 		String desc = description.getText().toString();
@@ -191,9 +190,9 @@ public class SetAlarmActivity extends Activity {
 		int daysOfWeek = repeatDaysToggle.isChecked() ? getDaysOfWeek() : 0;
 		if (extras != null) {
 			id = alarm.getId();
-			active = isActive(new Alarm.Builder().hour(hour).minute(minute)
-					.ampm(ampm).days(daysOfWeek).description(desc).vibrate(vibrate).ringtoneTitle
-							(ringtoneTitle).build());
+            active = isActive(new Alarm.Builder().id(id).hour(hour).minute(minute).ampm(ampm).days
+                    (daysOfWeek).description(desc).vibrate(vibrate).ringtoneTitle(ringtoneTitle)
+                    .ringtoneUri(ringtoneUri).build());
 		}
 		return new Alarm.Builder().id(id).hour(hour).minute(minute).ampm(ampm).days
 				(daysOfWeek).active(active).description(desc).vibrate(vibrate).ringtoneTitle(ringtoneTitle)

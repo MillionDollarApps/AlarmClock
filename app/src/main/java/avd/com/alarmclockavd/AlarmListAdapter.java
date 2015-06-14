@@ -80,7 +80,6 @@ public class AlarmListAdapter extends BaseAdapter {
 	//implements the toglebutton(checkbox) listener
 	private CompoundButton.OnCheckedChangeListener checkBoxListener(final int position) {
 		final Alarm alarm = alarmList.get(position);
-		System.out.println(alarm.getId());
 		final AlarmProvider alarmProvider = new AlarmProvider(context, alarm);
 		return new CompoundButton.OnCheckedChangeListener() {
 			@Override
@@ -103,13 +102,12 @@ public class AlarmListAdapter extends BaseAdapter {
 	//updates the check field for the alarm in the database
 	private void updateCheck(Alarm alarm, boolean isActive) {
 		dataSource.open();
-		dataSource.updateActive(alarm.getId(), isActive);
+		dataSource.updateActive(alarm, isActive);
 		dataSource.close();
 	}
 
 	//refresh the list
 	protected void refresh() {
-		System.out.println("once");
 		dataSource.open();
 		alarmList.clear();
 		alarmList.addAll(dataSource.getAllAlarms());

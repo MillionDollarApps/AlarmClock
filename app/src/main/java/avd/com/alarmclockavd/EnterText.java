@@ -137,7 +137,7 @@ public class EnterText extends Activity {
 		if (alarm.getDays() == 0) {
 			AlarmsDataSource dataSource = new AlarmsDataSource(this);
 			dataSource.open();
-			dataSource.updateActive(alarm.getId(), false);
+			dataSource.updateActive(alarm, false);
 			dataSource.close();
 			alarmProvider.cancelAlarm();
 		} else {
@@ -223,7 +223,6 @@ public class EnterText extends Activity {
 		closeDialog = new Intent(this, EnterTextService.class);
 		closeDialog.putExtra("alarm", alarm);
 		if (!hasFocus && service) {
-			System.out.println("outoffocus");
 			startService(closeDialog);
 		} else {
 			stopService(closeDialog);

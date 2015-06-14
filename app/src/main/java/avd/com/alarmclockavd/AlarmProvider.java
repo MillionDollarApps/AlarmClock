@@ -21,7 +21,6 @@ public class AlarmProvider {
 		System.out.println("set alarm");
 		Intent intent = new Intent(context, AlarmReceiver.class);
 		intent.putExtra("alarm", alarm);
-		System.out.println(alarm.getId());
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		//sets the Calendar
 		Calendar alarmCalendar = getCalendar();
