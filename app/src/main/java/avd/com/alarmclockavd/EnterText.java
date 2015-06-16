@@ -192,6 +192,7 @@ public class EnterText extends Activity {
         if(player!=null && service) {
             player.pause();
         }
+        inputString.clearFocus();
         vibrator.cancel();
 		super.onPause();
 	}
