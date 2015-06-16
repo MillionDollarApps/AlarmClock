@@ -109,11 +109,11 @@ public class EnterText extends Activity {
 			@Override
 			public void onTextChanged(final CharSequence s, int start, int before, int count) {
 				if (inputString.getText().toString().equals(random)) {
-					player.release();
-					vibrator.cancel();
 					handler.removeCallbacks(runnable);
 					service = false;
 					stopService(closeDialog);
+                    player.release();
+                    vibrator.cancel();
 					resetAlarm();
 					finish();
 				} else {
@@ -180,13 +180,19 @@ public class EnterText extends Activity {
 
 	@Override
 	protected void onResume() {
-		inputString.requestFocusFromTouch();
+        super.onResume();
+        inputString.requestFocusFromTouch();
 		inputString.requestFocus();
-		super.onResume();
+        player.start();
+        startVibrator(alarm.isVibrate(),vibrator);
 	}
 
 	@Override
 	protected void onPause() {
+        if(player!=null && service) {
+            player.pause();
+        }
+        vibrator.cancel();
 		super.onPause();
 	}
 
