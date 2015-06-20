@@ -26,7 +26,7 @@ public class AlarmProvider {
 		Calendar alarmCalendar = getCalendar();
 		System.out.println(alarmCalendar.get(Calendar.DAY_OF_WEEK));
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) alarm.getId(),
-				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+				intent, PendingIntent.FLAG_CANCEL_CURRENT);
 		if (!isBad) {
 			alarmManager.set(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
 		}

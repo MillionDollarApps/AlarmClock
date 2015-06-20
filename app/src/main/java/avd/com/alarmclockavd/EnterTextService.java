@@ -14,6 +14,7 @@ public class EnterTextService extends Service {
 		closeDialog.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(closeDialog);
 		System.out.println("service");
+        onDestroy();
 	}
 
 	@Override

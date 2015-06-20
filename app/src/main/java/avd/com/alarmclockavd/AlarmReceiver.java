@@ -12,6 +12,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+        System.out.println("received");
 		Bundle extras = intent.getExtras();
 		alarm = extras.getParcelable("alarm");
 		AlarmUtils alarmUtils = new AlarmUtils(alarm);

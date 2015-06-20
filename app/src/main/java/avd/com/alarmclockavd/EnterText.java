@@ -84,7 +84,7 @@ public class EnterText extends Activity {
 		if (alarm.getDescription().length() == 0) {
 			title.setText(weekDay + " " + time);
 		} else {
-			title.setText(weekDay + time + " - " + description);
+			title.setText(weekDay + " " + time + " - " + description);
 		}
 	}
 
@@ -110,11 +110,11 @@ public class EnterText extends Activity {
 			public void onTextChanged(final CharSequence s, int start, int before, int count) {
 				if (inputString.getText().toString().equals(random)) {
 					handler.removeCallbacks(runnable);
-					service = false;
-					stopService(closeDialog);
+                    cancelOneTimeAlarm();
+                    service = false;
+                    stopService(closeDialog);
                     player.release();
                     vibrator.cancel();
-					resetAlarm();
 					finish();
 				} else {
 					player.pause();
@@ -132,17 +132,15 @@ public class EnterText extends Activity {
 
 	}
 
-	private void resetAlarm() {
+	private void cancelOneTimeAlarm() {
 		AlarmProvider alarmProvider = new AlarmProvider(this, alarm);
 		if (alarm.getDays() == 0) {
-			AlarmsDataSource dataSource = new AlarmsDataSource(this);
-			dataSource.open();
-			dataSource.updateActive(alarm, false);
-			dataSource.close();
-			alarmProvider.cancelAlarm();
-		} else {
-			alarmProvider.setAlarm();
-		}
+            AlarmsDataSource dataSource = new AlarmsDataSource(this);
+            dataSource.open();
+            dataSource.updateActive(alarm, false);
+            dataSource.close();
+            alarmProvider.cancelAlarm();
+        }
 	}
 
 	private String generateRandom() {
