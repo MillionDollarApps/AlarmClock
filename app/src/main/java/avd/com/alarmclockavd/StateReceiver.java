@@ -21,10 +21,12 @@ public class StateReceiver extends BroadcastReceiver {
 			} else if (alarm.isActive()) {
 				AlarmProvider alarmProvider = new AlarmProvider(context, alarm);
 				AlarmUtils alarmUtils = new AlarmUtils(alarm);
-				if (alarmUtils.isExpired()) {
-					dataSource.updateActive(alarm, false);
-					alarmProvider.cancelAlarm();
-				}
+                if (!alarmUtils.isExpired()) {
+                    alarmProvider.setAlarm();
+                } else{
+                    dataSource.updateActive(alarm, false);
+                    alarmProvider.cancelAlarm();
+                }
 			}
 		}
 		dataSource.close();
