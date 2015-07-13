@@ -22,6 +22,9 @@ import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
 
+/**
+ * The type Set alarm activity.
+ */
 public class SetAlarmActivity extends Activity {
 
 	private WheelView hourWheel;
@@ -154,22 +157,20 @@ public class SetAlarmActivity extends Activity {
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				AlarmsDataSource dataSource = new AlarmsDataSource(getApplicationContext());
-				dataSource.open();
+				AlarmDataUtils dataUtils = new AlarmDataUtils(getApplicationContext());
 				Alarm updatedAlarm = getAlarm();
 				if (extras != null) {
-					dataSource.updateAlarm(updatedAlarm);
+					dataUtils.updateAlarm(updatedAlarm);
 				} else {
-					dataSource.createAlarm(updatedAlarm);
+					updatedAlarm = dataUtils.createAlarm(updatedAlarm);
 				}
                 // sets up the alarm after creating/updating it
-				AlarmProvider alarmProvider = new AlarmProvider(getApplicationContext(), updatedAlarm);
+                AlarmFunctions alarmFunctions = new AlarmFunctions(getApplicationContext());
 				if (updatedAlarm.isActive()) {
-					alarmProvider.setAlarm();
-					Toast.makeText(getApplicationContext(), "Alarm is set for " + updatedAlarm.toString
-							(), Toast.LENGTH_LONG).show();
+					alarmFunctions.setAlarm(updatedAlarm);
+//               Toast.makeText(getApplicationContext(), alarmUtils.calendarMessage(alarmFunctions.getCalendar(), alarmFunctions.isBad()),Toast.LENGTH_LONG).show();
+
 					}
-				dataSource.close();
 				finish();
 			}
 		});
@@ -190,9 +191,8 @@ public class SetAlarmActivity extends Activity {
 		int daysOfWeek = repeatDaysToggle.isChecked() ? getDaysOfWeek() : 0;
 		if (extras != null) {
 			id = alarm.getId();
-            active = isActive(new Alarm.Builder().id(id).hour(hour).minute(minute).ampm(ampm).days
-                    (daysOfWeek).description(desc).vibrate(vibrate).ringtoneTitle(ringtoneTitle)
-                    .ringtoneUri(ringtoneUri).build());
+            active = isActive(new Alarm.Builder().hour(hour).minute(minute).ampm(ampm).days(daysOfWeek).build());
+
 		}
 		return new Alarm.Builder().id(id).hour(hour).minute(minute).ampm(ampm).days
 				(daysOfWeek).active(active).description(desc).vibrate(vibrate).ringtoneTitle(ringtoneTitle)
@@ -247,7 +247,7 @@ public class SetAlarmActivity extends Activity {
 				if (isChecked) {
 					daysLayout.setVisibility(View.VISIBLE);
 					if (getDaysOfWeek() == 0) {
-						setDaysOfWeek(255);
+						setDaysOfWeek(127);
 					} else {
 						setDaysOfWeek(getDaysOfWeek());
 					}

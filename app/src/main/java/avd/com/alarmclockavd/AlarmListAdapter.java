@@ -17,17 +17,27 @@ import android.widget.ToggleButton;
 import java.util.List;
 
 
+/**
+ * The type Alarm list adapter.
+ */
 public class AlarmListAdapter extends BaseAdapter {
 	private Context context;
 	private List<Alarm> alarmList;
-	private AlarmsDataSource dataSource;
 	private LayoutInflater layoutInflater;
+	private AlarmDataUtils dataUtils;
+	private AlarmFunctions alarmFunctions;
 
-	public AlarmListAdapter(Context context, List<Alarm> alarms) {
+	/**
+	 * Instantiates a new Alarm list adapter.
+	 *
+	 * @param context the context
+	 */
+	public AlarmListAdapter(Context context) {
 		this.context = context;
-		alarmList = alarms;
+		dataUtils = new AlarmDataUtils(context);
+		alarmFunctions = new AlarmFunctions(context);
+		alarmList = dataUtils.getAlarmList();
 		layoutInflater = LayoutInflater.from(context);
-		dataSource = new AlarmsDataSource(context);
 	}
 
 	@Override
@@ -62,89 +72,75 @@ public class AlarmListAdapter extends BaseAdapter {
 		return view;
 	}
 
+	/**
+	 * Gets week days representation adapter.
+	 *
+	 * @param alarm the alarm
+	 * @return the week days representation adapter
+	 */
+	//gets the weekdays string reprezentations to set up the textview from the listview row
+    private String buildWeekDaysRepresentation(Alarm alarm) {
+	    AlarmCalendar alarmCalendar = new AlarmCalendar(alarm);
+		return alarm.getDays()==0 ? "Once only" :"Weekly: "+ alarmCalendar.getWeekDaysRepresentation();
+    }
+
 	private void setViewHolderItems(int position, Holder viewHolder) {
 		//get alarm object from position
 		Alarm alarm = alarmList.get(position);
-		//get alarm utils to set up days
-		AlarmUtils alarmUtils = new AlarmUtils(alarm);
-		//set the text for the time, description, and days
+		updateTextViews(viewHolder, alarm);
+		updateCheckBox(alarm, viewHolder);
+	}
+
+	//update checkbox for when items are reused or alarm is deleted
+	private void updateCheckBox(final Alarm alarm, Holder viewHolder) {
+		viewHolder.checkbox.setOnCheckedChangeListener(checkBoxListener(alarm));
+		viewHolder.checkbox.setChecked(alarm.isActive());
+	}
+
+	private void updateTextViews(Holder viewHolder, Alarm alarm) {
 		viewHolder.alarmTime.setText(alarm.toString());
 		viewHolder.description.setText(alarm.getDescription());
-		viewHolder.days.setText(alarmUtils.getWeekDaysRepresentationAdapter());
-		//set up listeners for the checkboxes, in order to set or cancel the alarm when the user interacts with the UI
-		//update the checkbox as the user scrools down, or a new Instance of the list is created
-		viewHolder.checkbox.setOnCheckedChangeListener(checkBoxListener(position));
-		checkboxUpdate(alarm, viewHolder);
+		viewHolder.days.setText(buildWeekDaysRepresentation(alarm));
 	}
 
 	//implements the toglebutton(checkbox) listener
-	private CompoundButton.OnCheckedChangeListener checkBoxListener(final int position) {
-		final Alarm alarm = alarmList.get(position);
-		final AlarmProvider alarmProvider = new AlarmProvider(context, alarm);
+	private CompoundButton.OnCheckedChangeListener checkBoxListener(final Alarm alarm) {
 		return new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (buttonView.isPressed() && isChecked) {
-					alarmProvider.setAlarm();
-					Toast.makeText(context, "Alarm is set for " + alarm.toString(), Toast
-							.LENGTH_LONG).show();
-					updateCheck(alarm, true);
+					dataUtils.enableAlarm(alarm);
+					alarmFunctions.setAlarm(alarm);
+					new AlarmToast(context).show(alarm);
 					refresh();
 				} else if (buttonView.isPressed()) {
-					alarmProvider.cancelAlarm();
-					updateCheck(alarm, false);
+					alarmFunctions.cancelAlarm(alarm);
+					dataUtils.disableAlarm(alarm);
 					refresh();
 				}
 			}
 		};
 	}
 
-	//updates the check field for the alarm in the database
-	private void updateCheck(Alarm alarm, boolean isActive) {
-		dataSource.open();
-		dataSource.updateActive(alarm, isActive);
-		dataSource.close();
-	}
-
-	//refresh the list
-	protected void refresh() {
-		dataSource.open();
-		alarmList.clear();
-		alarmList.addAll(dataSource.getAllAlarms());
-		dataSource.close();
-		this.notifyDataSetChanged();
-	}
-
-	//update checkbox for when items are reused or alarm is deleted
-	private void checkboxUpdate(final Alarm alarm, Holder viewHolder) {
-		viewHolder.checkbox.setChecked(alarm.isActive());
-	}
 
 	//sets up the listView row touchListener
 	private View.OnTouchListener rowViewTouchListener(int position, final View view) {
 		final Alarm alarm = alarmList.get(position);
-		final AlarmProvider alarmProvider = new AlarmProvider(context, alarm);
 		final Handler handler = new Handler();
 		return new OnSwipeTouchListener(context) {
 			//removes the alarm from the list when you swipe right
 			@Override
 			public void onSwipeRight() {
-				//cancel the alarm when deleted
-				alarmProvider.cancelAlarm();
-				//sets up the animation process
+				alarmFunctions.cancelAlarm(alarm);
 				Animation anim = AnimationUtils.loadAnimation(context,
 						android.R.anim.slide_out_right);
 				view.startAnimation(anim);
-				//delete the alarm from the database
-				dataSource.open();
-				dataSource.deleteAlarm(alarm);
+				dataUtils.deleteAlarm(alarm);
 				// do something after animation finishes
 				handler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						//refresh the list and close the datasource
 						refresh();
-						dataSource.close();
 					}
 				}, anim.getDuration());
 			}
@@ -153,20 +149,17 @@ public class AlarmListAdapter extends BaseAdapter {
 			@Override
 			public void onClick() {
 				//cancel the alarm
-				alarmProvider.cancelAlarm();
+				alarmFunctions.cancelAlarm(alarm);
 				//sets up the animation process
 				Animation anim = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
 				view.startAnimation(anim);
-				//get the alarm item from the position
 				//build the intent to be run
 				final Intent intent = new Intent(context, SetAlarmActivity.class);
 				intent.putExtra("alarm", alarm);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				// do something after animation finishes
 				handler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						//start the intent
 						context.startActivity(intent);
 					}
 				}, anim.getDuration());
@@ -174,17 +167,32 @@ public class AlarmListAdapter extends BaseAdapter {
 		};
 	}
 
+
 	private class Holder {
 		private TextView alarmTime;
 		private TextView description;
 		private TextView days;
 		private ToggleButton checkbox;
 
+		/**
+		 * Instantiates a new Holder.
+		 *
+		 * @param v the v
+		 */
 		Holder(View v) {
 			alarmTime = (TextView) v.findViewById(R.id.textViewTime);
 			description = (TextView) v.findViewById(R.id.textViewDescription);
 			days = (TextView) v.findViewById(R.id.textViewDays);
 			checkbox = (ToggleButton) v.findViewById(R.id.checkBox);
 		}
+	}
+
+	/**
+	 * Refresh the UI AlarmList.
+	 */
+	public void refresh() {
+		alarmList.clear();
+		alarmList.addAll(dataUtils.getAlarmList());
+		this.notifyDataSetChanged();
 	}
 }

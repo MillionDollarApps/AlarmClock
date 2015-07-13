@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.IBinder;
 
 
+/**
+ * The type Enter text service.
+ */
 public class EnterTextService extends Service {
 
 	@Override

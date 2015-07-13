@@ -5,18 +5,54 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * The type Database.
+ */
 public class Database extends SQLiteOpenHelper {
 
+	/**
+	 * The constant TABLE_ALARM.
+	 */
 	public static final String TABLE_ALARM = "alarm";
+	/**
+	 * The constant COLUMN_ID.
+	 */
 	public static final String COLUMN_ID = "_id";
+	/**
+	 * The constant COLUMN_HOUR.
+	 */
 	public static final String COLUMN_HOUR = "hour";
+	/**
+	 * The constant COLUMN_AMPM.
+	 */
 	public static final String COLUMN_AMPM = "ampm";
+	/**
+	 * The constant COLUMN_MINUTE.
+	 */
 	public static final String COLUMN_MINUTE = "minute";
+	/**
+	 * The constant COLUMN_DAY.
+	 */
 	public static final String COLUMN_DAY = "days";
+	/**
+	 * The constant COLUMN_ACTIVE.
+	 */
 	public static final String COLUMN_ACTIVE = "active";
+	/**
+	 * The constant COLUMN_DESCRIPTION.
+	 */
 	public static final String COLUMN_DESCRIPTION = "description";
+	/**
+	 * The constant COLUMN_RINGTONETITLE.
+	 */
 	public static final String COLUMN_RINGTONETITLE = "ringtonetitle";
+	/**
+	 * The constant COLUMN_RINGTONEURI.
+	 */
 	public static final String COLUMN_RINGTONEURI = "ringtoneuri";
+	/**
+	 * The constant COLUMN_VIBRATE.
+	 */
 	public static final String COLUMN_VIBRATE = "vibrate";
 
 	private static final String DATABASE_NAME = "alarms.db";
@@ -35,6 +71,11 @@ public class Database extends SQLiteOpenHelper {
 					+ COLUMN_RINGTONEURI + " text not null,"
 					+ COLUMN_VIBRATE + " text not null);";
 
+	/**
+	 * Instantiates a new Database.
+	 *
+	 * @param context the context
+	 */
 	public Database(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}

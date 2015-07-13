@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The type Alarms data source.
+ */
 public class AlarmsDataSource {
 
 	// Database fields
@@ -20,18 +23,37 @@ public class AlarmsDataSource {
 			Database.COLUMN_DAY, Database.COLUMN_ACTIVE, Database.COLUMN_DESCRIPTION,
 			Database.COLUMN_RINGTONETITLE, Database.COLUMN_RINGTONEURI, Database.COLUMN_VIBRATE,};
 
+	/**
+	 * Instantiates a new Alarms data source.
+	 *
+	 * @param context the context
+	 */
 	public AlarmsDataSource(Context context) {
 		dbHelper = new Database(context);
 	}
 
+	/**
+	 * Open void.
+	 *
+	 * @throws SQLException the sQL exception
+	 */
 	public void open() throws SQLException {
 		database = dbHelper.getWritableDatabase();
 	}
 
+	/**
+	 * Close void.
+	 */
 	public void close() {
 		dbHelper.close();
 	}
 
+	/**
+	 * Create alarm.
+	 *
+	 * @param alarm the alarm
+	 * @return the alarm
+	 */
 	public Alarm createAlarm(Alarm alarm) {
 		ContentValues values = getContentValues(alarm);
 		long insertId = database.insert(Database.TABLE_ALARM, null,
@@ -73,6 +95,11 @@ public class AlarmsDataSource {
 		return values;
 	}
 
+	/**
+	 * Delete alarm.
+	 *
+	 * @param alarm the alarm
+	 */
 	public void deleteAlarm(Alarm alarm) {
 		long id = alarm.getId();
 		System.out.println("Alarm deleted with id: " + id);
@@ -80,17 +107,35 @@ public class AlarmsDataSource {
 				+ " = " + id, null);
 	}
 
+	/**
+	 * Update alarm.
+	 *
+	 * @param alarm the alarm
+	 */
 	public void updateAlarm(Alarm alarm) {
 		ContentValues values = getContentValues(alarm);
 		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + alarm.getId(), null);
 	}
 
-	public void updateActive(Alarm alarm, boolean isActive) {
+
+
+	public void disableAlarm(Alarm alarm){
 		ContentValues values = new ContentValues();
-		values.put(Database.COLUMN_ACTIVE, isActive ? 1 : 0);
+		values.put(Database.COLUMN_ACTIVE, 0);
 		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + alarm.getId(), null);
 	}
 
+			public void enableAlarm(Alarm alarm){
+				ContentValues values = new ContentValues();
+				values.put(Database.COLUMN_ACTIVE, 1);
+				database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + alarm.getId(), null);
+			}
+
+	/**
+	 * Gets all alarms.
+	 *
+	 * @return the all alarms
+	 */
 	public List<Alarm> getAllAlarms() {
 		List<Alarm> alarms = new ArrayList<>();
 		Cursor cursor = database.query(Database.TABLE_ALARM,
@@ -104,6 +149,21 @@ public class AlarmsDataSource {
 		return alarms;
 	}
 
+	/**
+	 * Get alarm.
+	 *
+	 * @param id the id
+	 * @return the alarm
+	 */
+	public Alarm getAlarm(long id){
+        Cursor cursor = database.query(Database.TABLE_ALARM,
+                allColumns, Database.COLUMN_ID + " = " + id, null,
+                null, null, null);
+        cursor.moveToFirst();
+        Alarm alarm = cursorToAlarm(cursor);
+        cursor.close();
+        return alarm;
+    }
 
 }
 

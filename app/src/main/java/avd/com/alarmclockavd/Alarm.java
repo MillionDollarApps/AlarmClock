@@ -13,34 +13,38 @@ public class Alarm implements Parcelable {
 	 * The constant CREATOR.
 	 */
 	public static final Creator<Alarm> CREATOR = new Creator<Alarm>() {
-		public Alarm createFromParcel(Parcel source) {return new Alarm(source);}
+        public Alarm createFromParcel(Parcel source) {
+            return new Alarm(source);
+        }
 
-		public Alarm[] newArray(int size) {return new Alarm[size];}
-	};
-	//
-	private final long id;
-	private final int hour;
-	private final int minute;
-	private final boolean ampm;
-	private final boolean active;
-	private final int days;
-	private final String description;
-	private final String ringtoneUri;
-	private final boolean vibrate;
-	private final String ringtoneTitle;
+        public Alarm[] newArray(int size) {
+            return new Alarm[size];
+        }
+    };
 
-	private Alarm(Builder builder) {
-		id = builder.id;
-		hour = builder.hour;
-		minute = builder.minute;
-		ampm = builder.ampm;
-		active = builder.active;
-		days = builder.days;
-		description = builder.description;
-		ringtoneUri = builder.ringtoneUri;
-		vibrate = builder.vibrate;
-		ringtoneTitle = builder.ringtoneTitle;
-	}
+    private final long id;
+    private final int hour;
+    private final int minute;
+    private final boolean ampm;
+    private final boolean active;
+    private final int days;
+    private final String description;
+    private final String ringtoneUri;
+    private final boolean vibrate;
+    private final String ringtoneTitle;
+
+    private Alarm(Builder builder) {
+        id = builder.id;
+        hour = builder.hour;
+        minute = builder.minute;
+        ampm = builder.ampm;
+        active = builder.active;
+        days = builder.days;
+        description = builder.description;
+        ringtoneUri = builder.ringtoneUri;
+        vibrate = builder.vibrate;
+        ringtoneTitle = builder.ringtoneTitle;
+    }
 
 	/**
 	 * Instantiates a new Alarm.
@@ -48,17 +52,17 @@ public class Alarm implements Parcelable {
 	 * @param in the in
 	 */
 	protected Alarm(Parcel in) {
-		this.id = in.readLong();
-		this.hour = in.readInt();
-		this.minute = in.readInt();
-		this.ampm = in.readByte() != 0;
-		this.active = in.readByte() != 0;
-		this.days = in.readInt();
-		this.description = in.readString();
-		this.ringtoneUri = in.readString();
-		this.vibrate = in.readByte() != 0;
-		this.ringtoneTitle = in.readString();
-	}
+        this.id = in.readLong();
+        this.hour = in.readInt();
+        this.minute = in.readInt();
+        this.ampm = in.readByte() != 0;
+        this.active = in.readByte() != 0;
+        this.days = in.readInt();
+        this.description = in.readString();
+        this.ringtoneUri = in.readString();
+        this.vibrate = in.readByte() != 0;
+        this.ringtoneTitle = in.readString();
+    }
 
 	/**
 	 * Gets ringtone title.
@@ -66,8 +70,8 @@ public class Alarm implements Parcelable {
 	 * @return the ringtone title
 	 */
 	public String getRingtoneTitle() {
-		return ringtoneTitle;
-	}
+        return ringtoneTitle;
+    }
 
 	/**
 	 * Gets id.
@@ -75,8 +79,8 @@ public class Alarm implements Parcelable {
 	 * @return the id
 	 */
 	public long getId() {
-		return id;
-	}
+        return id;
+    }
 
 	/**
 	 * Gets hour.
@@ -84,8 +88,8 @@ public class Alarm implements Parcelable {
 	 * @return the hour
 	 */
 	public int getHour() {
-		return hour;
-	}
+        return hour;
+    }
 
 	/**
 	 * Gets minute.
@@ -93,8 +97,8 @@ public class Alarm implements Parcelable {
 	 * @return the minute
 	 */
 	public int getMinute() {
-		return minute;
-	}
+        return minute;
+    }
 
 	/**
 	 * Is ampm.
@@ -102,8 +106,8 @@ public class Alarm implements Parcelable {
 	 * @return the boolean
 	 */
 	public boolean isAmpm() {
-		return ampm;
-	}
+        return ampm;
+    }
 
 	/**
 	 * Is active.
@@ -111,8 +115,8 @@ public class Alarm implements Parcelable {
 	 * @return the boolean
 	 */
 	public boolean isActive() {
-		return active;
-	}
+        return active;
+    }
 
 	/**
 	 * Gets days.
@@ -120,8 +124,8 @@ public class Alarm implements Parcelable {
 	 * @return the days
 	 */
 	public int getDays() {
-		return days;
-	}
+        return days;
+    }
 
 	/**
 	 * Gets description.
@@ -129,8 +133,8 @@ public class Alarm implements Parcelable {
 	 * @return the description
 	 */
 	public String getDescription() {
-		return description;
-	}
+        return description;
+    }
 
 	/**
 	 * Gets ringtone uri.
@@ -138,8 +142,8 @@ public class Alarm implements Parcelable {
 	 * @return the ringtone uri
 	 */
 	public String getRingtoneUri() {
-		return ringtoneUri;
-	}
+        return ringtoneUri;
+    }
 
 	/**
 	 * Is vibrate.
@@ -147,56 +151,39 @@ public class Alarm implements Parcelable {
 	 * @return the boolean
 	 */
 	public boolean isVibrate() {
-		return vibrate;
-	}
+        return vibrate;
+    }
 
-	@Override
-	public int describeContents() { return 0; }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeLong(this.id);
-		dest.writeInt(this.hour);
-		dest.writeInt(this.minute);
-		dest.writeByte(ampm ? (byte) 1 : (byte) 0);
-		dest.writeByte(active ? (byte) 1 : (byte) 0);
-		dest.writeInt(this.days);
-		dest.writeString(this.description);
-		dest.writeString(this.ringtoneUri);
-		dest.writeByte(vibrate ? (byte) 1 : (byte) 0);
-		dest.writeString(this.ringtoneTitle);
-	}
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeInt(this.hour);
+        dest.writeInt(this.minute);
+        dest.writeByte(ampm ? (byte) 1 : (byte) 0);
+        dest.writeByte(active ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.days);
+        dest.writeString(this.description);
+        dest.writeString(this.ringtoneUri);
+        dest.writeByte(vibrate ? (byte) 1 : (byte) 0);
+        dest.writeString(this.ringtoneTitle);
+    }
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof Alarm)) {
-			return false;
-		}
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 
 		Alarm alarm = (Alarm) o;
 
-		if (hour != alarm.hour) {
-			return false;
-		}
-		if (minute != alarm.minute) {
-			return false;
-		}
-		if (ampm != alarm.ampm) {
-			return false;
-		}
-		if (days != alarm.days) {
-			return false;
-		}
-		if (vibrate != alarm.vibrate) {
-			return false;
-		}
-		if (!description.equals(alarm.description)) {
-			return false;
-		}
-		return ringtoneTitle.equals(alarm.ringtoneTitle);
+		if (hour != alarm.hour) return false;
+		if (minute != alarm.minute) return false;
+		if (ampm != alarm.ampm) return false;
+		return days == alarm.days;
 
 	}
 
@@ -206,33 +193,30 @@ public class Alarm implements Parcelable {
 		result = 31 * result + minute;
 		result = 31 * result + (ampm ? 1 : 0);
 		result = 31 * result + days;
-		result = 31 * result + description.hashCode();
-		result = 31 * result + (vibrate ? 1 : 0);
-		result = 31 * result + ringtoneTitle.hashCode();
 		return result;
 	}
 
 	// Will be used by the ArrayAdapter in the ListView
-	@Override
-	public String toString() {
-		return (hour < 10 ? "0" + hour : hour) + " : " + (minute < 10 ? "0" + minute : minute) + " " +
-				(ampm ? "AM" : "PM");
-	}
+    @Override
+    public String toString() {
+        return (hour < 10 ? "0" + hour : hour) + " : " + (minute < 10 ? "0" + minute : minute) + " " +
+                (ampm ? "AM" : "PM");
+    }
 
 	/**
 	 * The type Builder.
 	 */
 	public static class Builder {
-		private long id;
-		private int hour;
-		private int minute;
-		private boolean ampm;
-		private boolean active;
-		private int days;
-		private String description;
-		private String ringtoneUri;
-		private boolean vibrate;
-		private String ringtoneTitle;
+        private long id;
+        private int hour;
+        private int minute;
+        private boolean ampm;
+        private boolean active;
+        private int days;
+        private String description;
+        private String ringtoneUri;
+        private boolean vibrate;
+        private String ringtoneTitle;
 
 		/**
 		 * Id builder.
@@ -241,9 +225,9 @@ public class Alarm implements Parcelable {
 		 * @return the builder
 		 */
 		public Builder id(long id) {
-			this.id = id;
-			return this;
-		}
+            this.id = id;
+            return this;
+        }
 
 		/**
 		 * Hour builder.
@@ -252,9 +236,9 @@ public class Alarm implements Parcelable {
 		 * @return the builder
 		 */
 		public Builder hour(int hour) {
-			this.hour = hour;
-			return this;
-		}
+            this.hour = hour;
+            return this;
+        }
 
 		/**
 		 * Minute builder.
@@ -263,9 +247,9 @@ public class Alarm implements Parcelable {
 		 * @return the builder
 		 */
 		public Builder minute(int minute) {
-			this.minute = minute;
-			return this;
-		}
+            this.minute = minute;
+            return this;
+        }
 
 		/**
 		 * Ampm builder.
@@ -274,9 +258,9 @@ public class Alarm implements Parcelable {
 		 * @return the builder
 		 */
 		public Builder ampm(boolean ampm) {
-			this.ampm = ampm;
-			return this;
-		}
+            this.ampm = ampm;
+            return this;
+        }
 
 		/**
 		 * Active builder.
@@ -285,9 +269,9 @@ public class Alarm implements Parcelable {
 		 * @return the builder
 		 */
 		public Builder active(boolean active) {
-			this.active = active;
-			return this;
-		}
+            this.active = active;
+            return this;
+        }
 
 		/**
 		 * Days builder.
@@ -296,9 +280,9 @@ public class Alarm implements Parcelable {
 		 * @return the builder
 		 */
 		public Builder days(int days) {
-			this.days = days;
-			return this;
-		}
+            this.days = days;
+            return this;
+        }
 
 		/**
 		 * Description builder.
@@ -307,9 +291,9 @@ public class Alarm implements Parcelable {
 		 * @return the builder
 		 */
 		public Builder description(String description) {
-			this.description = description;
-			return this;
-		}
+            this.description = description;
+            return this;
+        }
 
 		/**
 		 * Ringtone uri.
@@ -318,9 +302,9 @@ public class Alarm implements Parcelable {
 		 * @return the builder
 		 */
 		public Builder ringtoneUri(String uri) {
-			this.ringtoneUri = uri;
-			return this;
-		}
+            this.ringtoneUri = uri;
+            return this;
+        }
 
 		/**
 		 * Ringtone title.
@@ -329,9 +313,9 @@ public class Alarm implements Parcelable {
 		 * @return the builder
 		 */
 		public Builder ringtoneTitle(String ringtoneTitle) {
-			this.ringtoneTitle = ringtoneTitle;
-			return this;
-		}
+            this.ringtoneTitle = ringtoneTitle;
+            return this;
+        }
 
 		/**
 		 * Vibrate builder.
@@ -340,9 +324,9 @@ public class Alarm implements Parcelable {
 		 * @return the builder
 		 */
 		public Builder vibrate(boolean vibrate) {
-			this.vibrate = vibrate;
-			return this;
-		}
+            this.vibrate = vibrate;
+            return this;
+        }
 
 		/**
 		 * Build alarm.
@@ -350,8 +334,8 @@ public class Alarm implements Parcelable {
 		 * @return the alarm
 		 */
 		public Alarm build() {
-			return new Alarm(this);
-		}
-	}
+            return new Alarm(this);
+        }
+    }
 }
 

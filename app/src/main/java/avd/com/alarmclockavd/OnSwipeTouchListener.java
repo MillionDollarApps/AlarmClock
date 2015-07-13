@@ -6,10 +6,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
+/**
+ * The type On swipe touch listener.
+ */
 public class OnSwipeTouchListener implements OnTouchListener {
 
 	private final GestureDetector mGestureDetector;
 
+	/**
+	 * Instantiates a new On swipe touch listener.
+	 *
+	 * @param context the context
+	 */
 	public OnSwipeTouchListener(Context context) {
 		mGestureDetector = new GestureDetector(context, new GestureListener());
 
@@ -21,12 +29,21 @@ public class OnSwipeTouchListener implements OnTouchListener {
 	}
 
 
+	/**
+	 * On swipe left.
+	 */
 	public void onSwipeLeft() {
 	}
 
+	/**
+	 * On swipe right.
+	 */
 	public void onSwipeRight() {
 	}
 
+	/**
+	 * On click.
+	 */
 	public void onClick() {
 	}
 

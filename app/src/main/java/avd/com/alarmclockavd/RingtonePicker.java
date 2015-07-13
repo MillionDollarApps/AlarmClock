@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 
+/**
+ * The type Ringtone picker.
+ */
 public class RingtonePicker extends Dialog {
 
 	private MediaPlayer mediaPlayer;
@@ -32,7 +35,12 @@ public class RingtonePicker extends Dialog {
 	private ImageView confirmButton;
 	private TextView ringtoneTitle;
 
-	//constructor
+	/**
+	 * Instantiates a new Ringtone picker.
+	 *
+	 * @param context the context
+	 * @param ringtoneTitle the ringtone title
+	 */
 	public RingtonePicker(Context context, TextView ringtoneTitle) {
 		super(context);
 		this.context = context;
@@ -141,7 +149,12 @@ public class RingtonePicker extends Dialog {
 		mp.start();
 	}
 
-	//retrieves the Uri asociated with the title
+	/**
+	 * Gets uri.
+	 *
+	 * @return the uri
+	 */
+//retrieves the Uri asociated with the title
 	public String getUri() {
 		String uriPath = getRingtones().get(title);
 		if (uriPath == null) {

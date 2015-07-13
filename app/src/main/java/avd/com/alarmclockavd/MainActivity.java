@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -13,24 +15,21 @@ import com.google.android.gms.ads.AdView;
 import java.util.List;
 
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends Activity {
 
 	private ImageView buttonAdd;
-	private AlarmsDataSource datasource;
 	private AdView adView;
 	private AlarmListAdapter adapter;
-	private List<Alarm> alarmList;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		//initiate datasource
-		datasource = new AlarmsDataSource(this);
-		alarmList = getAlarmList();
-		//initiating views
 		initiateViews();
-		//set adView
 		setAdView();
 	}
 
@@ -45,31 +44,30 @@ public class MainActivity extends Activity {
 		//set up click listener for add button
 		clickListenerButtonAdd(buttonAdd);
 		//set up the adapter for the alarmListView
-		adapter = getAdapter(alarmList);
+		adapter = new AlarmListAdapter(this);
 		alarmListView.setAdapter(adapter);
 		//set up layout change listener for alarmListView in order to limit the alarms to 10 by
 		// hiding the add button
 		layoutChangeListener(alarmListView);
 	}
 
-	//retrieves the adapter
-	private AlarmListAdapter getAdapter(List<Alarm> alarmList) {
-		return new AlarmListAdapter(this, alarmList);
-	}
+
 
 	//manage add button visibility depending on the number of alarms
 	private void layoutChangeListener(final ListView alarmListView) {
+
 		alarmListView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
 			@Override
 			public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-				if (alarmListView.getCount() > 10) {
+				buttonAdd.setVisibility(View.VISIBLE);
+				if (alarmListView.getCount() > 10)
 					buttonAdd.setVisibility(View.GONE);
-				} else {
-					buttonAdd.setVisibility(View.VISIBLE);
-				}
+
 			}
 		});
 	}
+
+
 
 	private void clickListenerButtonAdd(ImageView buttonAdd) {
 		buttonAdd.setOnClickListener(new View.OnClickListener() {
@@ -81,13 +79,7 @@ public class MainActivity extends Activity {
 		});
 	}
 
-	//retrieves all alarms from the dataSource and adds them to a list
-	private List<Alarm> getAlarmList() {
-		datasource.open();
-		List<Alarm> alarmList = datasource.getAllAlarms();
-		datasource.close();
-		return alarmList;
-	}
+
 
 	private void setAdView() {
 		AdRequest adRequest = new AdRequest.Builder().build();
@@ -101,7 +93,6 @@ public class MainActivity extends Activity {
 		if (adView != null) {
 			adView.resume();
 		}
-		//refresh the alarmlist
 		adapter.refresh();
 	}
 

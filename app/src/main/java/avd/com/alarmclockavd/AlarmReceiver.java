@@ -4,29 +4,21 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.WakefulBroadcastReceiver;
 
 
-public class AlarmReceiver extends BroadcastReceiver {
+/**
+ * The type Alarm receiver.
+ */
+public class AlarmReceiver extends WakefulBroadcastReceiver {
 
-	private Alarm alarm;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-        System.out.println("received");
-		Bundle extras = intent.getExtras();
-		alarm = extras.getParcelable("alarm");
-		AlarmUtils alarmUtils = new AlarmUtils(alarm);
-		if (alarmUtils.isGoodTime()) {
-			setIntent(context);
-		}
+        Intent service = new Intent(context, AlarmReceiverService.class);
+        long id = intent.getExtras().getLong("id");
+        service.putExtra("id", id);
+        startWakefulService(context,service);
 	}
-
-	private void setIntent(Context context) {
-		Intent alarmIntent = new Intent(context, EnterText.class);
-		alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		alarmIntent.putExtra("alarm", alarm);
-		context.startActivity(alarmIntent);
-	}
-
 
 }

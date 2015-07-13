@@ -3,7 +3,6 @@ package avd.com.alarmclockavd;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -20,14 +19,16 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+/**
+ * The type Enter text.
+ */
 public class EnterText extends Activity {
 
 	private MediaPlayer player;
 	private Vibrator vibrator;
 	private boolean service;
 	private EditText inputString;
-	private String random;
-	private Intent closeDialog;
+    private Intent closeDialog;
 	private Alarm alarm;
 	private AudioManager audioManager;
 	private TextView randomText;
@@ -44,7 +45,6 @@ public class EnterText extends Activity {
 	}
 
 	private void initializeLayout() {
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.dialog_enter_text);
 		//setting up power managers
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
@@ -64,9 +64,9 @@ public class EnterText extends Activity {
 
 	private void setViews() {
 		//gets the random string
-		random = generateRandom();
+        String random = generateRandom();
 		//sets the textView to display the random text
-		randomText.setText("Text: " + random);
+		randomText.setText(random);
 		//focus the editText input
 		inputString.requestFocus();
 		inputString.requestFocusFromTouch();
@@ -77,8 +77,8 @@ public class EnterText extends Activity {
 	}
 
 	private void setTitleTextView(TextView title) {
-		AlarmUtils alarmUtils = new AlarmUtils(alarm);
-		String weekDay = alarmUtils.getWeekDayrepresentation();
+        AlarmCalendar alarmCalendar = new AlarmCalendar(alarm);
+		String weekDay = alarmCalendar.getWeekDay();
 		String time = alarm.toString();
 		String description = alarm.getDescription();
 		if (alarm.getDescription().length() == 0) {
@@ -96,7 +96,7 @@ public class EnterText extends Activity {
 			Runnable runnable = new Runnable() {
 				@Override
 				public void run() {
-					if (!inputString.getText().toString().equals(random)) {
+					if (!inputString.getText().toString().equals(randomText.getText().toString())) {
 						player.start();
 						startVibrator(alarm.isVibrate(), vibrator);
 					}
@@ -108,7 +108,7 @@ public class EnterText extends Activity {
 
 			@Override
 			public void onTextChanged(final CharSequence s, int start, int before, int count) {
-				if (inputString.getText().toString().equals(random)) {
+				if (inputString.getText().toString().equals(randomText.getText().toString())) {
 					handler.removeCallbacks(runnable);
                     cancelOneTimeAlarm();
                     service = false;
@@ -133,15 +133,15 @@ public class EnterText extends Activity {
 	}
 
 	private void cancelOneTimeAlarm() {
-		AlarmProvider alarmProvider = new AlarmProvider(this, alarm);
+		AlarmFunctions alarmFunctions = new AlarmFunctions(this);
+		AlarmDataUtils dataUtils = new AlarmDataUtils(this);
 		if (alarm.getDays() == 0) {
-            AlarmsDataSource dataSource = new AlarmsDataSource(this);
-            dataSource.open();
-            dataSource.updateActive(alarm, false);
-            dataSource.close();
-            alarmProvider.cancelAlarm();
+			dataUtils.disableAlarm(alarm);
+            alarmFunctions.cancelAlarm(alarm);
         }
 	}
+
+
 
 	private String generateRandom() {
 		return RandomStringUtils.randomAlphanumeric(10).replace('I', 'i').replace('l', 'L');
@@ -154,10 +154,7 @@ public class EnterText extends Activity {
 		//get the alarm that triggered this activity
 		alarm = extras.getParcelable("alarm");
 		//setting up MediaPlayer to play the alarm
-		player = MediaPlayer.create(this, Uri.parse(alarm.getRingtoneUri()));
-		player.setLooping(true);
-		player.setVolume(1.0f, 1.0f);
-		player.start();
+		createMediaPlayer();
 		//boolean to know if it's ok to start the service or not, ok by default
 		service = true;
 		//Setting up the vibrator
@@ -167,6 +164,13 @@ public class EnterText extends Activity {
 		audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 		audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
 				audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+	}
+
+	private void createMediaPlayer() {
+		player = MediaPlayer.create(this, Uri.parse(alarm.getRingtoneUri()));
+		player.setLooping(true);
+		player.setVolume(1.0f, 1.0f);
+		player.start();
 	}
 
 	//logic for starting the vibrator
@@ -217,7 +221,19 @@ public class EnterText extends Activity {
 		}
 	}
 
-	@Override
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString("random",randomText.getText().toString());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        randomText.setText(savedInstanceState.getString("random"));
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
 	public void onBackPressed() {
 	}
 
@@ -227,11 +243,10 @@ public class EnterText extends Activity {
 		super.onWindowFocusChanged(hasFocus);
 		closeDialog = new Intent(this, EnterTextService.class);
 		closeDialog.putExtra("alarm", alarm);
-		if (!hasFocus && service) {
+		if (!hasFocus && service)
 			startService(closeDialog);
-		} else {
+		else
 			stopService(closeDialog);
-		}
 	}
 
 
