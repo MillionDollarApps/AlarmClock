@@ -1,7 +1,5 @@
 package avd.com.alarmclockavd;
 
-import android.widget.Toast;
-
 import java.util.Calendar;
 
 import static java.util.Calendar.*;
@@ -145,13 +143,13 @@ public class AlarmCalendar {
 	}
 
 	private int calculateNextAvailableDayOfAlarm(int daySet, int currentDay) {
-		int nextDay = 0;
-		for (int i = currentDay; i < currentDay+7; i++)
+		int nextDay = currentDay + 7;
+		for (int i = currentDay; i < nextDay; i++)
 			if (isNextDayAvailable(daySet, i)) {
 				nextDay =i+1;
 				break;
 			}
-		return nextDay == 0 ? currentDay+7 : nextDay;
+		return nextDay;
 	}
 
 	private boolean isNextDayAvailable(int daySet, int i) {

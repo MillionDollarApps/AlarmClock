@@ -7,13 +7,7 @@ import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
+import android.widget.*;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -41,26 +35,6 @@ public class SetAlarmActivity extends Activity {
 	private ImageView cancelButton;
 	private LinearLayout ringtoneLayout;
 	private Alarm alarm;
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.set_alarm);
-		setAdView();
-		//initialises the Views of this activity
-		initialiseViews();
-		//sets up the listeners for the views
-		setUpListeners();
-		//get extras if available
-		Intent intent = getIntent();
-		extras = intent.getExtras();
-		if (extras != null) {
-			alarm = extras.getParcelable("alarm");
-			//sets views because the alarm is modified
-			setViews(alarm);
-		}
-
-	}
 
 	private void setAdView() {
 		adView = (AdView) findViewById(R.id.setadView);
@@ -168,8 +142,7 @@ public class SetAlarmActivity extends Activity {
                 AlarmFunctions alarmFunctions = new AlarmFunctions(getApplicationContext());
 				if (updatedAlarm.isActive()) {
 					alarmFunctions.setAlarm(updatedAlarm);
-//               Toast.makeText(getApplicationContext(), alarmUtils.calendarMessage(alarmFunctions.getCalendar(), alarmFunctions.isBad()),Toast.LENGTH_LONG).show();
-
+					new AlarmToast(getApplicationContext()).show(updatedAlarm);
 					}
 				finish();
 			}
@@ -227,7 +200,6 @@ public class SetAlarmActivity extends Activity {
 		}
 	}
 
-
 	private void ringtoneLayoutOnClickListener(LinearLayout ringtoneLayout) {
 		ringtoneLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -258,6 +230,25 @@ public class SetAlarmActivity extends Activity {
 		});
 	}
 
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.set_alarm);
+		setAdView();
+		//initialises the Views of this activity
+		initialiseViews();
+		//sets up the listeners for the views
+		setUpListeners();
+		//get extras if available
+		Intent intent = getIntent();
+		extras = intent.getExtras();
+		if (extras != null) {
+			alarm = extras.getParcelable("alarm");
+			//sets views because the alarm is modified
+			setViews(alarm);
+		}
+
+	}
 
 	///////////////////////////////////////
 	//support for orientation change
