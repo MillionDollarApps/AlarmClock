@@ -1,6 +1,8 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.Database;
 
 import java.util.Comparator;
+
+import avd.com.alarmclockavd.AlarmUtils.AlarmCalendar;
 
 /**
  * The type Time comparator.

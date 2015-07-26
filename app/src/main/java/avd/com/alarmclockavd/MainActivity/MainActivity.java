@@ -1,18 +1,17 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.MainActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import java.util.List;
+import avd.com.alarmclockavd.R;
+import avd.com.alarmclockavd.SetAlarmActivity.SetAlarmActivity;
 
 
 /**

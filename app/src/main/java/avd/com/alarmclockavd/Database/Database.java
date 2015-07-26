@@ -1,4 +1,4 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

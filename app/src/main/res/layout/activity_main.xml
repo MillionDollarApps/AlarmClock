@@ -4,7 +4,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#d8d8d8"
-                tools:context="avd.com.alarmclockavd.MainActivity">
+                tools:context="avd.com.alarmclockavd.MainActivity.MainActivity">
 
     <ListView
         android:id="@+id/alarmsListView"

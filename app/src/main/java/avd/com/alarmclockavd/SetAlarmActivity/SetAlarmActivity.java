@@ -1,4 +1,4 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.SetAlarmActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,11 @@ import android.widget.*;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import avd.com.alarmclockavd.AlarmUtils.AlarmFunctions;
+import avd.com.alarmclockavd.AlarmUtils.AlarmToast;
+import avd.com.alarmclockavd.Database.Alarm;
+import avd.com.alarmclockavd.Database.AlarmDataUtils;
+import avd.com.alarmclockavd.R;
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
@@ -142,7 +147,7 @@ public class SetAlarmActivity extends Activity {
                 AlarmFunctions alarmFunctions = new AlarmFunctions(getApplicationContext());
 				if (updatedAlarm.isActive()) {
 					alarmFunctions.setAlarm(updatedAlarm);
-					new AlarmToast(getApplicationContext()).show(updatedAlarm);
+					AlarmToast.show(getApplicationContext(), updatedAlarm);
 					}
 				finish();
 			}
@@ -159,17 +164,20 @@ public class SetAlarmActivity extends Activity {
 		boolean ampm = !ampmToogle.isChecked();
 		String desc = description.getText().toString();
 		String ringtoneTitle = ringtoneTextView.getText().toString();
-		RingtonePicker ringtonePicker = new RingtonePicker(this, ringtoneTextView);
-		String ringtoneUri = ringtonePicker.getUri();
+		String ringtoneUri = getRingtoneUri();
 		int daysOfWeek = repeatDaysToggle.isChecked() ? getDaysOfWeek() : 0;
 		if (extras != null) {
 			id = alarm.getId();
             active = isActive(new Alarm.Builder().hour(hour).minute(minute).ampm(ampm).days(daysOfWeek).build());
-
 		}
 		return new Alarm.Builder().id(id).hour(hour).minute(minute).ampm(ampm).days
 				(daysOfWeek).active(active).description(desc).vibrate(vibrate).ringtoneTitle(ringtoneTitle)
 				.ringtoneUri(ringtoneUri).build();
+	}
+
+	private String getRingtoneUri() {
+		RingtonePicker ringtonePicker = new RingtonePicker(this, ringtoneTextView);
+		return ringtonePicker.getUri();
 	}
 
 	//checks if the alarm has been modified

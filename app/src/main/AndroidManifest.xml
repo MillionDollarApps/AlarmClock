@@ -16,7 +16,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivity.MainActivity"
             android:excludeFromRecents="false"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -28,18 +28,18 @@
         </activity>
 
         <activity
-            android:name=".SetAlarmActivity"
+            android:name=".SetAlarmActivity.SetAlarmActivity"
             android:label="Set Alarm"
             android:launchMode="singleTask"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".MainActivity.MainActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".MainActivity.MainActivity"/>
         </activity>
 
         <activity
-            android:name=".EnterText"
+            android:name=".EnterTextActivity.EnterText"
             android:allowTaskReparenting="true"
             android:configChanges="orientation"
             android:excludeFromRecents="true"
@@ -48,10 +48,10 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
         </activity>
 
-        <receiver android:name=".AlarmReceiver">
+        <receiver android:name=".AlarmReceiversAndServices.AlarmReceiver">
         </receiver>
 
-        <receiver android:name=".StateReceiver">
+        <receiver android:name=".AlarmReceiversAndServices.StateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.TIME_SET" />
@@ -66,18 +66,20 @@
             android:value="@integer/google_play_services_version"/>
 
 
-        <service android:name=".EnterTextService">
+        <service android:name=".EnterTextActivity.EnterTextService">
 
         </service>
 
-        <service android:name=".AlarmReceiverService"
-                 android:exported="false"
-                 android:enabled="true">
+        <service
+            android:name=".AlarmReceiversAndServices.AlarmReceiverService"
+            android:enabled="true"
+            android:exported="false">
         </service>
 
-        <service android:name=".StateReceiverService"
-                 android:exported="false"
-                 android:enabled="true">
+        <service
+            android:name=".AlarmReceiversAndServices.StateReceiverService"
+            android:enabled="true"
+            android:exported="false">
         </service>
     </application>
 

@@ -1,4 +1,4 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.Database;
 
 
 import android.os.Parcel;
@@ -180,10 +180,7 @@ public class Alarm implements Parcelable {
 
 		Alarm alarm = (Alarm) o;
 
-		if (hour != alarm.hour) return false;
-		if (minute != alarm.minute) return false;
-		if (ampm != alarm.ampm) return false;
-		return days == alarm.days;
+		return hour == alarm.hour && minute == alarm.minute && ampm == alarm.ampm && days == alarm.days;
 
 	}
 

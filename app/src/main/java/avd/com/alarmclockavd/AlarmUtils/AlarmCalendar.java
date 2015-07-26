@@ -1,6 +1,8 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.AlarmUtils;
 
 import java.util.Calendar;
+
+import avd.com.alarmclockavd.Database.Alarm;
 
 import static java.util.Calendar.*;
 
@@ -81,7 +83,7 @@ public class AlarmCalendar {
 		return weekDays;
 	}
 
-	public String getWeekDay(){
+	public String getWeekDayAsString() {
 		String[] daysOfWeek = {"Sunday", "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 		return daysOfWeek[getCurrentDay()-1];
 	}

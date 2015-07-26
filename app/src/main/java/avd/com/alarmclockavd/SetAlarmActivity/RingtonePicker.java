@@ -1,4 +1,4 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.SetAlarmActivity;
 
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -10,15 +10,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+
+import avd.com.alarmclockavd.R;
 
 
 /**
@@ -48,18 +46,18 @@ public class RingtonePicker extends Dialog {
 		this.ringtoneTitle = ringtoneTitle;
 	}
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		//sets the layout
-		initializeLayout();
-		//initialize musicList and ringtoneList
-		musicList = new ArrayList<>(getMusic().keySet());
-		ringtoneList = new ArrayList<>(getRingtones().keySet());
-		//initialize MediaPlayer
-		mediaPlayer = new MediaPlayer();
-		//intializeViews
-		initializeViews();
+	/**
+	 * Gets uri.
+	 *
+	 * @return the uri
+	 */
+//retrieves the Uri asociated with the title
+	public String getUri() {
+		String uriPath = getRingtones().get(title);
+		if (uriPath == null) {
+			uriPath = getMusic().get(title);
+		}
+		return uriPath;
 	}
 
 	//sets up the layout of the dialog
@@ -149,20 +147,6 @@ public class RingtonePicker extends Dialog {
 		mp.start();
 	}
 
-	/**
-	 * Gets uri.
-	 *
-	 * @return the uri
-	 */
-//retrieves the Uri asociated with the title
-	public String getUri() {
-		String uriPath = getRingtones().get(title);
-		if (uriPath == null) {
-			uriPath = getMusic().get(title);
-		}
-		return uriPath;
-	}
-
 	// generates the array adapter for a list
 	private ArrayAdapter<String> getAdapter(ArrayList<String> list) {
 		return new ArrayAdapter<>(context, R.layout.choose_ringtone_row, R.id.rowTextView,
@@ -199,6 +183,20 @@ public class RingtonePicker extends Dialog {
 		}
 		return music;
 
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		//sets the layout
+		initializeLayout();
+		//initialize musicList and ringtoneList
+		musicList = new ArrayList<>(getMusic().keySet());
+		ringtoneList = new ArrayList<>(getRingtones().keySet());
+		//initialize MediaPlayer
+		mediaPlayer = new MediaPlayer();
+		//intializeViews
+		initializeViews();
 	}
 
 }

@@ -1,4 +1,4 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,9 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * The type Alarms data source.
@@ -67,34 +65,6 @@ public class AlarmsDataSource {
 		return newAlarm;
 	}
 
-	private Alarm cursorToAlarm(Cursor cursor) {
-		return new Alarm.Builder().
-				id(cursor.getLong(0)).
-				hour(cursor.getInt(1)).
-				minute(cursor.getInt(2)).
-				ampm(cursor.getInt(3) == 1).
-				days(cursor.getInt(4)).
-				active(cursor.getInt(5) == 1).
-				description(cursor.getString(6)).
-				ringtoneTitle(cursor.getString(7)).
-				ringtoneUri(cursor.getString(8)).
-				vibrate(cursor.getInt(9) == 1).build();
-	}
-
-	private ContentValues getContentValues(Alarm alarm) {
-		ContentValues values = new ContentValues();
-		values.put(Database.COLUMN_HOUR, alarm.getHour());
-		values.put(Database.COLUMN_MINUTE, alarm.getMinute());
-		values.put(Database.COLUMN_AMPM, alarm.isAmpm() ? 1 : 0);
-		values.put(Database.COLUMN_DAY, alarm.getDays());
-		values.put(Database.COLUMN_ACTIVE, alarm.isActive() ? 1 : 0);
-		values.put(Database.COLUMN_DESCRIPTION, alarm.getDescription());
-		values.put(Database.COLUMN_RINGTONETITLE, alarm.getRingtoneTitle());
-		values.put(Database.COLUMN_RINGTONEURI, alarm.getRingtoneUri());
-		values.put(Database.COLUMN_VIBRATE, alarm.isVibrate() ? 1 : 0);
-		return values;
-	}
-
 	/**
 	 * Delete alarm.
 	 *
@@ -117,19 +87,17 @@ public class AlarmsDataSource {
 		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + alarm.getId(), null);
 	}
 
-
-
 	public void disableAlarm(Alarm alarm){
 		ContentValues values = new ContentValues();
 		values.put(Database.COLUMN_ACTIVE, 0);
 		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + alarm.getId(), null);
 	}
 
-			public void enableAlarm(Alarm alarm){
-				ContentValues values = new ContentValues();
-				values.put(Database.COLUMN_ACTIVE, 1);
-				database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + alarm.getId(), null);
-			}
+	public void enableAlarm(Alarm alarm) {
+		ContentValues values = new ContentValues();
+		values.put(Database.COLUMN_ACTIVE, 1);
+		database.update(Database.TABLE_ALARM, values, Database.COLUMN_ID + "=" + alarm.getId(), null);
+	}
 
 	/**
 	 * Gets all alarms.
@@ -164,6 +132,34 @@ public class AlarmsDataSource {
         cursor.close();
         return alarm;
     }
+
+	private Alarm cursorToAlarm(Cursor cursor) {
+		return new Alarm.Builder().
+				id(cursor.getLong(0)).
+				hour(cursor.getInt(1)).
+				minute(cursor.getInt(2)).
+				ampm(cursor.getInt(3) == 1).
+				days(cursor.getInt(4)).
+				active(cursor.getInt(5) == 1).
+				description(cursor.getString(6)).
+				ringtoneTitle(cursor.getString(7)).
+				ringtoneUri(cursor.getString(8)).
+				vibrate(cursor.getInt(9) == 1).build();
+	}
+
+	private ContentValues getContentValues(Alarm alarm) {
+		ContentValues values = new ContentValues();
+		values.put(Database.COLUMN_HOUR, alarm.getHour());
+		values.put(Database.COLUMN_MINUTE, alarm.getMinute());
+		values.put(Database.COLUMN_AMPM, alarm.isAmpm() ? 1 : 0);
+		values.put(Database.COLUMN_DAY, alarm.getDays());
+		values.put(Database.COLUMN_ACTIVE, alarm.isActive() ? 1 : 0);
+		values.put(Database.COLUMN_DESCRIPTION, alarm.getDescription());
+		values.put(Database.COLUMN_RINGTONETITLE, alarm.getRingtoneTitle());
+		values.put(Database.COLUMN_RINGTONEURI, alarm.getRingtoneUri());
+		values.put(Database.COLUMN_VIBRATE, alarm.isVibrate() ? 1 : 0);
+		return values;
+	}
 
 }
 

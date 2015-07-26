@@ -1,18 +1,12 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.AlarmUtils;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Looper;
-import android.support.annotation.UiThread;
-import android.test.UiThreadTest;
-import android.widget.Toast;
 
-import java.util.*;
-
-import javax.sql.DataSource;
-
+import avd.com.alarmclockavd.AlarmReceiversAndServices.AlarmReceiver;
+import avd.com.alarmclockavd.Database.Alarm;
 /**
  * The type Alarm provider.
  */
@@ -24,7 +18,7 @@ public class AlarmFunctions {
 	 *
 	 * @param context the context
 	 */
-	AlarmFunctions(Context context) {
+	public AlarmFunctions(Context context) {
 		this.context = context;
 	}
 
@@ -32,7 +26,6 @@ public class AlarmFunctions {
 	 * Sets alarm.
 	 */
 	public void setAlarm(Alarm alarm) {
-        System.out.println("set alarm");
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("id", alarm.getId());
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -48,13 +41,11 @@ public class AlarmFunctions {
 	 * Cancel alarm.
 	 */
 	public void cancelAlarm(Alarm alarm) {
-		System.out.println("alarm cancel");
 		Intent intent = new Intent(context, AlarmReceiver.class);
 		AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		PendingIntent pi = PendingIntent.getBroadcast(context, (int) alarm.getId(), intent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 		am.cancel(pi);
-		pi.cancel();
 	}
 
 

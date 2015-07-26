@@ -1,10 +1,9 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.Database;
 
 
 import android.content.Context;
 
 import java.util.List;
-
 
 public class AlarmDataUtils {
 
@@ -19,6 +18,13 @@ public class AlarmDataUtils {
 		List<Alarm> alarmList = dataSource.getAllAlarms();
 		dataSource.close();
 		return alarmList;
+	}
+
+	public Alarm getAlarm(long id) {
+		dataSource.open();
+		Alarm alarm = dataSource.getAlarm(id);
+		dataSource.close();
+		return alarm;
 	}
 
 	public void enableAlarm(Alarm alarm){

@@ -1,4 +1,4 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.EnterTextActivity;
 
 import android.app.Service;
 import android.content.Intent;

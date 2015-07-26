@@ -1,4 +1,4 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.EnterTextActivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Vibrator;
+import android.os.*;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.RandomStringUtils;
+
+import avd.com.alarmclockavd.AlarmUtils.AlarmCalendar;
+import avd.com.alarmclockavd.AlarmUtils.AlarmFunctions;
+import avd.com.alarmclockavd.Database.Alarm;
+import avd.com.alarmclockavd.Database.AlarmDataUtils;
+import avd.com.alarmclockavd.R;
 
 /**
  * The type Enter text.
@@ -42,6 +46,44 @@ public class EnterText extends Activity {
 		initializeComponents();
 		initialiseViews();
 		setViews();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
+
+	// disabling the volume buttons
+	@Override
+	public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+		switch (keyCode) {
+			case KeyEvent.KEYCODE_VOLUME_UP:
+				audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
+						audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+				return true;
+			case KeyEvent.KEYCODE_VOLUME_DOWN:
+				audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
+						audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+				return true;
+			default:
+				return false;
+		}
+	}
+
+	@Override
+	public void onBackPressed() {
+	}
+
+	// logic for tackling the home/recents buttons being pushed
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		closeDialog = new Intent(this, EnterTextService.class);
+		closeDialog.putExtra("alarm", alarm);
+		if (!hasFocus && service)
+			startService(closeDialog);
+		else
+			stopService(closeDialog);
 	}
 
 	private void initializeLayout() {
@@ -78,7 +120,7 @@ public class EnterText extends Activity {
 
 	private void setTitleTextView(TextView title) {
         AlarmCalendar alarmCalendar = new AlarmCalendar(alarm);
-		String weekDay = alarmCalendar.getWeekDay();
+		String weekDay = alarmCalendar.getWeekDayAsString();
 		String time = alarm.toString();
 		String description = alarm.getDescription();
 		if (alarm.getDescription().length() == 0) {
@@ -102,6 +144,7 @@ public class EnterText extends Activity {
 					}
 				}
 			};
+
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 			}
@@ -110,11 +153,11 @@ public class EnterText extends Activity {
 			public void onTextChanged(final CharSequence s, int start, int before, int count) {
 				if (inputString.getText().toString().equals(randomText.getText().toString())) {
 					handler.removeCallbacks(runnable);
-                    cancelOneTimeAlarm();
-                    service = false;
-                    stopService(closeDialog);
-                    player.release();
-                    vibrator.cancel();
+					cancelOneTimeAlarm();
+					service = false;
+					stopService(closeDialog);
+					player.release();
+					vibrator.cancel();
 					finish();
 				} else {
 					player.pause();
@@ -140,8 +183,6 @@ public class EnterText extends Activity {
             alarmFunctions.cancelAlarm(alarm);
         }
 	}
-
-
 
 	private String generateRandom() {
 		return RandomStringUtils.randomAlphanumeric(10).replace('I', 'i').replace('l', 'L');
@@ -182,71 +223,33 @@ public class EnterText extends Activity {
 
 	@Override
 	protected void onResume() {
-        super.onResume();
-        inputString.requestFocusFromTouch();
+		super.onResume();
+		inputString.requestFocusFromTouch();
 		inputString.requestFocus();
-        player.start();
-        startVibrator(alarm.isVibrate(),vibrator);
+		player.start();
+		startVibrator(alarm.isVibrate(), vibrator);
 	}
 
 	@Override
 	protected void onPause() {
-        if(player!=null && service) {
-            player.pause();
-        }
-        inputString.clearFocus();
-        vibrator.cancel();
-		super.onPause();
-	}
-
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-	}
-
-	// disabling the volume buttons
-	@Override
-	public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
-		switch (keyCode) {
-			case KeyEvent.KEYCODE_VOLUME_UP:
-				audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
-						audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
-				return true;
-			case KeyEvent.KEYCODE_VOLUME_DOWN:
-				audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
-						audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
-				return true;
-			default:
-				return false;
+		if (player != null && service) {
+			player.pause();
 		}
+		inputString.clearFocus();
+		vibrator.cancel();
+		super.onPause();
 	}
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putString("random",randomText.getText().toString());
-        super.onSaveInstanceState(outState);
+	    outState.putString("random", randomText.getText().toString());
+	    super.onSaveInstanceState(outState);
     }
 
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        randomText.setText(savedInstanceState.getString("random"));
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    @Override
-	public void onBackPressed() {
-	}
-
-	// logic for tackling the home/recents buttons being pushed
 	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		super.onWindowFocusChanged(hasFocus);
-		closeDialog = new Intent(this, EnterTextService.class);
-		closeDialog.putExtra("alarm", alarm);
-		if (!hasFocus && service)
-			startService(closeDialog);
-		else
-			stopService(closeDialog);
+	protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+		randomText.setText(savedInstanceState.getString("random"));
+		super.onRestoreInstanceState(savedInstanceState);
 	}
 
 

@@ -1,9 +1,7 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.MainActivity;
 
 import android.content.Context;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
+import android.view.*;
 import android.view.View.OnTouchListener;
 
 /**

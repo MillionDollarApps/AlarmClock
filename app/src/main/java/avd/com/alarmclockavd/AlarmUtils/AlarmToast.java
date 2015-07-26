@@ -1,40 +1,32 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.AlarmUtils;
 
 import android.content.Context;
 import android.widget.Toast;
 
+import avd.com.alarmclockavd.Database.Alarm;
+
 public class AlarmToast {
 
-	private long[] timeArray;
-	private Toast toast;
-	private final int DAY = 0;
-	private final int HOUR = 1;
-	private final int MINUTE = 2;
-	private final int SECOND = 3;
+	private static final int DAY = 0;
+	private static final int HOUR = 1;
+	private static final int MINUTE = 2;
+	private static final int SECOND = 3;
+	private static long[] timeArray = new long[4];
 
-	AlarmToast(Context context){
-		toast = Toast.makeText(context,"",Toast.LENGTH_LONG);
-		timeArray = new long[4];
-	}
 
-	public void show(Alarm alarm){
+	public static void show(Context context, Alarm alarm) {
+		Toast toast = Toast.makeText(context, "", Toast.LENGTH_LONG);
 		toast.setText(buildText(alarm));
 		toast.show();
 	}
 
-	private String buildText(Alarm alarm) {
+	private static String buildText(Alarm alarm) {
 		AlarmCalendar alarmCalendar = new AlarmCalendar(alarm);
 		calculateTime(alarmCalendar);
-		StringBuilder builder = new StringBuilder();
-		builder.append("Alarm is set to go off in ");
-		builder.append(getStringRepresentation(DAY,"day"));
-		builder.append(getStringRepresentation(HOUR,"hour"));
-		builder.append(getStringRepresentation(MINUTE,"minute"));
-		builder.append(getStringRepresentation(SECOND,"second"));
-		return builder.toString();
+		return "Alarm is set to go off in " + getStringRepresentation(DAY, "day") + getStringRepresentation(HOUR, "hour") + getStringRepresentation(MINUTE, "minute") + getStringRepresentation(SECOND, "second");
 	}
 
-	private void calculateTime(AlarmCalendar alarmCalendar) {
+	private static void calculateTime(AlarmCalendar alarmCalendar) {
 		long millis = alarmCalendar.getTimeDifferenceInMillis();
 		long seconds = millis / 1000;
 		long minutes = seconds / 60;
@@ -46,7 +38,7 @@ public class AlarmToast {
 	}
 
 
-	private String getStringRepresentation(int index, String unit) {
+	private static String getStringRepresentation(int index, String unit) {
 		long timeUnit = timeArray[index];
 		String timeRepresentation = timeUnit + " " + unit;
 		if(index == MINUTE && timeUnit == 0)

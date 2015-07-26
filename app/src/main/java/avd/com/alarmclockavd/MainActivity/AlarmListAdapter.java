@@ -1,20 +1,20 @@
-package avd.com.alarmclockavd;
+package avd.com.alarmclockavd.MainActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.BaseAdapter;
-import android.widget.CompoundButton;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
+import android.widget.*;
 
 import java.util.List;
+
+import avd.com.alarmclockavd.AlarmUtils.*;
+import avd.com.alarmclockavd.Database.Alarm;
+import avd.com.alarmclockavd.Database.AlarmDataUtils;
+import avd.com.alarmclockavd.R;
+import avd.com.alarmclockavd.SetAlarmActivity.SetAlarmActivity;
 
 
 /**
@@ -73,6 +73,15 @@ public class AlarmListAdapter extends BaseAdapter {
 	}
 
 	/**
+	 * Refresh the UI AlarmList.
+	 */
+	public void refresh() {
+		alarmList.clear();
+		alarmList.addAll(dataUtils.getAlarmList());
+		this.notifyDataSetChanged();
+	}
+
+	/**
 	 * Gets week days representation adapter.
 	 *
 	 * @param alarm the alarm
@@ -111,7 +120,7 @@ public class AlarmListAdapter extends BaseAdapter {
 				if (buttonView.isPressed() && isChecked) {
 					dataUtils.enableAlarm(alarm);
 					alarmFunctions.setAlarm(alarm);
-					new AlarmToast(context).show(alarm);
+					AlarmToast.show(context, alarm);
 					refresh();
 				} else if (buttonView.isPressed()) {
 					alarmFunctions.cancelAlarm(alarm);
@@ -121,7 +130,6 @@ public class AlarmListAdapter extends BaseAdapter {
 			}
 		};
 	}
-
 
 	//sets up the listView row touchListener
 	private View.OnTouchListener rowViewTouchListener(int position, final View view) {
@@ -167,7 +175,6 @@ public class AlarmListAdapter extends BaseAdapter {
 		};
 	}
 
-
 	private class Holder {
 		private TextView alarmTime;
 		private TextView description;
@@ -185,14 +192,5 @@ public class AlarmListAdapter extends BaseAdapter {
 			days = (TextView) v.findViewById(R.id.textViewDays);
 			checkbox = (ToggleButton) v.findViewById(R.id.checkBox);
 		}
-	}
-
-	/**
-	 * Refresh the UI AlarmList.
-	 */
-	public void refresh() {
-		alarmList.clear();
-		alarmList.addAll(dataUtils.getAlarmList());
-		this.notifyDataSetChanged();
 	}
 }
